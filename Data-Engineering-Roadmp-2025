@@ -1,0 +1,513 @@
+
+# ⚡ROADMAP DATA ENGINERRING 2025 Z2H-ACADEMY
+
+## **🧠Arquitectura Natural en Ingeniería de Datos**
+
+> 🧭 _Un enfoque progresivo para formar ingenieros de datos que piensan en sistemas, no solo en herramientas._ *` Version 2.0`*
+
+### ⚠️ El error más común
+
+En el diseño de un programa de ingeniería de datos, es común cometer el error de empezar desde el final: 
+
+> ❌ **Empezar desde el final**  
+> Enseñar directamente herramientas avanzadas como **Spark**, **Delta Lake** o **arquitecturas distribuidas**, sin antes construir una comprensión sólida de sus **fundamentos**.
+
+📉 Resultado:  
+Muchos se pierden en el camino, saltan directo a Spark sin entender:
+
+- 🔹 Qué es un **motor columnar**
+    
+- 🔹 Cómo funciona un **sistema OLAP**
+    
+- 🔹 Qué implica un **formato transaccional**
+    
+- 🔹 O cómo se comporta un **dataframe distribuido**
+
+>🧩 **El enfoque correcto: Aprender en capas**
+
+Para formar ingenieros de datos sólidos —capaces de pensar en sistemas y no solo en herramientas—, el camino debe ser progresivo, respetando la secuencia natural en que las ideas y las tecnologías se relacionan.
+
+### 🧭 Concepto central: _Arquitectura Natural_
+
+> 🌱 **“Aprender siguiendo la evolución natural de la ingeniería de datos”**
+
+Esta arquitectura propone avanzar **de lo simple a lo complejo**, entendiendo siempre **el porqué** y **el para qué** de cada capa tecnológica.
+
+De esa reflexión nace el concepto de una **Arquitectura Natural**: un enfoque que reproduce la evolución técnica real de un ingeniero de datos, desde el trabajo tabular más simple hasta el procesamiento distribuido a gran escala. Esta progresión no solo enseña herramientas, sino también contexto —el _por qué_ y el _para qué_ detrás de cada capa tecnológica—.
+
+---
+
+Ahora veamos —una progresión— que es, literalmente, la arquitectura natural de un ingeniero de datos en la vida real:
+
+### 💡 Esta progresión tiene fundamento técnico
+
+| Nivel                   | Qué se aprende en realidad                | Por qué es necesario                        |
+| ----------------------- | ----------------------------------------- | ------------------------------------------- |
+| Pandas                  | _Modelo mental tabular + ETL básico_      | Construye el pensamiento tipo SQL/DataFrame |
+| Polars                  | _Columnar + paralelismo + lazy execution_ | Introduce performance y optimización real   |
+| DuckDB / Arrow          | _OLAP + vectorization + parquet nativo_   | Primer motor analítico real (sin cluster)   |
+| Spark / Delta / Iceberg | _Distribuido + ACID + lakehouse_          | Escala horizontal / mundo productivo        |
+
+Esto da una cosa importantísima:  
+**contexto** → se entiende _"por qué existe Spark"_ antes de usar Spark.
+
+---
+
+### 🔥 Lo interesante 
+
+Esta progresión permite que:
+
+1. El estudiante no se frustre.
+    
+2. No memoriza → entiende.
+    
+3. Puede practicar _lagos de datos_ en su laptop antes de cluster.
+    
+4. Aprende primero _conceptos_ → luego herramientas.
+    
+5. Cuando llega a Spark, ya entiende Arrow, column store, lazy, optimización → todo es natural.
+
+### 🌉 Esto te permite conectar ETL → Lakehouse de forma _viva_
+
+Antes:
+
+> "Aprendamos Spark para Big Data"
+
+Después (correcto):
+
+> "Primero entiende cómo analizo datos en columnas → luego motor columnar local → luego motor distribuido"
+
+---
+
+## **🌩Levels**
+
+### 🔷 Nivel 1 — “Modelo tabular y pensamiento DataFrame”
+
+Este primer nivel es el punto de partida natural.  
+Aquí no se trata de rendimiento ni de paralelismo, sino de **entender el modelo mental tabular**: cómo los datos se representan, transforman y combinan.
+
+La herramienta más adecuada para esto sigue siendo **Pandas**, porque permite trabajar con datos estructurados, ejecutar transformaciones tipo SQL (_select, join, groupby_) y desarrollar el pensamiento “por columnas”.
+
+El objetivo no es volverse experto en Pandas, sino **pensar como un ingeniero de datos**:  
+comprender qué significa filtrar, transformar, agrupar o agregar datos en memoria.
+
+| Tecnología                  | Popularidad real | Qué es en una frase                        | Ventaja clave                        | Limitación                  |
+| --------------------------- | ---------------- | ------------------------------------------ | ------------------------------------ | --------------------------- |
+| **Pandas** ✅                | 🔥 Masiva        | DataFrame en memoria para análisis tabular | Fácil de aprender, intuitivo         | Lento con grandes volúmenes |
+| **Modin**                   | Media            | Pandas paralelo                            | Mismo API, mejor performance         | Depende de Ray/Dask         |
+| **Polars (modo DataFrame)** | En crecimiento   | DataFrame moderno y rápido                 | Sintaxis similar, ejecución perezosa | Menos conocido que Pandas   |
+
+> 🎯 **Aprendizaje clave:** entender que todo pipeline ETL comienza con operaciones tabulares básicas.  
+> Sin este modelo mental, los niveles superiores se sienten mágicos.
+
+---
+
+### 🔷 Nivel 2 — “Columnar y paralelismo local”
+
+El segundo nivel da el salto del procesamiento _fila a fila_ hacia un mundo **columnar y optimizado**.  
+Aquí se introduce la idea de **vectorización**, **lazy execution** y **paralelismo local**, conceptos que transforman cómo se ejecutan las operaciones en memoria.
+
+El protagonista aquí es **Polars**, que lleva al estudiante a comprender que no todo DataFrame es igual:  
+un DataFrame columnar aprovecha la CPU de forma más eficiente y permite planificar la ejecución antes de correrla (_lazy evaluation_).
+
+Este nivel conecta naturalmente con los motores OLAP del siguiente nivel, ya que comparten la base columnar.
+
+|Tecnología|Popularidad real|Qué es en una frase|Ventaja clave|Limitación|
+|---|---|---|---|---|
+|**Polars** ✅|🔥 Muy alta en 2025|DataFrame columnar + lazy|Extremadamente rápido|Menos soporte que Pandas|
+|**Vaex**|Media|DataFrame para grandes datasets|Out-of-core y memory mapping|Menor comunidad|
+|**Arrow (como backend)**|Alta entre devs|Formato de memoria estandarizado|Interoperabilidad con todo|No ejecuta consultas|
+
+> 🎯 **Aprendizaje clave:** el estudiante entiende la base técnica del rendimiento:  
+> por qué las columnas son más eficientes, qué es la ejecución perezosa y cómo esto prepara el terreno para motores OLAP.
+
+---
+
+### 🔷 Nivel 3 — “Local OLAP engine” (sin cluster)
+
+**Este nivel (el OLAP local sin cluster)** es el más “nuevo” del stack moderno y muchos no saben que hay _varias alternativas_ además de DuckDB.
+
+En este nivel el foco no es un DataFrame (como Pandas o Polars), sino un **query engine columnar** que puede leer Parquet nativamente _como si fueran tablas_, sin necesidad de un motor de base de datos completo.
+
+Estas herramientas se comportan como **mini data warehouses locales**, ideales para explorar datasets grandes sin cluster y sin infraestructura compleja.
+
+|Tecnología|Popularidad real|Qué es en una frase|Ventaja clave|Limitación|
+|---|---|---|---|---|
+|**DuckDB** ✅|🔥 Muy alta|“SQLite pero para analítica”|SQL + Parquet nativo|Single machine|
+|**Apache Arrow / PyArrow**|🔼 Alta entre devs|Estándar de memoria columnar|Interoperabilidad total|No tiene query engine SQL|
+|**Polars + SQL (experimental)**|En crecimiento|DataFrame columnar + SQL parcial|Muy rápido|SQL no completo aún|
+|**DataFusion (Rust/Python)**|Media|Motor OLAP open source modular|Base de otros motores|Menos maduro que DuckDB|
+|**MotherDuck**|Explota|DuckDB pero en la nube|Escala + colaboración|No 100% local|
+|**SQLite + extensions (sqlean)**|Baja|SQLite + funciones analíticas|Familiaridad|No columnar real|
+
+> 🎯 **Aprendizaje clave:** el estudiante descubre el poder del análisis OLAP sin infraestructura distribuida.  
+> Aprende a leer Parquet, optimizar consultas y entender qué hace un motor analítico “debajo del capó”.
+
+---
+
+### 🔷 Nivel 4 — “Distribuido y Lakehouse”
+
+Este es el **nivel profesional**: cuando el ingeniero ya domina el modelo tabular, el procesamiento columnar y el OLAP local, está listo para **escalar horizontalmente**.
+
+Aquí entra en juego **Spark**, junto con tecnologías **ACID sobre data lakes** como **Delta Lake, Apache Iceberg o Hudi**.  
+El foco ya no es la sintaxis ni el “hello world”, sino comprender cómo y por qué se distribuyen los datos, cómo se garantiza la consistencia y cómo se integran conceptos de _batch + streaming_ bajo un mismo marco.
+
+En este punto, el estudiante entiende que Spark no es “una librería más”, sino la evolución natural de todo lo anterior:  
+una extensión distribuida de los motores y conceptos que ya conoce.
+
+|Tecnología|Popularidad real|Qué es en una frase|Ventaja clave|Limitación|
+|---|---|---|---|---|
+|**Apache Spark** ✅|🔥 Dominante|Motor distribuido para ETL y analítica|Escala horizontal real|Complejidad operacional|
+|**Delta Lake**|Alta|Transacciones ACID sobre lakes|Fiabilidad en pipelines|Depende de Spark/Databricks|
+|**Apache Iceberg**|Alta|Tablas ACID abiertas y escalables|Independiente de motor|Curva de aprendizaje técnica|
+|**Apache Hudi**|Media|Transacciones + incremental processing|Ideal para ingest continuo|Config compleja|
+
+> 🎯 **Aprendizaje clave:**  
+> El estudiante ya no ve Spark como un “monstruo”, sino como una **extensión natural** del pipeline que comenzó en su laptop.  
+> Entiende almacenamiento columnar, metadatos, planificación y ACID, por lo que Spark y Delta se vuelven lógicos, no mágicos.
+
+---
+
+## ⚙️ **DBT y La Ingeniería de Modelos SQL.**
+
+Y ojo, NO podemos dejar por fuera a DBT que esta muy bien posicionado para versionamiento y seguimiento de modelos SQL. Esta es una💥excelente observación — y de hecho, **DBT merece un lugar central**, pero en una **capa diferente del stack**:  
+
+No compite con DuckDB, Spark o Polars, sino que **se sienta encima de ellos** como **capa de transformación, versionamiento y gobernanza SQL**.
+
+Y esto debe quedar 100 % claro:  
+👉 _DBT no es un motor de ejecución de datos, sino un framework de ingeniería de modelos SQL._
+
+Veamos el stack extendido con **DBT incluido** y **ubicado correctamente**:
+
+|Nivel|Capa|Herramienta|Rol real|Qué enseña|
+|---|---|---|---|---|
+|1️⃣|**DataFrame in-memory**|**Pandas**|Transformación y análisis local|Pensamiento tipo SQL/tabular|
+|2️⃣|**Columnar / paralelismo**|**Polars**|Procesamiento eficiente en una sola máquina|Optimización de CPU y memoria|
+|3️⃣|**Local OLAP Engine**|**DuckDB / Arrow / DataFusion**|SQL analítico sobre Parquet|Lakehouse local, sin cluster|
+|🧩|**Transformación declarativa**|**DBT (Core / DuckDB / Spark / BigQuery)**|Versiona y documenta modelos SQL|Buenas prácticas de ingeniería de datos|
+|4️⃣|**Distribuido / Cloud Lakehouse**|**Spark + Iceberg / Delta / Snowflake**|Procesamiento masivo y transaccional|Escalabilidad, ACID, orquestación|
+
+---
+
+### 🎯 Entonces, ¿Dónde brilla DBT?
+
+|Aspecto|Qué hace DBT|
+|---|---|
+|🧱 **Modelado SQL**|Permite definir modelos como consultas transformacionales (`select ...`) versionadas en Git|
+|🔄 **Lineage automático**|Entiende dependencias entre modelos (upstream/downstream)|
+|🧪 **Tests integrados**|Tests de integridad (unique, not_null, relationships)|
+|🗂️ **Documentación viva**|Genera un sitio web con el linaje y metadata|
+|🔀 **Adaptable**|Corre sobre DuckDB, Spark, Snowflake, BigQuery, etc.|
+
+---
+
+### 💡  ¿Cómo encaja DBT en el mapa de progresión?
+
+> “Una vez avances y aprendas **cómo procesar datos** (Pandas → Polars → DuckDB).  
+> Ahora aprenderás **cómo versionar y gobernar tus modelos SQL** en un entorno de equipo.  
+> Ese es el rol de **DBT**.”
+
+Es decir:
+
+- Polars / DuckDB = _cómo calculas los datos_
+    
+- DBT = _cómo mantienes tus cálculos bajo control, testeados y documentados_
+    
+
+---
+
+### 🧭 Una forma más completa de la progresión (actualizada con DBT)
+
+|Nivel|Enfoque|Herramientas principales|Objetivo pedagógico|
+|---|---|---|---|
+|1|**DataFrames y ETL local**|Pandas|Comprender estructuras tabulares|
+|2|**Columnar y Lazy Evaluation**|Polars|Optimizar CPU y memoria|
+|3|**OLAP local / Lakehouse single-node**|DuckDB + Arrow|Consultas SQL sobre archivos Parquet|
+|4|**Transformación declarativa y versionamiento**|DBT + Git|Modelos SQL gobernados y reproducibles|
+|5|**Distribuido y Cloud Lakehouse**|Spark + Delta / Iceberg|Escalar a clústeres y entornos productivos|
+
+## 🛸**Airflow Orquestación Transversal**
+
+¿Y qué hay de los orquestadores como **Airflow**?  
+Es cierto que hoy existen muchos otros orquestadores, algunos muy modernos, e incluso Airflow ha lanzado recientemente su versión 4, con numerosas novedades. Sin embargo, **la amplia comunidad de Airflow y su adopción en producción por miles de empresas** lo convierten en la opción ideal para aprender sobre **Workflow Orchestration**.
+
+Airflow No pertenece al algún Nivel en particular es más se integra desde el Nivel-1 al Nivel-5 💯 **Esto es totalmente cierto y además MUY realista en empresas.**  
+Airflow **no depende** de Polars, DuckDB, DBT ni Spark →  
+**es cross–layer**, y perfectamente puede convivir con solo Pandas.
+
+De hecho, en muchas empresas pequeñas y medianas el stack real es:
+
+> Airflow + Pandas + PostgreSQL  
+> (y funciona de maravilla)
+
+Eso no es “menos ingeniería de datos”, es **la necesidad real del negocio**.
+
+---
+
+### ✅ Entonces, reposicionando Airflow en el mapa
+
+En vez de estar “arriba”, donde parecería que solo aplica cuando ya hay Spark o DBT…
+
+👉 Lo ubicamos como **capa transversal** desde el nivel 2  
+(porque ya con Pandas se justifica su uso).
+
+#### Mapa conceptual:
+
+```
+               ┌──────────── Distributed (Spark / Iceberg / Delta)
+               │
+      (Orchestration layer) ← Airflow (comunica todo)
+               │
+  ┌────────────┴─────────────
+  │ 4. Modelado declarativo  → DBT
+  │ 3. OLAP local            → DuckDB / Arrow
+  │ 2. Compute optimizado    → Polars
+  │ 1. Compute básico        → Pandas
+```
+
+Airflow es **el conductor de tráfico**,  
+no el vehículo.  
+Por eso puede operar desde el nivel 1 en adelante.
+
+---
+
+### ⚙️ Reforma (muy potente)
+
+|Nivel|Núcleo técnico|Orquestación posible|Realidad en empresas|
+|---|---|---|---|
+|1️⃣ Pandas|ETL simple|✅ Airflow|Pymes / startup / scripts productivos|
+|2️⃣ Polars|ETL optimizado|✅ Airflow|Pipelines más rápidos|
+|3️⃣ DuckDB|OLAP local|✅ Airflow|Mini-lakehouse + scheduler|
+|4️⃣ DBT|Transformación declarativa|✅ Airflow|DataOps / gobernanza|
+|5️⃣ Spark/Iceberg|Distribuido|✅ Airflow|Big Data real|
+
+>**Esto te ofrece** un enfoque **mucho más sólido** conceptualmente.
+
+---
+
+### 💡 Beneficios del aprendizaje
+
+✅ Aprendes algo “usable en la vida real” desde el nivel 1  
+✅ Aprendes cultura de **pipelines y batch** temprano  
+✅ Cuando llegas a DBT y Spark ya se entiende _operacionalización_  
+✅ Airflow no queda como “cerebro final”, sino “capa transversal”
+
+---
+## ✅ ¿Entonces cuál es la transición natural para un Data Engineer?
+
+|Nivel|Herramienta principal|Qué aporta|Rol real|
+|---|---|---|---|
+|**Básico**|**Pandas**|Facilita prototipos y ETL local|Pensamiento tabular / DataFrame|
+|**Intermedio**|**Polars**|Escala en CPU y memoria|Procesamiento columnar y paralelismo|
+|**Avanzado (OLAP)**|**DuckDB + PyArrow (Parquet)**|OLAP dentro del laptop|Mini-lakehouse sin cluster|
+|**Modelado**|**DBT**|Versionamiento, linaje y tests|Gobierno de modelos SQL|
+|**Cloud / Big Data**|**Spark / Iceberg / Delta**|Distribuido y transaccional|Lakehouse real en clúster|
+
+### 🔄 Capa transversal
+
+|Herramienta|Qué aporta|Alcance|
+|---|---|---|
+|**Airflow**|Orquestación y automatización|Funciona desde Pandas hasta Spark|
+
+---
+
+### ✅ Progresión (lo que aprenderás)
+
+> Primero aprendes a **trabajar con datos** (Pandas → Polars).  
+> Luego aprendes a **consultar y almacenar como Lakehouse** (DuckDB + Arrow/Parquet).  
+> Después aprendes a **gobernar y versionar** esos modelos (DBT).  
+> Finalmente aprendes a **escalar** al mundo distribuido (Spark / Iceberg / Delta).  
+> Y a lo largo de todo el recorrido, **Airflow orquesta** cada etapa.
+
+
+## 📍 ¿Dónde encaja Kafka en el roadmap?
+
+
+Ok  — ahora entramos al **mundo streaming**, y ahí sí hay que pensar muy bien **en qué nivel** lo ubicamos porque _Kafka no resuelve el mismo problema que Spark o DuckDB_, sino **otra dimensión completa: tiempo real**.
+
+El streaming NO es un nivel superior a Spark / Iceberg…  
+es un **paralelo** al batch.
+
+|Computación “Batch”|Computación “Streaming”|
+|---|---|
+|Pandas → Polars → DuckDB → DBT → Spark|Kafka → (Flink / Spark Streaming / Materialize)|
+
+Así que Kafka no se “añade al final”,  
+sino que se introduce en paralelo cuando ya se entiende el procesamiento offline.
+
+---
+
+### 🧠 Nivel ideal para Kafka
+
+Kafka debe aparecer **después de Polars / DuckDB**  
+y **antes o a la par de Spark**, porque:
+
+|Razón|Explicación|
+|---|---|
+|Kafka es _ingesta continua_|Por sí solo no transforma datos, solo los mueve en tiempo real|
+|DuckDB/DBT cubren batch|Así entienden la comparación batch vs streaming|
+|Spark + Kafka = streaming real|Kafka se vuelve el “fuente viva”|
+|Airflow sigue útil|Pero para scheduling de pipelines que consumen Kafka|
+
+📌 **Conclusión**  
+Kafka se debe agregar como **nivel paralelo al 3 / 4**: cuando ya hay OLAP y antes de entrar a Spark.
+
+---
+
+## ✅ Roadmap Version 2.0 - 2025 Z2h-Academy
+
+|Nivel|Dominio|Herramientas|Tipo|
+|---|---|---|---|
+|1️⃣|ETL básico|Pandas|Batch / local|
+|2️⃣|ETL optimizado|Polars|Batch / local con paralelismo|
+|3️⃣|OLAP single-node|DuckDB + Arrow|Batch / analítica|
+|4️⃣|Modelado y gobernanza|DBT|Batch / declarativo|
+|5️⃣|**Streaming** ✅|**Kafka** (posible Flink luego)|Tiempo real|
+|6️⃣|Distribuido / Lakehouse|Spark / Iceberg / Delta|Batch + streaming en cluster|
+
+### Capa transversal
+
+|Herramienta|Rol|
+|---|---|
+|Airflow|Orquestación batch y coordinación|
+|Kafka Connect (complemento de Kafka)|Ingesta CDC/real-time|
+
+---
+
+### 🧩 Otra decisión clave 
+
+Después de Kafka, ¿qué motor streaming podemos usar?
+
+|Opción|Por qué elegirlo|
+|---|---|
+|Spark Structured Streaming|Más fácil para quien ya vio Spark|
+|Flink|El estándar “pro real-time” en la industria|
+|Materialize|SQL-first, muy didáctico|
+
+Lo que veremos:  
+**Kafka → Spark Structured Streaming** como evolución natural,  
+y **Flink** opcional como “nivel avanzado real-time”.
+
+
+## **DataModeling**
+
+Ok perfecto. Hasta ahora hemos definido en el Roadmap las herramientas y dominios pero nos hace quizás el tema mas importante: Data Modeling con un enfoque 🔥 — **totalmente de acorde al mapa tecnológico principal** **. 
+
+Sin embargo, No debemos “forzar” más contenido dentro del _Roadmap Version 2.0_, porque el roadmap ya cumple el rol de **mapa tecnológico principal** (la ruta por herramientas y dominios).
+
+La idea en este caso es crear **una nueva capa conectada** — a la que llamaremos “📊 Capa de Modelado y Diseño de Datos”— y es perfecta porque:
+
+- Mantiene el roadmap limpio y jerárquico.
+    
+- Añade una dimensión pedagógica transversal (teoría + práctica) que conecta todos los niveles.
+    
+- Permite profundizar en los fundamentos de modelado (relacional y dimensional) sin romper la secuencia técnica del roadmap.
+    
+---
+
+### 🚀 **Data Modeling:** Nueva Capa Conectada
+
+#### 📊 Capa de Modelado y Diseño de Datos
+
+El objetivo de esta capa es acompañar al roadmap técnico y se integra en los puntos donde el ingeniero necesita **entender, diseñar y validar estructuras de datos** antes de construir pipelines.
+
+|Nivel|Foco|Objetivo del módulo|Herramientas principales|Se conecta con|
+|---|---|---|---|---|
+|🧱 **Módulo 1: Tablas simples & Data Modeling (SQL + Python)**|**Modelado relacional básico**|Comprender claves primarias, foráneas, normalización, ERD y consultas SQL desde Python.|SQLite / PostgreSQL + Pandas o Polars + SQLAlchemy|**Nivel 1 (ETL básico con Pandas)**|
+|⚙️ **Módulo 2: Prototipado y validación**|**Transformar modelos OLTP → OLAP local**|Usar Polars o DuckDB para validar modelos dimensionales, convertir datos a Parquet y medir performance.|Polars / DuckDB / Parquet / PyArrow|**Entre niveles 2 y 3 (Polars ↔ DuckDB)**|
+|🧠 **Módulo 3: Modelado dimensional avanzado + versionamiento**|**Diseño analítico y gobernanza**|Aplicar metodología Kimball, implementar _staging_, _facts_, _dimensions_, _snapshots_, y usar DBT para versionar, testear y documentar modelos.|DBT / DuckDB / PostgreSQL / Git|**Nivel 4 (DBT)**|
+|📈 **Módulo 4 (opcional): Validación analítica BI**|**Visualización y validación de modelo final**|Conectar el modelo dimensional a un motor BI (Power BI, Metabase, Superset).|Power BI / Metabase / Superset|**Posterior a nivel 4 (DBT)**|
+
+---
+
+#### 🔗 Relación con el Roadmap Version 2.0 2025 Z2H-Academy
+
+|Capa|Rol|
+|---|---|
+|**Roadmap principal (6 niveles)**|Define el avance tecnológico (de Pandas → Spark).|
+|**Capa de Modelado y Diseño de Datos**|Define el pensamiento estructural y analítico que acompaña cada nivel.|
+
+📎 Ejemplo de conexión visual:
+
+```
+Nivel 1: Pandas  ──┐
+                   │  →  Capa Modelado → Módulo 1 (SQL + Python)
+Nivel 2: Polars  ──┤
+Nivel 3: DuckDB  ──┤  → Capa Modelado → Módulo 2 (Prototipado)
+Nivel 4: DBT     ──┘  → Capa Modelado → Módulo 3 (Dimensional)
+```
+
+---
+
+#### 💡 Ventajas de separarlo así
+
+- Cada nivel del roadmap se **enfoca en la tecnología**.
+    
+- La nueva capa se **enfoca en la arquitectura de datos** (modelo lógico, físico y analítico).
+    
+- El programa gana coherencia: los estudiantes **piensan como ingenieros de datos**, no solo como usuarios de herramientas.
+    
+- Puedes evaluar de forma cruzada: por dominio técnico y por dominio de modelado.
+
+
+## 🧭 Antes de elegir: entender el punto del mapa
+
+Después de recorrer los **cinco niveles de la Arquitectura Natural** —desde el pensamiento tabular básico hasta los motores distribuidos tipo Lakehouse—, llega el momento de detenerse y mirar el panorama completo.
+
+Hasta aquí ya sabes **cómo se construye el conocimiento de un ingeniero de datos**:  
+paso a paso, conectando conceptos antes que herramientas.  
+Ahora es momento de preguntarte algo clave:
+
+> “¿Cuál stack conviene usar hoy?”
+
+Esta pregunta tiene sentido solo cuando entiendes **dónde estás parado en el mapa**.  
+No es lo mismo elegir una herramienta para aprender fundamentos, que seleccionar una para operar un lakehouse en producción.
+
+Por eso, esta sección no busca decir “usa X”, sino ayudarte a **razonar la elección del stack** según tu objetivo actual.  
+Verás qué herramientas dominan hoy, cuáles son las más efectivas para aprender bien los fundamentos, y cuáles —aunque populares— todavía no vale la pena priorizar.
+
+A continuación, exploramos el panorama 2025 con esa mentalidad:  
+**comprender antes que copiar modas.**
+
+### 🎯 ¿Cuál es stack más popular / recomendado 2025?
+
+#### ✅ Si quieres algo **para aprender bien**:
+
+| Meta educativa                               | Mejor opción | Por qué                               |
+| -------------------------------------------- | ------------ | ------------------------------------- |
+| “Mini-lakehouse local”                       | ✅ **DuckDB** | El más similar a un warehouse moderno |
+| Aprender arquitectura columnar               | ✅ **Arrow**  | Es la base de casi todo lo moderno    |
+| Mostrar evolución DataFrame → OLAP           | ✅ Polars SQL | Muestra la convergencia de paradigmas |
+| Enseñar cómo está construido Spark / Iceberg | ✅ DataFusion | Motor opensource en estado puro       |
+
+---
+
+#### 🌟 Elección práctica 
+
+EL mundo real:  
+1️⃣ Pandas → DataFrames  
+2️⃣ Polars → Columnar + lazy  
+3️⃣ **DuckDB (Conceptos Arrow debajo)**  
+4️⃣ Iceberg / Delta + Spark
+
+Porque DuckDB es hoy lo que fue **SQLite** en los 2000:
+
+> se vuelve el _puente natural_ entre “mi laptop” y “un lakehouse real”.
+
+---
+
+#### 💡 NO valen la pena (todavía)
+
+|Tecnología|Razón para no priorizar|
+|---|---|
+|ClickHouse local|Es servidor OLAP, no “motor embebido”|
+|Trino local|No está diseñado para single-machine|
+|BigQuery local emulation|No es real / no columnar|
+|PostgreSQL + Citus|OLTP extendido, no OLAP puro|
+
+---
+
+#### ✅ KEYS
+
+> En este nivel, **el ganador absoluto hoy es DuckDB**, con PyArrow como _fundamento conceptual_.  
+> Todo lo demás es derivado, experimental o demasiado infra.
