@@ -1,0 +1,256 @@
+
+# Full Load vs `chunksize`
+
+>💡 Error común con archivos CSV
+
+Uno de los errores más comunes al manejar archivos CSV (especialmente los que vienen de bases de datos) es este:
+
+➡️ **Intentar cargarlos completos en memoria, de una sola vez.**
+
+Suena rápido.  
+Se siente eficiente.  
+Pero en la práctica… 💣 ¡boom!  
+RAM al 100%, bloqueos y rendimiento por los suelos.
+
+Para comprobarlo en acción, vamos a crear **dos nuevos notebooks**:  
+
+👉 En el primero, cargaremos el CSV **de golpe**, todo en un solo bloque.  
+👉 En el segundo, lo haremos **por partes** usando el parámetro `_chunksize_`, igual que en 
+`Proceso-2: Subir datos CSV a PostgreSQL desde Pandas`.
+
+La diferencia es que esta vez vamos a estar **vigilando la RAM desde la terminal** 😎💻 — porque nada dice “optimización real” como ver tu memoria _en tiempo real_.
+
+## 🚀 **FULL LOAD – Carga Completa del CSV**
+
+Vamos a poner a prueba la **carga total del archivo CSV en memoria**, el método más **rápido... y peligroso 💣**.
+
+---
+
+### 🧩 **1️⃣ Crear el Notebook**
+
+📘 Crea un nuevo archivo llamado:
+
+```bash
+3-upload-block.ipynb
+```
+
+Dentro, agrega las siguientes celdas con el código:
+
+```python
+import pandas as pd
+
+df = pd.read_csv('nyt.csv')
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')
+df.head(n=0).to_sql(name='yellow_taxi_data', con=engine, if_exists='replace')
+%time df.to_sql(name='yellow_taxi_data', con=engine, if_exists='append')
+```
+
+Antes de proseguir con el siguiente paso primero debemos eliminar desde **PGcli** la tabla `yellow_taxi_data`de la base de datos. Solo debes ejecutar la siguiente consulta 
+
+```sql
+drop table yellow_taxi_data
+```
+
+![](/module-1/img73.png)
+
+Este comando borrará la tabla de la base de datos.
+
+---
+
+### ⚙️ **2️⃣ Ejecuta el Notebook**
+
+Una vez que corras las celdas, **observa lo que pasa** 👀  
+El proceso comienza a leer el CSV completo y a cargarlo a la base de datos.
+
+![](/module-1/img77.png)
+
+
+---
+
+#### 📊 **📈 Monitoreo del Consumo de RAM**
+
+Ahora desde la terminal conectada a la VM ejecuta el siguiente comando
+
+```bash
+htop
+```
+
+![](/module-1/img72.png)
+
+Con esta aplicación podrás observar como el consumo de la memoria **RAM** en la VM ira en aumento.
+
+🖼️ **Evidencia visual del consumo:**
+
+![](/module-1/img70.png)
+
+| Métrica      | Valor aproximado | Descripción                             |
+| ------------ | ---------------- | --------------------------------------- |
+| 💾 RAM usada | ~10 GB Aprox.    | Carga total del CSV en memoria          |
+| 🧠 CPU       | Alta             | Procesamiento intenso del DataFrame     |
+| ⏱️ Tiempo    | Variable         | Depende del tamaño del CSV y la máquina |
+
+
+> 💣 **Resultado:** el sistema alcanza picos de uso de memoria cercanos a **10 GB**.
+
+---
+
+### 🧠 **3️⃣ Validar resultados**
+
+Cuando el proceso finalice, puedes verificar los registros desde **PGcli**:
+
+```sql
+SELECT COUNT(1) FROM yellow_taxi_data;
+```
+
+📊 Esto confirmará que la carga se completó exitosamente.
+
+---
+
+#### 📝 **NOTAS IMPORTANTES**
+
+|⚠️ Situación|💡 Recomendación|
+|---|---|
+|🚫 El sistema se queda sin memoria|Usa carga por `chunksize`|
+|🐢 El proceso es lento o bloquea otros programas|Ejecuta en segundo plano o usa un servidor dedicado|
+|💥 PostgreSQL rechaza la carga|Verifica tipos de datos y permisos|
+
+---
+
+### 🔁 **Flujo del Proceso**
+
+```mermaid
+graph TD
+A("📂 CSV: nyt.csv") --> B("🐍 Pandas - pd.read_csv()")
+B --> C("⚙️ DataFrame en memoria")
+C --> D("🧩 SQLAlchemy - create_engine()")
+D --> E("🗄️ PostgreSQL: yellow_taxi_data")
+E --> F("✅ Verificación con COUNT(1)")
+```
+
+---
+
+### ✅ **Resumen Final**
+
+|Paso|Acción|Estado|
+|---|---|---|
+|🧩 Crear notebook|`3-upload-bloque.ipynb`|✅|
+|💾 Cargar CSV completo|`pd.read_csv('nyt.csv')`|✅|
+|⚙️ Subir a PostgreSQL|`df.to_sql()`|✅|
+|🔍 Validar registros|`SELECT COUNT(1)`|✅|
+
+---
+
+🎯 **Conclusión:**  
+Cargar el CSV completo **funciona**, pero **consume muchísima memoria**.  
+En el siguiente paso, veremos cómo optimizar este proceso con **_chunksize_** para no hacer sufrir a tu RAM. 🧠💪
+
+💡 **Tip importante:**  
+Después de cargar un CSV completo, es recomendable **reiniciar el kernel de Jupyter Notebook**. Aunque cierres las variables, la memoria utilizada puede no liberarse automáticamente. En tu caso, el consumo actual está alrededor de ~10 GB, y reiniciar el kernel ayudará a limpiar la RAM y evitar problemas en los siguientes pasos.
+
+![](/module-1/img75.png)
+
+## **CHUNKSIZE - Carga Fragmentada del CSV**
+
+### 🧩 **1️⃣ Crear el Notebook**
+
+📘 Crea un nuevo archivo llamado:
+
+```bash
+4-upload-data-chunksize.ipynb
+```
+
+Dentro, agrega las siguientes celdas con el código:
+
+```python
+import pandas as pd
+
+df = pd.read_csv('nyt.csv')
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')
+df.head(n=0).to_sql(name='yellow_taxi_data', con=engine, if_exists='replace')
+df_iter = pd.read_csv('nyt.csv', iterator=True, chunksize=100000)
+from time import time
+
+try:
+    while True: 
+        t_start = time()  # Captura el tiempo de inicio del bucle
+
+        try:
+            df = next(df_iter)  # Obtiene el siguiente chunk de datos del iterador df_iter
+        except StopIteration:
+            print("No more data to process.")
+            break
+
+        # Convierte las columnas de fechas a tipos datetime si es necesario
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+
+        try:
+            # Inserta el chunk actual del DataFrame en la tabla 'yellow_taxi_data' en la base de datos usando SQLAlchemy
+            df.to_sql(name='yellow_taxi_data', con=engine, if_exists='append')
+        except Exception as e:
+            print(f"Error inserting chunk into database: {e}")
+            continue
+
+        t_end = time()  # Captura el tiempo al finalizar la inserción del chunk
+
+        # Imprime el tiempo que tomó insertar el chunk actual
+        print(f"Inserted another chunk, took {t_end - t_start:.3f} seconds")
+
+except Exception as e:
+    print(f"An error occurred during processing: {e}")
+```
+
+
+Antes de proseguir con el siguiente paso primero debemos eliminar desde **PGcli** la tabla `yellow_taxi_data`de la base de datos. Solo debes ejecutar la siguiente consulta 
+
+```sql
+drop table yellow_taxi_data
+```
+
+![](/module-1/img73.png)
+
+Este comando borrará la tabla de la base de datos.
+
+---
+
+### ⚙️ **2️⃣ Ejecuta el Notebook**
+
+Una vez que corras las celdas, **observa lo que pasa** 👀  
+El proceso comienza a leer el CSV por **chunks** y a cargarlo a la base de datos en bloques de **100K** registros.
+
+![](/module-1/img76.png)
+
+
+---
+
+#### 📊 **📈 Monitoreo del Consumo de RAM**
+
+Ahora desde **htop** podrás observar como el consumo de la memoria **RAM** en la VM solo esta en un promedio de 2G
+
+🖼️ **Evidencia visual del consumo:**
+
+![](/module-1/img74.png)
+
+| Métrica      | Valor aproximado | Descripción                             |
+| ------------ | ---------------- | --------------------------------------- |
+| 💾 RAM usada | ~2 GB Aprox.     | Carga total del CSV en memoria          |
+| 🧠 CPU       | Moderada         | Procesamiento moderado del DataFrame    |
+| ⏱️ Tiempo    | Variable         | Depende del tamaño del CSV y la máquina |
+
+
+> 💣 **Resultado:** el sistema alcanza picos de uso de memoria cercanos a **2 GB**.
+
+---
+
+## ⚡ La diferencia es brutal
+
+Y los resultados esperados serán estos:
+
+🔹 **Carga completa en un solo bloque:** RAM al tope — ~10 GB consumidos.  
+🔹 **Carga por chunks(multiples bloques) de 100k:** RAM estable — apenas ~2 GB usados.
+
+Y lo mejor: no necesitaremos infraestructura de lujo.  
+Solo necesitas **entender cómo cargar los datos de forma inteligente.**
