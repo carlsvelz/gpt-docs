@@ -1,0 +1,204 @@
+# jupyterhub-deploy-docker
+
+
+## basic-**example**
+## docker-compose.yml
+
+```yaml
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# JupyterHub docker compose configuration file
+version: "3"
+
+services:
+  hub:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyterhub
+      args:
+        JUPYTERHUB_VERSION: latest
+    restart: always
+    image: jupyterhub
+    container_name: jupyterhub
+    networks:
+      - jupyterhub-network
+    volumes:
+      # The JupyterHub configuration file
+      - "./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro"
+      # Bind Docker socket on the host so we can connect to the daemon from
+      # within the container
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+      # Bind Docker volume on host for JupyterHub database and cookie secrets
+      - "jupyterhub-data:/data"
+    ports:
+      - "8000:8000"
+    environment:
+      # This username will be a JupyterHub admin
+      JUPYTERHUB_ADMIN: admin
+      # All containers will join this network
+      DOCKER_NETWORK_NAME: jupyterhub-network
+      # JupyterHub will spawn this Notebook image for users
+      DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:latest
+      # Notebook directory inside user image
+      DOCKER_NOTEBOOK_DIR: /home/jovyan/work
+
+volumes:
+  jupyterhub-data:
+
+networks:
+  jupyterhub-network:
+    name: jupyterhub-network
+```
+
+### Dockerfile.jupyterhub
+
+```dockerfile
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+ARG JUPYTERHUB_VERSION
+FROM quay.io/jupyterhub/jupyterhub:$JUPYTERHUB_VERSION
+
+# Install dockerspawner, nativeauthenticator
+# hadolint ignore=DL3013
+RUN python3 -m pip install --no-cache-dir \
+    dockerspawner \
+    jupyterhub-nativeauthenticator
+
+CMD ["jupyterhub", "-f", "/srv/jupyterhub/jupyterhub_config.py"]
+```
+
+### jupyterhub_config.py
+
+```python
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# Configuration file for JupyterHub
+import os
+
+c = get_config()  # noqa: F821
+
+# We rely on environment variables to configure JupyterHub so that we
+# avoid having to rebuild the JupyterHub container every time we change a
+# configuration parameter.
+
+# Spawn single-user servers as Docker containers
+c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
+
+# Spawn containers from this image
+c.DockerSpawner.image = os.environ["DOCKER_NOTEBOOK_IMAGE"]
+
+# Connect containers to this Docker network
+network_name = os.environ["DOCKER_NETWORK_NAME"]
+c.DockerSpawner.use_internal_ip = True
+c.DockerSpawner.network_name = network_name
+
+# Explicitly set notebook directory because we'll be mounting a volume to it.
+# Most `jupyter/docker-stacks` *-notebook images run the Notebook server as
+# user `jovyan`, and set the notebook directory to `/home/jovyan/work`.
+# We follow the same convention.
+notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR", "/home/jovyan/work")
+c.DockerSpawner.notebook_dir = notebook_dir
+
+# Mount the real user's Docker volume on the host to the notebook user's
+# notebook directory in the container
+c.DockerSpawner.volumes = {"jupyterhub-user-{username}": notebook_dir}
+
+# Remove containers once they are stopped
+c.DockerSpawner.remove = True
+
+# For debugging arguments passed to spawned containers
+c.DockerSpawner.debug = True
+
+# User containers will access hub by container name on the Docker network
+c.JupyterHub.hub_ip = "jupyterhub"
+c.JupyterHub.hub_port = 8080
+
+# Persist hub data on volume mounted inside container
+c.JupyterHub.cookie_secret_file = "/data/jupyterhub_cookie_secret"
+c.JupyterHub.db_url = "sqlite:////data/jupyterhub.sqlite"
+
+# Allow all signed-up users to login
+c.Authenticator.allow_all = True
+
+# Authenticate users with Native Authenticator
+c.JupyterHub.authenticator_class = "nativeauthenticator.NativeAuthenticator"
+
+# Allow anyone to sign-up without approval
+c.NativeAuthenticator.open_signup = True
+
+# Allowed admins
+admin = os.environ.get("JUPYTERHUB_ADMIN")
+if admin:
+    c.Authenticator.admin_users = [admin]
+```
+
+### tests
+
+#### test_spawn.py
+
+```python
+from os import getenv
+import requests
+import pytest
+import time
+from uuid import uuid4
+
+
+TIMEOUT = 120
+
+
+@pytest.fixture(scope="session")
+def api_request():
+    def _api_request(method, path, **kwargs):
+        hub_url = getenv("HUB_URL", "http://localhost:8000").rstrip("/")
+        m = getattr(requests, method)
+        url = f"{hub_url}{path}"
+        r = m(url, headers={"Authorization": "token test-token-123"}, **kwargs)
+        r.raise_for_status()
+        return r
+
+    return _api_request
+
+
+def wait_for_hub(api_request):
+    # Wait for the hub to be ready
+    now = time.time()
+    try:
+        api_request("get", "/hub/api")
+    except requests.exceptions.RequestException:
+        if time.time() - now > TIMEOUT:
+            raise TimeoutError(f"Hub did not start in {TIMEOUT} seconds")
+        time.sleep(5)
+
+
+def test_create_user_and_server(api_request):
+    wait_for_hub(api_request)
+
+    # Create a new user
+    username = str(uuid4())
+    api_request("post", "/hub/api/users", json={"usernames": [username]})
+
+    # Start a server for the user
+    api_request("post", f"/hub/api/users/{username}/server")
+
+    # Wait for the server
+    ready = False
+    now = time.time()
+    while not ready:
+        wait_r = api_request("get", f"/hub/api/users/{username}").json()
+        if wait_r["servers"][""]["ready"]:
+            ready = True
+            break
+        if time.time() - now > TIMEOUT:
+            raise TimeoutError(f"Singleuser server did not start in {TIMEOUT} seconds")
+        time.sleep(5)
+
+    # Call the jupyter-server API
+    server_r = api_request("get", f"/user/{username}/api").json()
+    assert "version" in server_r
+    contents_r = api_request("get", f"/user/{username}/api/contents").json()
+    assert "content" in contents_r
+```
+
