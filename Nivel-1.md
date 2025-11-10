@@ -57,8 +57,7 @@ Aprenderás a:
     
 - Extracción con librerías estándar (`csv`, `requests`, `gzip`) o herramientas ETL en Python.
     
-- **Medición de rendimiento y memoria** con `time`, `perf_counter` y `psutil`.
-    
+- **Medición de rendimiento y memoria** con `perf_counter` (tiempos) y `psutil` o `memory_profiler` (RAM).
 
 👉 **Objetivo:** extraer y almacenar los datos crudos sin alterarlos en la capa _Bronze_ del Lakehouse.
 
@@ -69,7 +68,7 @@ Aprenderás a:
 Aplicarás transformaciones y validaciones para limpiar y estandarizar los datos antes de modelarlos.  
 Aquí puedes usar **Pandas**, **Polars** o funciones nativas de Python según el tamaño del dataset.
 
-**Transformaciones principales:**
+#### 🧩 Transformaciones básicas
 
 - Conversión de timestamps → `datetime`.
     
@@ -81,8 +80,7 @@ Aquí puedes usar **Pandas**, **Polars** o funciones nativas de Python según el
     
 - Agrupaciones y agregaciones simples.
     
-
-**Validaciones clave:**
+#### 🧪 Validación de calidad
 
 - Comprobación de esquema y tipos.
     
@@ -91,9 +89,15 @@ Aquí puedes usar **Pandas**, **Polars** o funciones nativas de Python según el
 - Validación de reglas de negocio (`fare_amount > 0`).
     
 - Detección de anomalías (`describe()`, IQR, z-score).
-    
 
-Guarda el resultado limpio en **`lakehouse/silver/`** en formato Parquet.
+#### ⚡ Medición de rendimiento y memoria
+
+Así como en la extracción, esta capa también debe medirse:
+
+- Usa `perf_counter` para identificar cuellos de botella en las transformaciones.
+    
+- Emplea `psutil` o `memory_profiler` para revisar el uso de RAM durante operaciones intensivas como `merge` o `groupby`.
+
 
 👉 **Objetivo:** generar una versión **depurada, estructurada y lista para análisis**.
 
