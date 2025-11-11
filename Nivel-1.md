@@ -397,6 +397,3 @@ Antes de avanzar hacia la **Transformación**, asegúrate de:
 > lo importante es **entender los principios de diseño, modularización, validación y trazabilidad**.
 > 
 > Con este nivel, estás aprendiendo a pensar como un ingeniero de datos que domina **Python como plataforma de orquestación**, no como una simple herramienta de análisis.
-
----
-
