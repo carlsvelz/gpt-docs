@@ -1,0 +1,270 @@
+airflow-init-1      | DB: postgresql+psycopg2://airflow:***@postgres/airflow
+airflow-init-1      | Performing upgrade to the metadata database postgresql+psycopg2://airflow:***@postgres/airflow
+airflow-init-1      | [2025-11-18T17:26:22.485+0000] {migration.py:215} INFO - Context impl PostgresqlImpl.
+airflow-init-1      | [2025-11-18T17:26:22.486+0000] {migration.py:218} INFO - Will assume transactional DDL.
+airflow-init-1      | [2025-11-18T17:26:22.487+0000] {migration.py:215} INFO - Context impl PostgresqlImpl.
+airflow-init-1      | [2025-11-18T17:26:22.488+0000] {migration.py:218} INFO - Will assume transactional DDL.
+airflow-init-1      | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+airflow-init-1      | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+airflow-init-1      | INFO  [alembic.runtime.migration] Running stamp_revision  -> 686269002441
+airflow-init-1      | Database migrating done!
+airflow-init-1      | /home/airflow/.local/lib/python3.12/site-packages/flask_limiter/extension.py:333 UserWarning: Using the in-memory storage for tracking rate limits as no storage was explicitly specified. This is not recommended for production use. See: https://flask-limiter.readthedocs.io#configuring-a-storage-backend for documentation about configuring the storage backend.
+airflow-init-1      | [2025-11-18T17:26:25.513+0000] {override.py:1454} INFO - Inserted Role: Admin
+airflow-init-1      | [2025-11-18T17:26:25.518+0000] {override.py:1454} INFO - Inserted Role: Public
+airflow-init-1      | [2025-11-18T17:26:25.521+0000] {override.py:951} WARNING - No user yet created, use flask fab command to do it.
+airflow-init-1      | [2025-11-18T17:26:25.557+0000] {override.py:1858} INFO - Created Permission View: can edit on Passwords
+airflow-init-1      | [2025-11-18T17:26:25.562+0000] {override.py:1909} INFO - Added Permission can edit on Passwords to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.567+0000] {override.py:1858} INFO - Created Permission View: can read on Passwords
+airflow-init-1      | [2025-11-18T17:26:25.571+0000] {override.py:1909} INFO - Added Permission can read on Passwords to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.581+0000] {override.py:1858} INFO - Created Permission View: can edit on My Password
+airflow-init-1      | [2025-11-18T17:26:25.585+0000] {override.py:1909} INFO - Added Permission can edit on My Password to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.589+0000] {override.py:1858} INFO - Created Permission View: can read on My Password
+airflow-init-1      | [2025-11-18T17:26:25.592+0000] {override.py:1909} INFO - Added Permission can read on My Password to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.601+0000] {override.py:1858} INFO - Created Permission View: can edit on My Profile
+airflow-init-1      | [2025-11-18T17:26:25.604+0000] {override.py:1909} INFO - Added Permission can edit on My Profile to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.608+0000] {override.py:1858} INFO - Created Permission View: can read on My Profile
+airflow-init-1      | [2025-11-18T17:26:25.611+0000] {override.py:1909} INFO - Added Permission can read on My Profile to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.640+0000] {override.py:1858} INFO - Created Permission View: can create on Users
+airflow-init-1      | [2025-11-18T17:26:25.643+0000] {override.py:1909} INFO - Added Permission can create on Users to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.647+0000] {override.py:1858} INFO - Created Permission View: can read on Users
+airflow-init-1      | [2025-11-18T17:26:25.650+0000] {override.py:1909} INFO - Added Permission can read on Users to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.655+0000] {override.py:1858} INFO - Created Permission View: can edit on Users
+airflow-init-1      | [2025-11-18T17:26:25.659+0000] {override.py:1909} INFO - Added Permission can edit on Users to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.664+0000] {override.py:1858} INFO - Created Permission View: can delete on Users
+airflow-init-1      | [2025-11-18T17:26:25.668+0000] {override.py:1909} INFO - Added Permission can delete on Users to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.675+0000] {override.py:1858} INFO - Created Permission View: menu access on List Users
+airflow-init-1      | [2025-11-18T17:26:25.680+0000] {override.py:1909} INFO - Added Permission menu access on List Users to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.688+0000] {override.py:1858} INFO - Created Permission View: menu access on Security
+airflow-init-1      | [2025-11-18T17:26:25.694+0000] {override.py:1909} INFO - Added Permission menu access on Security to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.715+0000] {override.py:1858} INFO - Created Permission View: can create on Roles
+airflow-init-1      | [2025-11-18T17:26:25.719+0000] {override.py:1909} INFO - Added Permission can create on Roles to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.724+0000] {override.py:1858} INFO - Created Permission View: can read on Roles
+airflow-init-1      | [2025-11-18T17:26:25.727+0000] {override.py:1909} INFO - Added Permission can read on Roles to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.732+0000] {override.py:1858} INFO - Created Permission View: can edit on Roles
+airflow-init-1      | [2025-11-18T17:26:25.736+0000] {override.py:1909} INFO - Added Permission can edit on Roles to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.746+0000] {override.py:1858} INFO - Created Permission View: can delete on Roles
+airflow-init-1      | [2025-11-18T17:26:25.753+0000] {override.py:1909} INFO - Added Permission can delete on Roles to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.771+0000] {override.py:1858} INFO - Created Permission View: menu access on List Roles
+airflow-init-1      | [2025-11-18T17:26:25.778+0000] {override.py:1909} INFO - Added Permission menu access on List Roles to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.807+0000] {override.py:1858} INFO - Created Permission View: can read on User Stats Chart
+airflow-init-1      | [2025-11-18T17:26:25.815+0000] {override.py:1909} INFO - Added Permission can read on User Stats Chart to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.831+0000] {override.py:1858} INFO - Created Permission View: menu access on User's Statistics
+airflow-init-1      | [2025-11-18T17:26:25.838+0000] {override.py:1909} INFO - Added Permission menu access on User's Statistics to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.890+0000] {override.py:1858} INFO - Created Permission View: can read on Permissions
+airflow-init-1      | [2025-11-18T17:26:25.895+0000] {override.py:1909} INFO - Added Permission can read on Permissions to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.909+0000] {override.py:1858} INFO - Created Permission View: menu access on Actions
+airflow-init-1      | [2025-11-18T17:26:25.914+0000] {override.py:1909} INFO - Added Permission menu access on Actions to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.958+0000] {override.py:1858} INFO - Created Permission View: can read on View Menus
+airflow-init-1      | [2025-11-18T17:26:25.962+0000] {override.py:1909} INFO - Added Permission can read on View Menus to role Admin
+airflow-init-1      | [2025-11-18T17:26:25.970+0000] {override.py:1858} INFO - Created Permission View: menu access on Resources
+airflow-init-1      | [2025-11-18T17:26:25.974+0000] {override.py:1909} INFO - Added Permission menu access on Resources to role Admin
+airflow-init-1      | [2025-11-18T17:26:26.003+0000] {override.py:1858} INFO - Created Permission View: can read on Permission Views
+airflow-init-1      | [2025-11-18T17:26:26.007+0000] {override.py:1909} INFO - Added Permission can read on Permission Views to role Admin
+airflow-init-1      | [2025-11-18T17:26:26.016+0000] {override.py:1858} INFO - Created Permission View: menu access on Permission Pairs
+airflow-init-1      | [2025-11-18T17:26:26.021+0000] {override.py:1909} INFO - Added Permission menu access on Permission Pairs to role Admin
+airflow-init-1      | [2025-11-18T17:26:26.743+0000] {override.py:1543} INFO - Added user airflow
+airflow-init-1      | User "airflow" created with role "Admin"
+airflow-init-1      | 2.9.3
+airflow-init-1 exited with code 0
+airflow-scheduler-1  | ....................
+airflow-scheduler-1  | ERROR! Maximum number of retries (20) reached.
+airflow-scheduler-1  | 
+airflow-scheduler-1  | Last check result:
+airflow-scheduler-1  | $ airflow db check
+airflow-scheduler-1  | Unable to load the config, contains a configuration error.
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-scheduler-1  |     os.mkdir(self, mode)
+airflow-scheduler-1  | FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/logs/scheduler/2025-11-18'
+airflow-scheduler-1  | 
+airflow-scheduler-1  | During handling of the above exception, another exception occurred:
+airflow-scheduler-1  | 
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 581, in configure
+airflow-scheduler-1  |     handler = self.configure_handler(handlers[name])
+airflow-scheduler-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 854, in configure_handler
+airflow-scheduler-1  |     result = factory(**kwargs)
+airflow-scheduler-1  |              ^^^^^^^^^^^^^^^^^
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/log/file_processor_handler.py", line 53, in __init__
+airflow-scheduler-1  |     Path(self._get_log_directory()).mkdir(parents=True, exist_ok=True)
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1315, in mkdir
+airflow-scheduler-1  |     self.parent.mkdir(parents=True, exist_ok=True)
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-scheduler-1  |     os.mkdir(self, mode)
+airflow-scheduler-1  | PermissionError: [Errno 13] Permission denied: '/opt/airflow/logs/scheduler'
+airflow-scheduler-1  | 
+airflow-scheduler-1  | The above exception was the direct cause of the following exception:
+airflow-scheduler-1  | 
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/home/airflow/.local/bin/airflow", line 5, in <module>
+airflow-scheduler-1  |     from airflow.__main__ import main
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/__init__.py", line 74, in <module>
+airflow-scheduler-1  |     settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py", line 531, in initialize
+airflow-scheduler-1  |     LOGGING_CLASS_PATH = configure_logging()
+airflow-scheduler-1  |                          ^^^^^^^^^^^^^^^^^^^
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 74, in configure_logging
+airflow-scheduler-1  |     raise e
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 69, in configure_logging
+airflow-scheduler-1  |     dictConfig(logging_config)
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 920, in dictConfig
+airflow-scheduler-1  |     dictConfigClass(config).configure()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 588, in configure
+airflow-scheduler-1  |     raise ValueError('Unable to configure handler '
+airflow-scheduler-1  | ValueError: Unable to configure handler 'processor'
+airflow-scheduler-1  | 
+airflow-triggerer-1  | ....................
+airflow-triggerer-1  | ERROR! Maximum number of retries (20) reached.
+airflow-triggerer-1  | 
+airflow-triggerer-1  | Last check result:
+airflow-triggerer-1  | $ airflow db check
+airflow-triggerer-1  | Unable to load the config, contains a configuration error.
+airflow-triggerer-1  | Traceback (most recent call last):
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-triggerer-1  |     os.mkdir(self, mode)
+airflow-triggerer-1  | FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/logs/scheduler/2025-11-18'
+airflow-triggerer-1  | 
+airflow-triggerer-1  | During handling of the above exception, another exception occurred:
+airflow-triggerer-1  | 
+airflow-triggerer-1  | Traceback (most recent call last):
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 581, in configure
+airflow-triggerer-1  |     handler = self.configure_handler(handlers[name])
+airflow-triggerer-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 854, in configure_handler
+airflow-triggerer-1  |     result = factory(**kwargs)
+airflow-triggerer-1  |              ^^^^^^^^^^^^^^^^^
+airflow-triggerer-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/log/file_processor_handler.py", line 53, in __init__
+airflow-triggerer-1  |     Path(self._get_log_directory()).mkdir(parents=True, exist_ok=True)
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1315, in mkdir
+airflow-triggerer-1  |     self.parent.mkdir(parents=True, exist_ok=True)
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-triggerer-1  |     os.mkdir(self, mode)
+airflow-triggerer-1  | PermissionError: [Errno 13] Permission denied: '/opt/airflow/logs/scheduler'
+airflow-triggerer-1  | 
+airflow-triggerer-1  | The above exception was the direct cause of the following exception:
+airflow-triggerer-1  | 
+airflow-triggerer-1  | Traceback (most recent call last):
+airflow-triggerer-1  |   File "/home/airflow/.local/bin/airflow", line 5, in <module>
+airflow-triggerer-1  |     from airflow.__main__ import main
+airflow-triggerer-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/__init__.py", line 74, in <module>
+airflow-triggerer-1  |     settings.initialize()
+airflow-triggerer-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py", line 531, in initialize
+airflow-triggerer-1  |     LOGGING_CLASS_PATH = configure_logging()
+airflow-triggerer-1  |                          ^^^^^^^^^^^^^^^^^^^
+airflow-triggerer-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 74, in configure_logging
+airflow-triggerer-1  |     raise e
+airflow-triggerer-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 69, in configure_logging
+airflow-triggerer-1  |     dictConfig(logging_config)
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 920, in dictConfig
+airflow-triggerer-1  |     dictConfigClass(config).configure()
+airflow-triggerer-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 588, in configure
+airflow-triggerer-1  |     raise ValueError('Unable to configure handler '
+airflow-triggerer-1  | ValueError: Unable to configure handler 'processor'
+airflow-triggerer-1  | 
+airflow-worker-1     | ....................
+airflow-worker-1     | ERROR! Maximum number of retries (20) reached.
+airflow-worker-1     | 
+airflow-worker-1     | Last check result:
+airflow-worker-1     | $ airflow db check
+airflow-worker-1     | Unable to load the config, contains a configuration error.
+airflow-worker-1     | Traceback (most recent call last):
+airflow-worker-1     |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-worker-1     |     os.mkdir(self, mode)
+airflow-worker-1     | FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/logs/scheduler/2025-11-18'
+airflow-worker-1     | 
+airflow-worker-1     | During handling of the above exception, another exception occurred:
+airflow-worker-1     | 
+airflow-worker-1     | Traceback (most recent call last):
+airflow-worker-1     |   File "/usr/local/lib/python3.12/logging/config.py", line 581, in configure
+airflow-worker-1     |     handler = self.configure_handler(handlers[name])
+airflow-worker-1     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+airflow-worker-1     |   File "/usr/local/lib/python3.12/logging/config.py", line 854, in configure_handler
+airflow-worker-1     |     result = factory(**kwargs)
+airflow-worker-1     |              ^^^^^^^^^^^^^^^^^
+airflow-worker-1     |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/log/file_processor_handler.py", line 53, in __init__
+airflow-worker-1     |     Path(self._get_log_directory()).mkdir(parents=True, exist_ok=True)
+airflow-worker-1     |   File "/usr/local/lib/python3.12/pathlib.py", line 1315, in mkdir
+airflow-worker-1     |     self.parent.mkdir(parents=True, exist_ok=True)
+airflow-worker-1     |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-worker-1     |     os.mkdir(self, mode)
+airflow-worker-1     | PermissionError: [Errno 13] Permission denied: '/opt/airflow/logs/scheduler'
+airflow-worker-1     | 
+airflow-worker-1     | The above exception was the direct cause of the following exception:
+airflow-worker-1     | 
+airflow-worker-1     | Traceback (most recent call last):
+airflow-worker-1     |   File "/home/airflow/.local/bin/airflow", line 5, in <module>
+airflow-worker-1     |     from airflow.__main__ import main
+airflow-worker-1     |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/__init__.py", line 74, in <module>
+airflow-worker-1     |     settings.initialize()
+airflow-worker-1     |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py", line 531, in initialize
+airflow-worker-1     |     LOGGING_CLASS_PATH = configure_logging()
+airflow-worker-1     |                          ^^^^^^^^^^^^^^^^^^^
+airflow-worker-1     |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 74, in configure_logging
+airflow-worker-1     |     raise e
+airflow-worker-1     |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 69, in configure_logging
+airflow-worker-1     |     dictConfig(logging_config)
+airflow-worker-1     |   File "/usr/local/lib/python3.12/logging/config.py", line 920, in dictConfig
+airflow-worker-1     |     dictConfigClass(config).configure()
+airflow-worker-1     |   File "/usr/local/lib/python3.12/logging/config.py", line 588, in configure
+airflow-worker-1     |     raise ValueError('Unable to configure handler '
+airflow-worker-1     | ValueError: Unable to configure handler 'processor'
+airflow-worker-1     | 
+airflow-webserver-1  | ....................
+airflow-webserver-1  | ERROR! Maximum number of retries (20) reached.
+airflow-webserver-1  | 
+airflow-webserver-1  | Last check result:
+airflow-webserver-1  | $ airflow db check
+airflow-webserver-1  | Unable to load the config, contains a configuration error.
+airflow-webserver-1  | Traceback (most recent call last):
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-webserver-1  |     os.mkdir(self, mode)
+airflow-webserver-1  | FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/logs/scheduler/2025-11-18'
+airflow-webserver-1  | 
+airflow-webserver-1  | During handling of the above exception, another exception occurred:
+airflow-webserver-1  | 
+airflow-webserver-1  | Traceback (most recent call last):
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 581, in configure
+airflow-webserver-1  |     handler = self.configure_handler(handlers[name])
+airflow-webserver-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 854, in configure_handler
+airflow-webserver-1  |     result = factory(**kwargs)
+airflow-webserver-1  |              ^^^^^^^^^^^^^^^^^
+airflow-webserver-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/log/file_processor_handler.py", line 53, in __init__
+airflow-webserver-1  |     Path(self._get_log_directory()).mkdir(parents=True, exist_ok=True)
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1315, in mkdir
+airflow-webserver-1  |     self.parent.mkdir(parents=True, exist_ok=True)
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/pathlib.py", line 1311, in mkdir
+airflow-webserver-1  |     os.mkdir(self, mode)
+airflow-webserver-1  | PermissionError: [Errno 13] Permission denied: '/opt/airflow/logs/scheduler'
+airflow-webserver-1  | 
+airflow-webserver-1  | The above exception was the direct cause of the following exception:
+airflow-webserver-1  | 
+airflow-webserver-1  | Traceback (most recent call last):
+airflow-webserver-1  |   File "/home/airflow/.local/bin/airflow", line 5, in <module>
+airflow-webserver-1  |     from airflow.__main__ import main
+airflow-webserver-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/__init__.py", line 74, in <module>
+airflow-webserver-1  |     settings.initialize()
+airflow-webserver-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py", line 531, in initialize
+airflow-webserver-1  |     LOGGING_CLASS_PATH = configure_logging()
+airflow-webserver-1  |                          ^^^^^^^^^^^^^^^^^^^
+airflow-webserver-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 74, in configure_logging
+airflow-webserver-1  |     raise e
+airflow-webserver-1  |   File "/home/airflow/.local/lib/python3.12/site-packages/airflow/logging_config.py", line 69, in configure_logging
+airflow-webserver-1  |     dictConfig(logging_config)
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 920, in dictConfig
+airflow-webserver-1  |     dictConfigClass(config).configure()
+airflow-webserver-1  |   File "/usr/local/lib/python3.12/logging/config.py", line 588, in configure
+airflow-webserver-1  |     raise ValueError('Unable to configure handler '
+airflow-webserver-1  | ValueError: Unable to configure handler 'processor'
+airflow-webserver-1  | 
+airflow-scheduler-1 exited with code 1 (restarting)
+airflow-worker-1 exited with code 1 (restarting)
+airflow-triggerer-1 exited with code 1 (restarting)
+airflow-webserver-1 exited with code 1 (restarting)
+jupyterhub           | [I 2025-11-18 17:28:39.647 JupyterHub _xsrf_utils:130] Setting new xsrf cookie for b'None:CBR1Lc7TdUICB2fvxA3mBvVWI5d15ULxMTxh6nWI9dQ=' {'path': '/hub/', 'max_age': 3600}
+jupyterhub           | [I 2025-11-18 17:28:39.647 JupyterHub _xsrf_utils:130] Setting new xsrf cookie for b'None:CBR1Lc7TdUICB2fvxA3mBvVWI5d15ULxMTxh6nWI9dQ=' {'path': '/hub/', 'max_age': 3600}
+jupyterhub           | [I 2025-11-18 17:28:39.678 JupyterHub log:192] 200 GET /hub/login?next=%2Fhub%2F (@186.112.78.74) 31.66ms
+jupyterhub           | [I 2025-11-18 17:28:44.083 JupyterHub log:192] 302 GET / -> /hub/ (@186.112.78.74) 0.68ms
+jupyterhub           | [I 2025-11-18 17:28:44.271 JupyterHub log:192] 302 GET /hub/ -> /hub/login?next=%2Fhub%2F (@186.112.78.74) 0.58ms
+jupyterhub           | [I 2025-11-18 17:28:44.458 JupyterHub _xsrf_utils:130] Setting new xsrf cookie for b'None:CBR1Lc7TdUICB2fvxA3mBvVWI5d15ULxMTxh6nWI9dQ=' {'path': '/hub/', 'max_age': 3600}
