@@ -1,0 +1,264 @@
+2025-11-22T16:28:08.3598522Z Current runner version: '2.329.0'
+2025-11-22T16:28:08.3624112Z ##[group]Runner Image Provisioner
+2025-11-22T16:28:08.3624967Z Hosted Compute Agent
+2025-11-22T16:28:08.3625476Z Version: 20251016.436
+2025-11-22T16:28:08.3626063Z Commit: 8ab8ac8bfd662a3739dab9fe09456aba92132568
+2025-11-22T16:28:08.3626779Z Build Date: 2025-10-15T20:44:12Z
+2025-11-22T16:28:08.3627387Z ##[endgroup]
+2025-11-22T16:28:08.3627912Z ##[group]Operating System
+2025-11-22T16:28:08.3628519Z Ubuntu
+2025-11-22T16:28:08.3628971Z 24.04.3
+2025-11-22T16:28:08.3629425Z LTS
+2025-11-22T16:28:08.3629820Z ##[endgroup]
+2025-11-22T16:28:08.3630366Z ##[group]Runner Image
+2025-11-22T16:28:08.3630925Z Image: ubuntu-24.04
+2025-11-22T16:28:08.3631403Z Version: 20251112.124.1
+2025-11-22T16:28:08.3632929Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251112.124/images/ubuntu/Ubuntu2404-Readme.md
+2025-11-22T16:28:08.3634479Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251112.124
+2025-11-22T16:28:08.3635512Z ##[endgroup]
+2025-11-22T16:28:08.3636572Z ##[group]GITHUB_TOKEN Permissions
+2025-11-22T16:28:08.3638763Z Contents: read
+2025-11-22T16:28:08.3639296Z Metadata: read
+2025-11-22T16:28:08.3639748Z Packages: read
+2025-11-22T16:28:08.3640312Z ##[endgroup]
+2025-11-22T16:28:08.3642579Z Secret source: Actions
+2025-11-22T16:28:08.3644130Z Prepare workflow directory
+2025-11-22T16:28:08.3973124Z Prepare all required actions
+2025-11-22T16:28:08.4013763Z Getting action download info
+2025-11-22T16:28:08.7144752Z Download action repository 'actions/checkout@v3' (SHA:f43a0e5ff2bd294095638e18286ca9a3d1956744)
+2025-11-22T16:28:08.8649683Z Download action repository 'docker/login-action@v3' (SHA:5e57cd118135c172c3672efd75eb46360885c0ef)
+2025-11-22T16:28:09.3492591Z Download action repository 'docker/build-push-action@v4' (SHA:0a97817b6ade9f46837855d676c4cca3a2471fc9)
+2025-11-22T16:28:09.7977319Z Complete job name: Build Devcontainer Image
+2025-11-22T16:28:09.8669263Z ##[group]Run actions/checkout@v3
+2025-11-22T16:28:09.8670208Z with:
+2025-11-22T16:28:09.8670688Z   repository: z2h-academy/z2h-core
+2025-11-22T16:28:09.8671433Z   token: ***
+2025-11-22T16:28:09.8671883Z   ssh-strict: true
+2025-11-22T16:28:09.8672533Z   persist-credentials: true
+2025-11-22T16:28:09.8673056Z   clean: true
+2025-11-22T16:28:09.8673515Z   sparse-checkout-cone-mode: true
+2025-11-22T16:28:09.8674050Z   fetch-depth: 1
+2025-11-22T16:28:09.8674499Z   fetch-tags: false
+2025-11-22T16:28:09.8674940Z   lfs: false
+2025-11-22T16:28:09.8675374Z   submodules: false
+2025-11-22T16:28:09.8675830Z   set-safe-directory: true
+2025-11-22T16:28:09.8676605Z ##[endgroup]
+2025-11-22T16:28:09.9532778Z Syncing repository: z2h-academy/z2h-core
+2025-11-22T16:28:09.9534950Z ##[group]Getting Git version info
+2025-11-22T16:28:09.9535719Z Working directory is '/home/runner/work/z2h-core/z2h-core'
+2025-11-22T16:28:09.9536758Z [command]/usr/bin/git version
+2025-11-22T16:28:09.9615656Z git version 2.51.2
+2025-11-22T16:28:09.9642782Z ##[endgroup]
+2025-11-22T16:28:09.9659362Z Temporarily overriding HOME='/home/runner/work/_temp/df420585-1837-4d7b-a0a4-5b912bcd2632' before making global git config changes
+2025-11-22T16:28:09.9662373Z Adding repository directory to the temporary git global config as a safe directory
+2025-11-22T16:28:09.9664721Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/z2h-core/z2h-core
+2025-11-22T16:28:09.9698383Z Deleting the contents of '/home/runner/work/z2h-core/z2h-core'
+2025-11-22T16:28:09.9702559Z ##[group]Initializing the repository
+2025-11-22T16:28:09.9706269Z [command]/usr/bin/git init /home/runner/work/z2h-core/z2h-core
+2025-11-22T16:28:09.9826161Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-11-22T16:28:09.9827571Z hint: is subject to change. To configure the initial branch name to use in all
+2025-11-22T16:28:09.9828583Z hint: of your new repositories, which will suppress this warning, call:
+2025-11-22T16:28:09.9829376Z hint:
+2025-11-22T16:28:09.9830301Z hint: 	git config --global init.defaultBranch <name>
+2025-11-22T16:28:09.9831542Z hint:
+2025-11-22T16:28:09.9832849Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-11-22T16:28:09.9834962Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-11-22T16:28:09.9836540Z hint:
+2025-11-22T16:28:09.9837455Z hint: 	git branch -m <name>
+2025-11-22T16:28:09.9838440Z hint:
+2025-11-22T16:28:09.9839701Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-11-22T16:28:09.9841729Z Initialized empty Git repository in /home/runner/work/z2h-core/z2h-core/.git/
+2025-11-22T16:28:09.9845043Z [command]/usr/bin/git remote add origin https://github.com/z2h-academy/z2h-core
+2025-11-22T16:28:09.9876872Z ##[endgroup]
+2025-11-22T16:28:09.9878698Z ##[group]Disabling automatic garbage collection
+2025-11-22T16:28:09.9880249Z [command]/usr/bin/git config --local gc.auto 0
+2025-11-22T16:28:09.9907964Z ##[endgroup]
+2025-11-22T16:28:09.9909761Z ##[group]Setting up auth
+2025-11-22T16:28:09.9914147Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-11-22T16:28:09.9941652Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-11-22T16:28:10.0314012Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-11-22T16:28:10.0342214Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-11-22T16:28:10.0558915Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-11-22T16:28:10.0593488Z ##[endgroup]
+2025-11-22T16:28:10.0594600Z ##[group]Fetching the repository
+2025-11-22T16:28:10.0601089Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +90459d42ed29148dc1873fc935d0dcd24c259574:refs/remotes/origin/main
+2025-11-22T16:28:10.2504473Z remote: Enumerating objects: 7, done.        
+2025-11-22T16:28:10.2505669Z remote: Counting objects:  14% (1/7)        
+2025-11-22T16:28:10.2506651Z remote: Counting objects:  28% (2/7)        
+2025-11-22T16:28:10.2507470Z remote: Counting objects:  42% (3/7)        
+2025-11-22T16:28:10.2508249Z remote: Counting objects:  57% (4/7)        
+2025-11-22T16:28:10.2509299Z remote: Counting objects:  71% (5/7)        
+2025-11-22T16:28:10.2510133Z remote: Counting objects:  85% (6/7)        
+2025-11-22T16:28:10.2510939Z remote: Counting objects: 100% (7/7)        
+2025-11-22T16:28:10.2511770Z remote: Counting objects: 100% (7/7), done.        
+2025-11-22T16:28:10.2512922Z remote: Compressing objects:  20% (1/5)        
+2025-11-22T16:28:10.2513850Z remote: Compressing objects:  40% (2/5)        
+2025-11-22T16:28:10.2514615Z remote: Compressing objects:  60% (3/5)        
+2025-11-22T16:28:10.2515463Z remote: Compressing objects:  80% (4/5)        
+2025-11-22T16:28:10.2516172Z remote: Compressing objects: 100% (5/5)        
+2025-11-22T16:28:10.2517547Z remote: Compressing objects: 100% (5/5), done.        
+2025-11-22T16:28:10.2518558Z remote: Total 7 (delta 0), reused 7 (delta 0), pack-reused 0 (from 0)        
+2025-11-22T16:28:10.2585268Z From https://github.com/z2h-academy/z2h-core
+2025-11-22T16:28:10.2586971Z  * [new ref]         90459d42ed29148dc1873fc935d0dcd24c259574 -> origin/main
+2025-11-22T16:28:10.2620371Z ##[endgroup]
+2025-11-22T16:28:10.2621578Z ##[group]Determining the checkout info
+2025-11-22T16:28:10.2623183Z ##[endgroup]
+2025-11-22T16:28:10.2624185Z ##[group]Checking out the ref
+2025-11-22T16:28:10.2626597Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-11-22T16:28:10.2671659Z Switched to a new branch 'main'
+2025-11-22T16:28:10.2674526Z branch 'main' set up to track 'origin/main'.
+2025-11-22T16:28:10.2680546Z ##[endgroup]
+2025-11-22T16:28:10.2711350Z [command]/usr/bin/git log -1 --format='%H'
+2025-11-22T16:28:10.2732564Z '90459d42ed29148dc1873fc935d0dcd24c259574'
+2025-11-22T16:28:10.2948102Z ##[group]Run docker/login-action@v3
+2025-11-22T16:28:10.2948865Z with:
+2025-11-22T16:28:10.2949380Z   registry: ghcr.io
+2025-11-22T16:28:10.2949909Z   username: z2h-academy
+2025-11-22T16:28:10.2950777Z   password: ***
+2025-11-22T16:28:10.2951328Z   logout: true
+2025-11-22T16:28:10.2951853Z ##[endgroup]
+2025-11-22T16:28:10.6033540Z Logging into ghcr.io...
+2025-11-22T16:28:10.9781694Z Login Succeeded!
+2025-11-22T16:28:11.0004494Z ##[group]Run docker/build-push-action@v4
+2025-11-22T16:28:11.0005170Z with:
+2025-11-22T16:28:11.0005631Z   context: .
+2025-11-22T16:28:11.0006129Z   file: ./Dockerfile.devcontainer
+2025-11-22T16:28:11.0006684Z   push: true
+2025-11-22T16:28:11.0007253Z   tags: ghcr.io/z2h-academy/k3d-devcontainer:latest
+2025-11-22T16:28:11.0007912Z   load: false
+2025-11-22T16:28:11.0008331Z   no-cache: false
+2025-11-22T16:28:11.0008839Z   pull: false
+2025-11-22T16:28:11.0009492Z   github-token: ***
+2025-11-22T16:28:11.0010011Z ##[endgroup]
+2025-11-22T16:28:11.1528465Z ##[group]GitHub Actions runtime token ACs
+2025-11-22T16:28:11.1546149Z refs/heads/main: read/write
+2025-11-22T16:28:11.1548743Z ##[endgroup]
+2025-11-22T16:28:11.1551493Z ##[group]Docker info
+2025-11-22T16:28:11.1603111Z [command]/usr/bin/docker version
+2025-11-22T16:28:11.1808188Z Client: Docker Engine - Community
+2025-11-22T16:28:11.1810480Z  Version:           28.0.4
+2025-11-22T16:28:11.1811492Z  API version:       1.48
+2025-11-22T16:28:11.1812504Z  Go version:        go1.23.7
+2025-11-22T16:28:11.1813189Z  Git commit:        b8034c0
+2025-11-22T16:28:11.1813873Z  Built:             Tue Mar 25 15:07:16 2025
+2025-11-22T16:28:11.1814630Z  OS/Arch:           linux/amd64
+2025-11-22T16:28:11.1815305Z  Context:           default
+2025-11-22T16:28:11.1815749Z 
+2025-11-22T16:28:11.1816065Z Server: Docker Engine - Community
+2025-11-22T16:28:11.1816808Z  Engine:
+2025-11-22T16:28:11.1817415Z   Version:          28.0.4
+2025-11-22T16:28:11.1818678Z   API version:      1.48 (minimum version 1.24)
+2025-11-22T16:28:11.1820208Z   Go version:       go1.23.7
+2025-11-22T16:28:11.1821467Z   Git commit:       6430e49
+2025-11-22T16:28:11.1823069Z   Built:            Tue Mar 25 15:07:16 2025
+2025-11-22T16:28:11.1824567Z   OS/Arch:          linux/amd64
+2025-11-22T16:28:11.1825984Z   Experimental:     false
+2025-11-22T16:28:11.1827282Z  containerd:
+2025-11-22T16:28:11.1828546Z   Version:          v2.1.5
+2025-11-22T16:28:11.1830321Z   GitCommit:        fcd43222d6b07379a4be9786bda52438f0dd16a1
+2025-11-22T16:28:11.1832543Z  runc:
+2025-11-22T16:28:11.1833990Z   Version:          1.3.3
+2025-11-22T16:28:11.1835678Z   GitCommit:        v1.3.3-0-gd842d771
+2025-11-22T16:28:11.1837609Z  docker-init:
+2025-11-22T16:28:11.1839106Z   Version:          0.19.0
+2025-11-22T16:28:11.1840812Z   GitCommit:        de40ad0
+2025-11-22T16:28:11.1861136Z [command]/usr/bin/docker info
+2025-11-22T16:28:11.4021583Z Client: Docker Engine - Community
+2025-11-22T16:28:11.4024891Z  Version:    28.0.4
+2025-11-22T16:28:11.4026620Z  Context:    default
+2025-11-22T16:28:11.4028267Z  Debug Mode: false
+2025-11-22T16:28:11.4029707Z  Plugins:
+2025-11-22T16:28:11.4031170Z   buildx: Docker Buildx (Docker Inc.)
+2025-11-22T16:28:11.4033244Z     Version:  v0.29.1
+2025-11-22T16:28:11.4035104Z     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+2025-11-22T16:28:11.4037189Z   compose: Docker Compose (Docker Inc.)
+2025-11-22T16:28:11.4038956Z     Version:  v2.38.2
+2025-11-22T16:28:11.4040734Z     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+2025-11-22T16:28:11.4042359Z 
+2025-11-22T16:28:11.4042958Z Server:
+2025-11-22T16:28:11.4044371Z  Containers: 0
+2025-11-22T16:28:11.4045802Z   Running: 0
+2025-11-22T16:28:11.4047552Z   Paused: 0
+2025-11-22T16:28:11.4048969Z   Stopped: 0
+2025-11-22T16:28:11.4050299Z  Images: 0
+2025-11-22T16:28:11.4051591Z  Server Version: 28.0.4
+2025-11-22T16:28:11.4053740Z  Storage Driver: overlay2
+2025-11-22T16:28:11.4055683Z   Backing Filesystem: extfs
+2025-11-22T16:28:11.4057292Z   Supports d_type: true
+2025-11-22T16:28:11.4058839Z   Using metacopy: false
+2025-11-22T16:28:11.4060383Z   Native Overlay Diff: false
+2025-11-22T16:28:11.4061957Z   userxattr: false
+2025-11-22T16:28:11.4063591Z  Logging Driver: json-file
+2025-11-22T16:28:11.4065097Z  Cgroup Driver: systemd
+2025-11-22T16:28:11.4066522Z  Cgroup Version: 2
+2025-11-22T16:28:11.4067850Z  Plugins:
+2025-11-22T16:28:11.4069141Z   Volume: local
+2025-11-22T16:28:11.4070650Z   Network: bridge host ipvlan macvlan null overlay
+2025-11-22T16:28:11.4073769Z   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+2025-11-22T16:28:11.4076200Z  Swarm: inactive
+2025-11-22T16:28:11.4077685Z  Runtimes: io.containerd.runc.v2 runc
+2025-11-22T16:28:11.4079540Z  Default Runtime: runc
+2025-11-22T16:28:11.4081041Z  Init Binary: docker-init
+2025-11-22T16:28:11.4083416Z  containerd version: fcd43222d6b07379a4be9786bda52438f0dd16a1
+2025-11-22T16:28:11.4085736Z  runc version: v1.3.3-0-gd842d771
+2025-11-22T16:28:11.4087543Z  init version: de40ad0
+2025-11-22T16:28:11.4089090Z  Security Options:
+2025-11-22T16:28:11.4090554Z   apparmor
+2025-11-22T16:28:11.4091860Z   seccomp
+2025-11-22T16:28:11.4093434Z    Profile: builtin
+2025-11-22T16:28:11.4094871Z   cgroupns
+2025-11-22T16:28:11.4096340Z  Kernel Version: 6.11.0-1018-azure
+2025-11-22T16:28:11.4098296Z  Operating System: Ubuntu 24.04.3 LTS
+2025-11-22T16:28:11.4100117Z  OSType: linux
+2025-11-22T16:28:11.4101518Z  Architecture: x86_64
+2025-11-22T16:28:11.4103497Z  CPUs: 4
+2025-11-22T16:28:11.4104836Z  Total Memory: 15.62GiB
+2025-11-22T16:28:11.4106362Z  Name: runnervmg1sw1
+2025-11-22T16:28:11.4107874Z  ID: 25309008-d3b6-4795-9b53-5704e2dd5a06
+2025-11-22T16:28:11.4109713Z  Docker Root Dir: /var/lib/docker
+2025-11-22T16:28:11.4111322Z  Debug Mode: false
+2025-11-22T16:28:11.4112894Z  Username: githubactions
+2025-11-22T16:28:11.4114439Z  Experimental: false
+2025-11-22T16:28:11.4115914Z  Insecure Registries:
+2025-11-22T16:28:11.4121347Z   ::1/128
+2025-11-22T16:28:11.4122709Z   127.0.0.0/8
+2025-11-22T16:28:11.4123595Z  Live Restore Enabled: false
+2025-11-22T16:28:11.4124293Z 
+2025-11-22T16:28:11.4125458Z ##[endgroup]
+2025-11-22T16:28:11.4126898Z ##[group]Proxy configuration
+2025-11-22T16:28:11.4127978Z No proxy configuration found
+2025-11-22T16:28:11.4130325Z ##[endgroup]
+2025-11-22T16:28:11.4728604Z ##[group]Buildx version
+2025-11-22T16:28:11.4757848Z [command]/usr/bin/docker buildx version
+2025-11-22T16:28:11.5320520Z github.com/docker/buildx v0.29.1 a32761aeb3debd39be1eca514af3693af0db334b
+2025-11-22T16:28:11.5354434Z ##[endgroup]
+2025-11-22T16:28:11.7227029Z [command]/usr/bin/docker buildx build --file ./Dockerfile.devcontainer --iidfile /tmp/docker-actions-toolkit-C0xIAb/iidfile --tag ghcr.io/z2h-academy/k3d-devcontainer:latest --metadata-file /tmp/docker-actions-toolkit-C0xIAb/metadata-file --push .
+2025-11-22T16:28:11.8634812Z #0 building with "default" instance using docker driver
+2025-11-22T16:28:11.8636133Z 
+2025-11-22T16:28:11.8636907Z #1 [internal] load build definition from Dockerfile.devcontainer
+2025-11-22T16:28:11.8639200Z #1 transferring dockerfile: 2B done
+2025-11-22T16:28:11.8640815Z #1 DONE 0.0s
+2025-11-22T16:28:11.8650121Z ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile.devcontainer: no such file or directory
+2025-11-22T16:28:11.8713892Z ##[error]buildx failed with: ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile.devcontainer: no such file or directory
+2025-11-22T16:28:11.8941913Z Post job cleanup.
+2025-11-22T16:28:12.0289978Z ##[group]Removing temp folder /tmp/docker-actions-toolkit-C0xIAb
+2025-11-22T16:28:12.0300403Z ##[endgroup]
+2025-11-22T16:28:12.0454084Z Post job cleanup.
+2025-11-22T16:28:12.3501735Z [command]/usr/bin/docker logout ghcr.io
+2025-11-22T16:28:12.3648242Z Removing login credentials for ghcr.io
+2025-11-22T16:28:12.3684880Z ##[group]Post cache
+2025-11-22T16:28:12.3686169Z State not set
+2025-11-22T16:28:12.3688188Z ##[endgroup]
+2025-11-22T16:28:12.3906617Z Post job cleanup.
+2025-11-22T16:28:12.4638816Z [command]/usr/bin/git version
+2025-11-22T16:28:12.4673970Z git version 2.51.2
+2025-11-22T16:28:12.4717211Z Temporarily overriding HOME='/home/runner/work/_temp/250be1d6-f318-4a60-8756-0a1a2c55c919' before making global git config changes
+2025-11-22T16:28:12.4720360Z Adding repository directory to the temporary git global config as a safe directory
+2025-11-22T16:28:12.4722820Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/z2h-core/z2h-core
+2025-11-22T16:28:12.4754483Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-11-22T16:28:12.4784530Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-11-22T16:28:12.5015411Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-11-22T16:28:12.5034287Z http.https://github.com/.extraheader
+2025-11-22T16:28:12.5045312Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-11-22T16:28:12.5073755Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-11-22T16:28:12.5421021Z Cleaning up orphan processes
