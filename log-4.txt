@@ -1,0 +1,2428 @@
+
+=================================================================================
+2025-11-22 19:33:24.891Z: Configuration starting...
+2025-11-22 19:33:24.918Z: Cloning...
+
+=================================================================================
+2025-11-22 19:33:25.460Z: Creating container...
+2025-11-22 19:33:25.506Z: $ devcontainer up --id-label Type=codespaces --workspace-folder /var/lib/docker/codespacemount/workspace/student-test --mount type=bind,source=/.codespaces/agent/mount/cache,target=/vscode --user-data-folder /var/lib/docker/codespacemount/.persistedshare --container-data-folder .vscode-remote/data/Machine --container-system-data-folder /var/vscode-remote --log-level trace --log-format json --update-remote-user-uid-default never --mount-workspace-git-root false --omit-config-remote-env-from-metadata --skip-non-blocking-commands --skip-post-create --config "/var/lib/docker/codespacemount/workspace/student-test/.devcontainer/devcontainer.json" --override-config /root/.codespaces/shared/merged_devcontainer.json --default-user-env-probe loginInteractiveShell --container-session-data-folder /workspaces/.codespaces/.persistedshare/devcontainers-cli/cache --secrets-file /root/.codespaces/shared/user-secrets-envs.json
+2025-11-22 19:33:25.645Z: @devcontainers/cli 0.80.0. Node.js v18.20.6. linux 6.8.0-1030-azure x64.
+2025-11-22 19:33:25.764Z: Resolving Feature dependencies for 'ghcr.io/devcontainers/features/docker-in-docker:2'...
+2025-11-22 19:33:26.073Z: Soft-dependency 'ghcr.io/devcontainers/features/common-utils' is not required.  Removing from installation order...
+2025-11-22 19:33:26.155Z: Files to omit: ''
+2025-11-22 19:33:26.172Z: $ docker buildx build --load --build-arg BUILDKIT_INLINE_CACHE=1 -f /tmp/devcontainercli-root/container-features/0.80.0-1763840005761/Dockerfile-with-features -t vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 --target dev_containers_target_stage --build-context dev_containers_feature_content_source=/tmp/devcontainercli-root/container-features/0.80.0-1763840005761 --build-arg _DEV_CONTAINERS_BASE_IMAGE=dev_container_auto_added_stage_label --build-arg _DEV_CONTAINERS_IMAGE_USER=z2h --build-arg _DEV_CONTAINERS_FEATURE_CONTENT_SOURCE=dev_container_feature_content_temp /var/lib/docker/codespacemount/workspace/student-test/.devcontainer
+2025-11-22 19:33:26.790Z: #0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile-with-features
+#2 transferring dockerfile: 6.28kB done
+#2 DONE 0.0s
+
+#3 resolve image config for docker.io/docker/dockerfile:1.4
+2025-11-22 19:33:26.958Z: #3 ...
+
+#4 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#4 DONE 0.0s
+2025-11-22 19:33:27.107Z: 
+#3 resolve image config for docker.io/docker/dockerfile:1.4
+2025-11-22 19:33:27.188Z: #3 DONE 0.6s
+2025-11-22 19:33:27.299Z: 
+#5 docker-image://docker.io/docker/dockerfile:1.4@sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc
+#5 resolve docker.io/docker/dockerfile:1.4@sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc done
+2025-11-22 19:33:27.299Z: #5 sha256:1e8a16826fd1c80a63fa6817a9c7284c94e40cded14a9b0d0d3722356efa47bd 2.37kB / 2.37kB done
+#5 sha256:1328b32c40fca9bcf9d70d8eccb72eb873d1124d72dadce04db8badbe7b08546 3.15MB / 9.94MB 0.1s
+#5 sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc 2.00kB / 2.00kB done
+#5 sha256:ad87fb03593d1b71f9a1cfc1406c4aafcb253b1dabebf569768d6e6166836f34 528B / 528B done
+2025-11-22 19:33:27.399Z: #5 sha256:1328b32c40fca9bcf9d70d8eccb72eb873d1124d72dadce04db8badbe7b08546 9.94MB / 9.94MB 0.2s
+2025-11-22 19:33:27.502Z: #5 sha256:1328b32c40fca9bcf9d70d8eccb72eb873d1124d72dadce04db8badbe7b08546 9.94MB / 9.94MB 0.3s done
+2025-11-22 19:33:27.601Z: #5 extracting sha256:1328b32c40fca9bcf9d70d8eccb72eb873d1124d72dadce04db8badbe7b08546 0.1s
+2025-11-22 19:33:27.795Z: #5 extracting sha256:1328b32c40fca9bcf9d70d8eccb72eb873d1124d72dadce04db8badbe7b08546 0.1s done
+#5 DONE 0.5s
+
+#6 [internal] load metadata for mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+#6 DONE 0.0s
+
+#7 [context dev_containers_feature_content_source] load .dockerignore
+2025-11-22 19:33:27.960Z: #7 transferring dev_containers_feature_content_source: 2B done
+#7 DONE 0.0s
+2025-11-22 19:33:28.215Z: 
+#8 [context dev_containers_feature_content_source] load from client
+#8 transferring dev_containers_feature_content_source: 86.36kB done
+#8 DONE 0.0s
+
+#9 [dev_container_auto_added_stage_label 1/8] FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+#9 DONE 0.1s
+2025-11-22 19:33:28.341Z: 
+#10 [dev_container_auto_added_stage_label 2/8] RUN apt-get update &&     apt-get install -y --no-install-recommends         curl ca-certificates git jq         bash-completion         iptables iproute2 iputils-ping dnsutils         docker.io         python3 python3-pip         vim nano less htop unzip         sudo &&     rm -rf /var/lib/apt/lists/*
+2025-11-22 19:33:30.930Z: #10 2.741 Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]2025-11-22 19:33:30.931Z: 
+#10 2.741 Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+2025-11-22 19:33:31.380Z: #10 3.190 Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]2025-11-22 19:33:31.380Z: 
+2025-11-22 19:33:31.495Z: #10 3.306 Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+2025-11-22 19:33:32.236Z: #10 4.046 Get:5 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3532 kB]2025-11-22 19:33:32.236Z: 
+2025-11-22 19:33:32.374Z: #10 4.183 Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+2025-11-22 19:33:32.887Z: #10 4.693 Get:7 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
+2025-11-22 19:33:33.098Z: #10 4.708 Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [5988 kB]
+2025-11-22 19:33:33.098Z: #10 4.902 Get:9 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1290 kB]
+2025-11-22 19:33:33.214Z: #10 4.999 Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+#10 5.023 Get:11 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+2025-11-22 19:33:33.392Z: #10 5.024 Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]2025-11-22 19:33:33.392Z: 
+#10 5.028 Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
+#10 5.030 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1595 kB]
+#10 5.050 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6222 kB]
+2025-11-22 19:33:33.494Z: #10 5.249 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3876 kB]
+2025-11-22 19:33:33.690Z: #10 5.350 Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]2025-11-22 19:33:33.691Z: 
+#10 5.351 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+2025-11-22 19:33:35.697Z: #10 7.479 Fetched 43.1 MB in 5s (9434 kB/s)2025-11-22 19:33:35.697Z: 
+#10 7.479 Reading package lists...2025-11-22 19:33:38.203Z: 
+2025-11-22 19:33:38.868Z: #10 10.68 Reading package lists...2025-11-22 19:33:40.290Z: 
+2025-11-22 19:33:40.454Z: #10 12.11 Building dependency tree...2025-11-22 19:33:40.541Z: 
+2025-11-22 19:33:40.541Z: #10 12.35 Reading state information...2025-11-22 19:33:40.713Z: 
+#10 12.52 bash-completion is already the newest version (1:2.11-5ubuntu1).
+#10 12.52 htop is already the newest version (3.0.5-7build2).
+#10 12.52 iproute2 is already the newest version (5.15.0-1ubuntu2).
+#10 12.52 ca-certificates is already the newest version (20240203~22.04.1).
+#10 12.52 curl is already the newest version (7.81.0-1ubuntu1.21).
+#10 12.52 git is already the newest version (1:2.34.1-1ubuntu1.15).
+#10 12.52 jq is already the newest version (1.6-2.1ubuntu3.1).
+#10 12.52 less is already the newest version (590-1ubuntu0.22.04.3).
+#10 12.52 nano is already the newest version (6.2-1ubuntu0.1).
+#10 12.52 python3 is already the newest version (3.10.6-1~22.04.1).
+#10 12.52 python3 set to manually installed.2025-11-22 19:33:40.714Z: 
+#10 12.52 sudo is already the newest version (1.9.9-1ubuntu2.5).
+2025-11-22 19:33:40.714Z: #10 12.52 unzip is already the newest version (6.0-26ubuntu3.2).
+#10 12.52 The following additional packages will be installed:
+2025-11-22 19:33:40.864Z: #10 12.52   bind9-dnsutils bind9-host bind9-libs containerd libgpm2 libip4tc2 libip6tc2
+2025-11-22 19:33:40.864Z: #10 12.52   libjson-c5 liblmdb0 libmaxminddb0 libnetfilter-conntrack3 libnfnetlink0
+#10 12.52   libnftnl11 libpython3.10 libsodium23 libuv1 python3-distutils
+#10 12.52   python3-lib2to3 python3-pkg-resources python3-setuptools python3-wheel runc
+#10 12.52   vim-runtime
+#10 12.52 Suggested packages:
+#10 12.52   aufs-tools btrfs-progs cgroupfs-mount | cgroup-lite debootstrap
+#10 12.52   docker-buildx docker-compose-v2 docker-doc rinse zfs-fuse | zfsutils
+#10 12.52   firewalld kmod nftables gpm mmdb-bin python-setuptools-doc ctags vim-doc
+#10 12.52   vim-scripts
+#10 12.52 Recommended packages:
+#10 12.52   pigz ubuntu-fan apparmor python3-dev
+#10 12.67 The following NEW packages will be installed:
+#10 12.67   bind9-dnsutils bind9-host bind9-libs containerd dnsutils docker.io iptables
+2025-11-22 19:33:41.031Z: #10 12.67   iputils-ping libgpm2 libip4tc2 libip6tc2 libjson-c5 liblmdb0 libmaxminddb0
+#10 12.67   libnetfilter-conntrack3 libnfnetlink0 libnftnl11 libpython3.10 libsodium23
+#10 12.67   libuv1 python3-distutils python3-lib2to3 python3-pip python3-pkg-resources
+#10 12.67   python3-setuptools python3-wheel runc vim vim-runtime
+2025-11-22 19:33:41.159Z: #10 12.97 0 upgraded, 29 newly installed, 0 to remove and 10 not upgraded.
+#10 12.97 Need to get 90.8 MB of archives.
+#10 12.97 After this operation, 351 MB of additional disk space will be used.
+#10 12.97 Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 iputils-ping amd64 3:20211215-1ubuntu0.1 [43.0 kB]
+2025-11-22 19:33:41.411Z: #10 13.22 Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libip4tc2 amd64 1.8.7-1ubuntu5.2 [19.9 kB]
+2025-11-22 19:33:41.605Z: #10 13.24 Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjson-c5 amd64 0.15-3~ubuntu1.22.04.2 [33.5 kB]
+#10 13.28 Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pkg-resources all 59.6.0-1.2ubuntu0.22.04.3 [133 kB]
+#10 13.41 Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblmdb0 amd64 0.9.24-1build2 [47.6 kB]
+2025-11-22 19:33:41.829Z: #10 13.44 Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmaxminddb0 amd64 1.5.2-1build2 [24.7 kB]
+#10 13.45 Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+#10 13.49 Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 bind9-libs amd64 1:9.18.39-0ubuntu0.22.04.2 [1262 kB]
+2025-11-22 19:33:41.859Z: #10 13.67 Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 bind9-host amd64 1:9.18.39-0ubuntu0.22.04.2 [52.5 kB]
+2025-11-22 19:33:42.056Z: #10 13.67 Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 bind9-dnsutils amd64 1:9.18.39-0ubuntu0.22.04.2 [158 kB]
+#10 13.68 Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libip6tc2 amd64 1.8.7-1ubuntu5.2 [20.3 kB]
+#10 13.68 Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnfnetlink0 amd64 1.0.1-3build3 [14.6 kB]
+#10 13.68 Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnetfilter-conntrack3 amd64 1.0.9-1 [45.3 kB]
+#10 13.69 Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnftnl11 amd64 1.2.1-1build1 [65.5 kB]
+#10 13.69 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 iptables amd64 1.8.7-1ubuntu5.2 [455 kB]
+#10 13.72 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 runc amd64 1.3.3-0ubuntu1~22.04.2 [8856 kB]
+2025-11-22 19:33:42.123Z: #10 13.93 Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 containerd amd64 1.7.28-0ubuntu1~22.04.1 [38.5 MB]
+2025-11-22 19:33:42.883Z: #10 14.69 Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 dnsutils all 1:9.18.39-0ubuntu0.22.04.2 [3924 B]
+2025-11-22 19:33:43.031Z: #10 14.69 Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 docker.io amd64 28.2.2-0ubuntu1~22.04.1 [28.4 MB]
+2025-11-22 19:33:43.436Z: #10 15.24 Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgpm2 amd64 1.20.7-10build1 [15.3 kB]
+2025-11-22 19:33:43.638Z: #10 15.24 Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10 amd64 3.10.12-1~22.04.11 [1949 kB]
+#10 15.28 Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 libsodium23 amd64 1.0.18-1build2 [164 kB]
+#10 15.28 Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-lib2to3 all 3.10.8-1~22.04 [77.6 kB]
+#10 15.28 Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-distutils all 3.10.8-1~22.04 [139 kB]
+#10 15.28 Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-setuptools all 59.6.0-1.2ubuntu0.22.04.3 [340 kB]
+#10 15.29 Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-wheel all 0.37.1-2ubuntu0.22.04.1 [32.0 kB]
+#10 15.29 Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-pip all 22.0.2+dfsg-1ubuntu0.7 [1306 kB]
+#10 15.32 Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 vim-runtime all 2:8.2.3995-1ubuntu2.24 [6833 kB]
+#10 15.45 Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 vim amd64 2:8.2.3995-1ubuntu2.24 [1728 kB]
+2025-11-22 19:33:45.117Z: #10 16.93 debconf: unable to initialize frontend: Dialog
+#10 16.93 debconf: (TERM is not set, so the dialog frontend is not usable.)2025-11-22 19:33:45.117Z: 
+#10 16.93 debconf: falling back to frontend: Readline
+2025-11-22 19:33:45.249Z: #10 16.95 debconf: unable to initialize frontend: Readline
+#10 16.95 debconf: (This frontend requires a controlling tty.)
+#10 16.95 debconf: falling back to frontend: Teletype
+#10 16.95 dpkg-preconfigure: unable to re-open stdin: 
+#10 16.98 Fetched 90.8 MB in 3s (32.4 MB/s)
+#10 17.06 Selecting previously unselected package iputils-ping.
+
+#10 17.06 (Reading database ... 
+2025-11-22 19:33:45.373Z: (Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+2025-11-22 19:33:45.492Z: (Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+2025-11-22 19:33:45.637Z: (Reading database ... 100%
+(Reading database ... 21920 files and directories currently installed.)
+
+#10 17.35 Preparing to unpack .../00-iputils-ping_3%3a20211215-1ubuntu0.1_amd64.deb ...
+
+#10 17.41 Unpacking iputils-ping (3:20211215-1ubuntu0.1) ...
+
+2025-11-22 19:33:45.709Z: #10 17.46 Selecting previously unselected package libip4tc2:amd64.
+
+#10 17.46 Preparing to unpack .../01-libip4tc2_1.8.7-1ubuntu5.2_amd64.deb ...
+
+#10 17.47 Unpacking libip4tc2:amd64 (1.8.7-1ubuntu5.2) ...
+
+#10 17.49 Selecting previously unselected package libjson-c5:amd64.
+
+#10 17.49 Preparing to unpack .../02-libjson-c5_0.15-3~ubuntu1.22.04.2_amd64.deb ...
+
+#10 17.50 Unpacking libjson-c5:amd64 (0.15-3~ubuntu1.22.04.2) ...
+
+#10 17.52 Selecting previously unselected package python3-pkg-resources.
+
+2025-11-22 19:33:45.862Z: #10 17.52 Preparing to unpack .../03-python3-pkg-resources_59.6.0-1.2ubuntu0.22.04.3_all.deb ...
+
+#10 17.52 Unpacking python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+
+#10 17.56 Selecting previously unselected package liblmdb0:amd64.
+
+#10 17.56 Preparing to unpack .../04-liblmdb0_0.9.24-1build2_amd64.deb ...
+
+#10 17.56 Unpacking liblmdb0:amd64 (0.9.24-1build2) ...
+
+#10 17.59 Selecting previously unselected package libmaxminddb0:amd64.
+
+#10 17.59 Preparing to unpack .../05-libmaxminddb0_1.5.2-1build2_amd64.deb ...
+
+#10 17.59 Unpacking libmaxminddb0:amd64 (1.5.2-1build2) ...
+
+#10 17.62 Selecting previously unselected package libuv1:amd64.
+
+#10 17.62 Preparing to unpack .../06-libuv1_1.43.0-1ubuntu0.1_amd64.deb ...
+
+#10 17.62 Unpacking libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+
+#10 17.67 Selecting previously unselected package bind9-libs:amd64.
+
+#10 17.67 Preparing to unpack .../07-bind9-libs_1%3a9.18.39-0ubuntu0.22.04.2_amd64.deb ...
+
+#10 17.67 Unpacking bind9-libs:amd64 (1:9.18.39-0ubuntu0.22.04.2) ...
+
+2025-11-22 19:33:45.973Z: #10 17.73 Selecting previously unselected package bind9-host.
+
+#10 17.73 Preparing to unpack .../08-bind9-host_1%3a9.18.39-0ubuntu0.22.04.2_amd64.deb ...
+
+#10 17.73 Unpacking bind9-host (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 17.75 Selecting previously unselected package bind9-dnsutils.
+
+#10 17.76 Preparing to unpack .../09-bind9-dnsutils_1%3a9.18.39-0ubuntu0.22.04.2_amd64.deb ...
+
+#10 17.76 Unpacking bind9-dnsutils (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 17.78 Selecting previously unselected package libip6tc2:amd64.
+
+2025-11-22 19:33:46.109Z: #10 17.79 Preparing to unpack .../10-libip6tc2_1.8.7-1ubuntu5.2_amd64.deb ...
+2025-11-22 19:33:46.111Z: 
+2025-11-22 19:33:46.111Z: #10 17.79 Unpacking libip6tc2:amd64 (1.8.7-1ubuntu5.2) ...
+
+#10 17.81 Selecting previously unselected package libnfnetlink0:amd64.
+
+#10 17.81 Preparing to unpack .../11-libnfnetlink0_1.0.1-3build3_amd64.deb ...
+
+#10 17.81 Unpacking libnfnetlink0:amd64 (1.0.1-3build3) ...
+
+#10 17.84 Selecting previously unselected package libnetfilter-conntrack3:amd64.
+
+#10 17.84 Preparing to unpack .../12-libnetfilter-conntrack3_1.0.9-1_amd64.deb ...
+
+#10 17.84 Unpacking libnetfilter-conntrack3:amd64 (1.0.9-1) ...
+
+#10 17.87 Selecting previously unselected package libnftnl11:amd64.
+
+#10 17.87 Preparing to unpack .../13-libnftnl11_1.2.1-1build1_amd64.deb ...
+
+#10 17.87 Unpacking libnftnl11:amd64 (1.2.1-1build1) ...
+
+#10 17.92 Selecting previously unselected package iptables.
+
+2025-11-22 19:33:46.374Z: #10 17.92 Preparing to unpack .../14-iptables_1.8.7-1ubuntu5.2_amd64.deb ...
+2025-11-22 19:33:46.375Z: 
+#10 17.93 Unpacking iptables (1.8.7-1ubuntu5.2) ...
+
+#10 18.00 Selecting previously unselected package runc.
+
+#10 18.01 Preparing to unpack .../15-runc_1.3.3-0ubuntu1~22.04.2_amd64.deb ...
+
+#10 18.01 Unpacking runc (1.3.3-0ubuntu1~22.04.2) ...
+
+2025-11-22 19:33:46.424Z: #10 18.23 Selecting previously unselected package containerd.
+
+#10 18.23 Preparing to unpack .../16-containerd_1.7.28-0ubuntu1~22.04.1_amd64.deb ...
+
+#10 18.23 Unpacking containerd (1.7.28-0ubuntu1~22.04.1) ...
+
+2025-11-22 19:33:47.031Z: #10 18.81 Selecting previously unselected package dnsutils.2025-11-22 19:33:47.198Z: 
+
+#10 18.81 Preparing to unpack .../17-dnsutils_1%3a9.18.39-0ubuntu0.22.04.2_all.deb ...
+
+#10 18.81 Unpacking dnsutils (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 18.85 Selecting previously unselected package docker.io.
+
+#10 18.85 Preparing to unpack .../18-docker.io_28.2.2-0ubuntu1~22.04.1_amd64.deb ...
+
+#10 18.86 Unpacking docker.io (28.2.2-0ubuntu1~22.04.1) ...
+
+2025-11-22 19:33:47.505Z: #10 19.31 Selecting previously unselected package libgpm2:amd64.
+
+2025-11-22 19:33:47.615Z: #10 19.32 Preparing to unpack .../19-libgpm2_1.20.7-10build1_amd64.deb ...
+
+#10 19.32 Unpacking libgpm2:amd64 (1.20.7-10build1) ...
+
+#10 19.34 Selecting previously unselected package libpython3.10:amd64.
+
+#10 19.35 Preparing to unpack .../20-libpython3.10_3.10.12-1~22.04.11_amd64.deb ...
+
+#10 19.35 Unpacking libpython3.10:amd64 (3.10.12-1~22.04.11) ...
+
+#10 19.40 Selecting previously unselected package libsodium23:amd64.
+
+#10 19.40 Preparing to unpack .../21-libsodium23_1.0.18-1build2_amd64.deb ...
+
+#10 19.40 Unpacking libsodium23:amd64 (1.0.18-1build2) ...
+
+#10 19.43 Selecting previously unselected package python3-lib2to3.
+
+2025-11-22 19:33:47.718Z: #10 19.43 Preparing to unpack .../22-python3-lib2to3_3.10.8-1~22.04_all.deb ...
+
+#10 19.43 Unpacking python3-lib2to3 (3.10.8-1~22.04) ...
+
+#10 19.48 Selecting previously unselected package python3-distutils.
+
+#10 19.48 Preparing to unpack .../23-python3-distutils_3.10.8-1~22.04_all.deb ...
+
+#10 19.48 Unpacking python3-distutils (3.10.8-1~22.04) ...
+
+#10 19.53 Selecting previously unselected package python3-setuptools.
+
+2025-11-22 19:33:47.826Z: #10 19.53 Preparing to unpack .../24-python3-setuptools_59.6.0-1.2ubuntu0.22.04.3_all.deb ...
+
+#10 19.55 Unpacking python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+
+#10 19.60 Selecting previously unselected package python3-wheel.
+
+#10 19.61 Preparing to unpack .../25-python3-wheel_0.37.1-2ubuntu0.22.04.1_all.deb ...
+
+#10 19.61 Unpacking python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+
+#10 19.64 Selecting previously unselected package python3-pip.
+
+2025-11-22 19:33:47.985Z: #10 19.64 Preparing to unpack .../26-python3-pip_22.0.2+dfsg-1ubuntu0.7_all.deb ...
+
+#10 19.64 Unpacking python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+
+2025-11-22 19:33:48.002Z: #10 19.81 Selecting previously unselected package vim-runtime.
+
+2025-11-22 19:33:48.201Z: #10 19.82 Preparing to unpack .../27-vim-runtime_2%3a8.2.3995-1ubuntu2.24_all.deb ...
+
+#10 19.83 Adding 'diversion of /usr/share/vim/vim82/doc/help.txt to /usr/share/vim/vim82/doc/help.txt.vim-tiny by vim-runtime'
+
+#10 19.86 Adding 'diversion of /usr/share/vim/vim82/doc/tags to /usr/share/vim/vim82/doc/tags.vim-tiny by vim-runtime'
+
+#10 19.86 Unpacking vim-runtime (2:8.2.3995-1ubuntu2.24) ...
+
+2025-11-22 19:33:48.575Z: #10 20.39 Selecting previously unselected package vim.
+
+2025-11-22 19:33:48.684Z: #10 20.39 Preparing to unpack .../28-vim_2%3a8.2.3995-1ubuntu2.24_amd64.deb ...
+
+#10 20.44 Unpacking vim (2:8.2.3995-1ubuntu2.24) ...
+
+#10 20.50 Setting up python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+
+2025-11-22 19:33:49.294Z: #10 21.11 Setting up libip4tc2:amd64 (1.8.7-1ubuntu5.2) ...
+
+2025-11-22 19:33:49.488Z: #10 21.13 Setting up liblmdb0:amd64 (0.9.24-1build2) ...
+
+#10 21.14 Setting up libpython3.10:amd64 (3.10.12-1~22.04.11) ...
+
+#10 21.14 Setting up libsodium23:amd64 (1.0.18-1build2) ...
+
+2025-11-22 19:33:49.488Z: #10 21.15 Setting up libgpm2:amd64 (1.20.7-10build1) ...
+
+#10 21.16 Setting up libip6tc2:amd64 (1.8.7-1ubuntu5.2) ...
+
+#10 21.16 Setting up libmaxminddb0:amd64 (1.5.2-1build2) ...
+
+#10 21.17 Setting up libnftnl11:amd64 (1.2.1-1build1) ...
+
+#10 21.17 Setting up runc (1.3.3-0ubuntu1~22.04.2) ...
+
+#10 21.18 Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+
+#10 21.19 Setting up libnfnetlink0:amd64 (1.0.1-3build3) ...
+
+#10 21.19 Setting up vim-runtime (2:8.2.3995-1ubuntu2.24) ...
+
+#10 21.30 Setting up containerd (1.7.28-0ubuntu1~22.04.1) ...
+
+2025-11-22 19:33:49.649Z: #10 21.46 Setting up python3-lib2to3 (3.10.8-1~22.04) ...
+2025-11-22 19:33:49.649Z: 
+2025-11-22 19:33:49.752Z: #10 21.55 Setting up iputils-ping (3:20211215-1ubuntu0.1) ...
+
+#10 21.56 Setting up libjson-c5:amd64 (0.15-3~ubuntu1.22.04.2) ...
+
+2025-11-22 19:33:49.863Z: #10 21.57 Setting up python3-distutils (3.10.8-1~22.04) ...
+
+#10 21.67 Setting up vim (2:8.2.3995-1ubuntu2.24) ...
+
+2025-11-22 19:33:50.110Z: #10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vim (vim) in auto mode
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vimdiff (vimdiff) in auto mode
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rvim (rvim) in auto mode
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rview (rview) in auto mode
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vi (vi) in auto mode
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/man1/vi.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/da/man1/vi.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/de/man1/vi.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/fr/man1/vi.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/it/man1/vi.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ja/man1/vi.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/pl/man1/vi.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ru/man1/vi.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group vi) doesn't exist
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/view (view) in auto mode
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/man1/view.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/da/man1/view.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/de/man1/view.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/fr/man1/view.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/it/man1/view.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ja/man1/view.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/pl/man1/view.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ru/man1/view.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group view) doesn't exist
+
+#10 21.77 update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/ex (ex) in auto mode
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/man1/ex.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/da/man1/ex.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/de/man1/ex.1.gz because associated file /usr/share/man/de/man1/vim.12025-11-22 19:33:50.110Z: .gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/fr/man1/ex.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/it/man1/ex.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ja/man1/ex.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/pl/man1/ex.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 update-alternatives: warning: skip creation of /usr/share/man/ru/man1/ex.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group ex) doesn't exist
+
+#10 21.77 Setting up python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+
+2025-11-22 19:33:50.280Z: #10 22.09 Setting up bind9-libs:amd64 (1:9.18.39-0ubuntu0.22.04.2) ...
+
+2025-11-22 19:33:50.409Z: #10 22.10 Setting up python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+2025-11-22 19:33:50.410Z: 
+#10 22.22 Setting up python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+
+2025-11-22 19:33:53.395Z: #10 25.21 Setting up libnetfilter-conntrack3:amd64 (1.0.9-1) ...
+
+#10 25.21 Setting up bind9-host (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 25.21 Setting up iptables (1.8.7-1ubuntu5.2) ...
+
+2025-11-22 19:33:53.396Z: #10 25.21 update-alternatives: using /usr/sbin/iptables-legacy to provide /usr/sbin/iptables (iptables) in auto mode
+
+#10 25.21 update-alternatives: using /usr/sbin/ip6tables-legacy to provide /usr/sbin/ip6tables (ip6tables) in auto mode
+
+#10 25.21 update-alternatives: using /usr/sbin/iptables-nft to provide /usr/sbin/iptables (iptables) in auto mode
+
+#10 25.21 update-alternatives: using /usr/sbin/ip6tables-nft to provide /usr/sbin/ip6tables (ip6tables) in auto mode
+
+#10 25.21 update-alternatives: using /usr/sbin/arptables-nft to provide /usr/sbin/arptables (arptables) in auto mode
+
+#10 25.21 update-alternatives: using /usr/sbin/ebtables-nft to provide /usr/sbin/ebtables (ebtables) in auto mode
+
+#10 25.21 Setting up docker.io (28.2.2-0ubuntu1~22.04.1) ...
+
+2025-11-22 19:33:53.523Z: #10 25.29 debconf: unable to initialize frontend: Dialog
+
+#10 25.29 debconf: (TERM is not set, so the dialog frontend is not usable.)
+
+#10 25.29 debconf: falling back to frontend: Readline
+
+#10 25.33 Adding group `docker' (GID 102) ...
+
+2025-11-22 19:33:53.697Z: #10 25.36 Done.
+
+2025-11-22 19:33:53.810Z: #10 25.62 invoke-rc.d: unknown initscript, /etc/init.d/docker not found.
+
+2025-11-22 19:33:54.052Z: #10 25.62 invoke-rc.d: could not determine current runlevel
+
+#10 25.70 Setting up bind9-dnsutils (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 25.71 Setting up dnsutils (1:9.18.39-0ubuntu0.22.04.2) ...
+
+#10 25.71 Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+2025-11-22 19:33:54.052Z: 
+2025-11-22 19:33:55.859Z: #10 27.67 Processing triggers for man-db (2.10.2-1) ...
+
+2025-11-22 19:33:58.561Z: #10 DONE 30.4s
+2025-11-22 19:33:58.710Z: 
+#11 [dev_container_auto_added_stage_label 3/8] RUN useradd -ms /bin/bash z2h &&     echo "z2h ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers &&     usermod -aG docker z2h
+2025-11-22 19:33:59.031Z: #11 DONE 0.5s
+2025-11-22 19:33:59.181Z: 
+#12 [dev_container_auto_added_stage_label 4/8] RUN mkdir -p /var/run && chmod 777 /var/run
+2025-11-22 19:33:59.418Z: #12 DONE 0.4s2025-11-22 19:33:59.418Z: 
+2025-11-22 19:33:59.582Z: 
+#13 [dev_container_auto_added_stage_label 5/8] RUN curl -sLO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" &&     chmod +x kubectl && mv kubectl /usr/local/bin/kubectl2025-11-22 19:33:59.582Z: 
+2025-11-22 19:34:01.333Z: #13 DONE 1.9s
+2025-11-22 19:34:01.478Z: 
+#14 [dev_container_auto_added_stage_label 6/8] RUN curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash2025-11-22 19:34:01.479Z: 
+2025-11-22 19:34:02.918Z: #14 1.593 Preparing to install k3d into /usr/local/bin
+2025-11-22 19:34:03.097Z: #14 1.622 k3d installed into /usr/local/bin/k3d
+#14 1.622 Run 'k3d --help' to see what you can do with it.
+2025-11-22 19:34:03.279Z: #14 DONE 1.9s2025-11-22 19:34:03.279Z: 
+2025-11-22 19:34:03.476Z: 
+2025-11-22 19:34:03.476Z: #15 [dev_container_auto_added_stage_label 7/8] WORKDIR /home/z2h
+#15 DONE 0.0s
+
+#16 [dev_container_auto_added_stage_label 8/8] RUN echo 'echo "🔥 Bienvenido al entorno STUDENT — K3D-LAKEHOUSE"' >> ~/.bashrc
+2025-11-22 19:34:03.531Z: #16 DONE 0.2s
+2025-11-22 19:34:03.733Z: 
+#17 [dev_containers_feature_content_normalize 1/2] COPY --from=dev_containers_feature_content_source devcontainer-features.builtin.env /tmp/build-features/
+#17 DONE 0.1s
+
+#18 [dev_containers_feature_content_normalize 2/2] RUN chmod -R 0755 /tmp/build-features/
+2025-11-22 19:34:03.881Z: #18 ...
+
+#19 [dev_containers_target_stage 1/4] RUN mkdir -p /tmp/dev-container-features
+#19 DONE 0.4s
+2025-11-22 19:34:04.124Z: 
+#18 [dev_containers_feature_content_normalize 2/2] RUN chmod -R 0755 /tmp/build-features/2025-11-22 19:34:04.124Z: 
+#18 DONE 0.3s
+
+#20 [dev_containers_target_stage 2/4] COPY --from=dev_containers_feature_content_normalize /tmp/build-features/ /tmp/dev-container-features
+#20 DONE 0.0s
+
+#21 [dev_containers_target_stage 3/4] RUN echo "_CONTAINER_USER_HOME=$( (command -v getent >/dev/null 2>&1 && getent passwd 'z2h' || grep -E '^z2h|^[^:]*:[^:]*:z2h:' /etc/passwd || ********) | cut -d: -f6)" >> /tmp/dev-container-features/devcontainer-features.builtin.env && echo "_REMOTE_USER_HOME=$( (command -v getent >/dev/null 2>&1 && getent passwd 'z2h' || grep -E '^z2h|^[^:]*:[^:]*:z2h:' /etc/passwd || ********) | cut -d: -f6)" >> /tmp/dev-container-features/devcontainer-features.builtin.env
+2025-11-22 19:34:04.199Z: #21 DONE 0.2s
+2025-11-22 19:34:04.343Z: 
+#22 [dev_containers_target_stage 4/4] RUN --mount=type=bind,from=dev_containers_feature_content_source,source=docker-in-docker_0,target=/tmp/build-features-src/docker-in-docker_0     cp -ar /tmp/build-features-src/docker-in-docker_0 /tmp/dev-container-features  && chmod -R 0755 /tmp/dev-container-features/docker-in-docker_0  && cd /tmp/dev-container-features/docker-in-docker_0  && chmod +x ./devcontainer-features-install.sh  && ./devcontainer-features-install.sh  && rm -rf /tmp/dev-container-features/docker-in-docker_0
+2025-11-22 19:34:04.494Z: #22 0.303 ===========================================================================2025-11-22 19:34:04.495Z: 
+#22 0.303 Feature       : Docker (Docker-in-Docker)
+#22 0.303 Description   : Create child containers *inside* a container, independent from the host's docker instance. Installs Docker extension in the container along with needed CLIs.
+2025-11-22 19:34:04.495Z: #22 0.303 Id            : ghcr.io/devcontainers/features/docker-in-docker
+#22 0.303 Version       : 2.12.4
+#22 0.303 Documentation : ********/devcontainers/features/tree/main/src/docker-in-docker
+#22 0.303 Options       :
+2025-11-22 19:34:04.496Z: #22 0.303     VERSION="latest"
+#22 0.303     MOBY="false"
+#22 0.303     MOBYBUILDXVERSION="latest"
+2025-11-22 19:34:04.497Z: #22 0.303     DOCKERDASHCOMPOSEVERSION="v2"
+#22 0.303     AZUREDNSAUTODETECTION="********"
+#22 0.303     DOCKERDEFAULTADDRESSPOOL=""2025-11-22 19:34:04.497Z: 
+#22 0.303     INSTALLDOCKERBUILDX="********"
+#22 0.303     INSTALLDOCKERCOMPOSESWITCH="********"
+#22 0.303     DISABLEIP6TABLES="false"2025-11-22 19:34:04.497Z: 
+#22 0.303 ===========================================================================
+2025-11-22 19:34:04.630Z: #22 0.317 Distro codename  'jammy'  matched filter  'trixie bookworm buster bullseye bionic focal hirsute impish jammy noble'
+#22 0.347 find: Running apt-get update...
+#22 0.350 '/var/lib/apt/lists/*': No such file or directory
+#22 0.439 Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+2025-11-22 19:34:04.743Z: #22 0.530 Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+#22 0.552 Get:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+2025-11-22 19:34:04.867Z: #22 0.576 Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]2025-11-22 19:34:04.867Z: 
+#22 0.674 Get:5 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+2025-11-22 19:34:05.140Z: #22 0.707 Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+#22 0.719 Get:7 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+#22 0.921 Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+2025-11-22 19:34:05.220Z: #22 0.947 Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
+#22 0.954 Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3876 kB]
+#22 0.985 Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6222 kB]
+#22 1.025 Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1595 kB]
+2025-11-22 19:34:05.429Z: #22 1.041 Get:13 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
+#22 1.041 Get:14 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+#22 1.208 Get:15 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1290 kB]
+2025-11-22 19:34:05.827Z: #22 1.636 Get:16 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [5988 kB]
+2025-11-22 19:34:06.116Z: #22 1.923 Get:17 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
+2025-11-22 19:34:06.271Z: #22 1.930 Get:18 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3532 kB]
+2025-11-22 19:34:06.750Z: #22 2.558 Fetched 43.1 MB in 2s (20.0 MB/s)2025-11-22 19:34:06.751Z: 
+#22 2.558 Reading package lists...2025-11-22 19:34:07.702Z: 
+2025-11-22 19:34:08.225Z: #22 4.033 Reading package lists...2025-11-22 19:34:09.097Z: 
+2025-11-22 19:34:09.258Z: #22 4.917 Building dependency tree...2025-11-22 19:34:09.300Z: 
+#22 5.108 Reading state information...2025-11-22 19:34:09.450Z: 
+2025-11-22 19:34:09.520Z: #22 5.327 ca-certificates is already the newest version (20240203~22.04.1).
+#22 5.327 curl is already the newest version (7.81.0-1ubuntu1.21).
+#22 5.327 dirmngr is already the newest version (2.2.27-3ubuntu2.4).
+#22 5.327 iptables is already the newest version (1.8.7-1ubuntu5.2).
+#22 5.327 jq is already the newest version (1.6-2.1ubuntu3.1).
+#22 5.327 wget is already the newest version (1.21.2-2ubuntu1.1).
+#22 5.327 apt-transport-https is already the newest version (2.4.14).
+#22 5.327 gnupg2 is already the newest version (2.2.27-3ubuntu2.4).
+#22 5.327 The following NEW packages will be installed:
+#22 5.327   pigz
+2025-11-22 19:34:09.726Z: #22 5.385 0 upgraded, 1 newly installed, 0 to remove and 10 not upgraded.
+#22 5.385 Need to get 63.6 kB of archives.
+#22 5.385 After this operation, 162 kB of additional disk space will be used.
+#22 5.385 Get:1 http://archive.ubuntu.com/ubuntu jammy/universe amd64 pigz amd64 2.6-1 [63.6 kB]
+2025-11-22 19:34:11.513Z: #22 7.322 Fetched 63.6 kB in 0s (719 kB/s)
+2025-11-22 19:34:11.637Z: #22 7.351 Selecting previously unselected package pigz.
+2025-11-22 19:34:11.637Z: 
+#22 7.351 (Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 2025-11-22 19:34:11.854Z: 25661 files and directories currently installed.)
+
+2025-11-22 19:34:11.855Z: #22 7.441 Preparing to unpack .../archives/pigz_2.6-1_amd64.deb ...
+
+#22 7.455 Unpacking pigz (2.6-1) ...
+
+#22 7.506 Setting up pigz (2.6-1) ...
+
+#22 7.513 Processing triggers for man-db (2.10.2-1) ...
+
+2025-11-22 19:34:11.951Z: #22 7.745 update-alternatives: using /usr/sbin/iptables-legacy to provide /usr/sbin/iptables (iptables) in manual mode
+#22 7.745 update-alternatives: using /usr/sbin/ip6tables-legacy to provide /usr/sbin/ip6tables (ip6tables) in manual mode
+2025-11-22 19:34:12.229Z: #22 8.017 Get:1 https://download.docker.com/linux/ubuntu jammy InRelease [48.5 kB]
+2025-11-22 19:34:12.367Z: #22 8.070 Get:2 https://download.docker.com/linux/ubuntu jammy/stable amd64 Packages [74.8 kB]2025-11-22 19:34:12.367Z: 
+#22 8.095 Hit:3 http://archive.ubuntu.com/ubuntu jammy InRelease
+#22 8.176 Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+2025-11-22 19:34:12.504Z: #22 8.179 Hit:5 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+#22 8.312 Hit:6 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+2025-11-22 19:34:12.645Z: #22 8.454 Fetched 123 kB in 1s (227 kB/s)
+#22 8.454 Reading package lists...2025-11-22 19:34:13.591Z: 
+2025-11-22 19:34:13.756Z: #22 9.415 Docker / Moby CLI and Engine already installed.
+#22 9.415 Finished installing docker / moby!
+2025-11-22 19:34:14.092Z: #22 9.901 compose_version=2.40.3
+#22 9.901 (*) Installing docker-compose 2.40.3...
+2025-11-22 19:34:15.233Z: #22 11.04 /usr/local/bin/docker-compose: OK
+2025-11-22 19:34:15.424Z: #22 11.12 (*) Installing compose-switch...2025-11-22 19:34:15.424Z: 
+#22 11.23 compose_switch_version=1.0.5
+2025-11-22 19:34:15.750Z: #22 11.56 update-alternatives: using /usr/local/bin/compose-switch to provide /usr/local/bin/docker-compose (docker-compose) in auto mode
+2025-11-22 19:34:15.911Z: #22 11.57 docker-init doesn't exist, adding...
+2025-11-22 19:34:15.918Z: #22 11.73 buildx_version=0.30.1
+#22 11.73 (*) Installing buildx 0.30.1...
+2025-11-22 19:34:16.067Z: #22 11.73 --2025-11-22 19:34:15--  ********/docker/buildx/releases/download/v0.30.1/buildx-v0.30.1.linux-amd642025-11-22 19:34:16.067Z: 
+#22 11.74 Resolving github.com (github.com)... 140.82.113.4
+#22 11.74 Connecting to github.com (github.com)|140.82.113.4|:443... connected.
+#22 11.76 HTTP request sent, awaiting response... 302 Found
+2025-11-22 19:34:16.169Z: #22 11.87 Location: https://release-assets.githubusercontent.com/github-production-release-asset/177210627/b1e1fb22-fc62-4520-9791-eb033fcb0695?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-11-22T20%3A13%3A16Z&rscd=attachment%3B+filename%3Dbuildx-v0.30.1.linux-amd64&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-11-22T19%3A12%3A32Z&ske=2025-11-22T20%3A13%3A16Z&sks=b&skv=2018-11-09&sig=k%2Fi3364FTN6DfWa%2FKYre9Rpkwv0k79QPsKJha3oAMk8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2Mzg0MTg1NiwibmJmIjoxNzYzODQwMDU2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.647N6LUeRgZ98vm4xd_U346UAm8nuG0XnBVEdirp_mQ&response-content-disposition=attachment%3B%20filename%3Dbuildx-v0.30.1.linux-amd64&response-content-type=application%2Foctet-stream [following]
+#22 11.87 --2025-11-22 19:34:16--  https://release-assets.githubusercontent.com/github-production-release-asset/177210627/b1e1fb22-fc62-4520-9791-eb033fcb0695?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-11-22T20%3A13%3A16Z&rscd=attachment%3B+filename%3Dbuildx-v0.30.1.linux-amd64&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-11-22T19%3A12%3A32Z&ske=2025-11-22T20%3A13%3A16Z&sks=b&skv=2018-11-09&sig=k%2Fi3364FTN6DfWa%2FKYre9Rpkwv0k79QPsKJha3oAMk8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2Mzg0MTg1NiwibmJmIjoxNzYzODQwMDU2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.647N6LUeRgZ98vm4xd_U346UAm8nuG0XnBVEdirp_mQ&response-content-disposition=attachment%3B%20filename%3Dbuildx-v0.30.1.linux-amd64&response-content-type=application%2Foctet-stream
+#22 11.87 Resolving release-assets.githubusercontent.com (release-assets.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
+#22 11.88 Connecting to release-assets.githubusercontent.com (release-assets.githubusercontent.com)|185.199.108.133|:443... connected.
+#22 11.89 HTTP request sent, awaiting response... 200 OK
+#22 11.91 Length: 71069880 (68M) [application/octet-stream]
+#22 11.91 Saving to: 'buildx-v0.30.1.linux-amd64'
+#22 11.91 
+#22 11.91      0K .......... .......... .......... .......... ..........  0% 8.86M 8s
+#22 11.91     50K .......... .......... .......... .......... ..........  0% 18.5M 6s
+#22 11.91    100K .......... .......... .......... .......... ..........  0% 13.8M 5s
+#22 11.92    150K .......... .......... .......... .......... ..........  0% 29.5M 5s
+#22 11.92    200K .......... .......... .......... .......... ..........  0% 17.9M 4s
+#22 11.92    250K .......... .......... .......... .......... ..........  0% 65.8M 4s
+#22 11.92    300K .......... .......... .......... .......... ..........  0% 59.6M 3s
+#22 11.92    350K .......... .......... .......... .......... ..........  0% 59.8M 3s
+#22 11.92    400K .......... .......... .......... .......... ..........  0%  112M 3s
+#22 11.92    450K .......... .......... .......... .......... ..........  0% 20.0M 3s
+#22 11.93    500K .......... .......... .......... .......... ..........  0% 52.5M 3s
+#22 11.93    550K .......... .......... .......... .......... ..........  0% 59.2M 3s
+#22 11.93    600K .......... .......... .......... .......... ..........  0% 58.9M 3s
+#22 11.93    650K .......... .......... .......... .......... ..........  1% 93.8M 2s
+#22 11.93    700K .......... .......... .......... .......... ..........  1%  182M 2s
+#22 11.93    750K .......... .......... .......... .......... ..........  1%  214M 2s
+#22 11.93    800K .......... .......... .......... .......... ..........  1%  215M 2s
+#22 11.93    850K .......... .......... .......... .......... ..........  1%  227M 2s
+#22 11.93    900K .......... .......... .......... .......... ..........  1% 54.7M 2s
+#22 11.93    950K .......... .2025-11-22 19:34:16.175Z: ......... .......... .......... ..........  1% 64.2M 2s
+#22 11.93   1000K .......... .......... .......... .......... ..........  1% 62.8M 2s
+#22 11.93   1050K .......... .......... .......... .......... ..........  1%  105M 2s
+#22 11.93   1100K .......... .......... .......... .......... ..........  1% 80.1M 2s
+#22 11.93   1150K .......... .......... .......... .......... ..........  1% 61.6M 2s
+#22 11.94   1200K .......... .......... .......... .......... ..........  1% 42.3M 2s
+#22 11.94   1250K .......... .......... .......... .......... ..........  1% 73.4M 2s
+#22 11.94   1300K .......... .......... .......... .......... ..........  1%  217M 2s
+#22 11.94   1350K .......... .......... .......... .......... ..........  2%  199M 2s
+#22 11.94   1400K .......... .......... .......... .......... ..........  2%  227M 2s
+#22 11.94   1450K .......... .......... .......... .......... ..........  2%  178M 1s
+#22 11.94   1500K .......... .......... .......... .......... ..........  2%  192M 1s
+#22 11.94   1550K .......... .......... .......... .......... ..........  2%  223M 1s
+#22 11.94   1600K .......... .......... .......... .......... ..........  2%  203M 1s
+#22 11.94   1650K .......... .......... .......... .......... ..........  2%  193M 1s
+#22 11.94   1700K .......... .......... .......... .......... ..........  2% 38.8M 1s
+#22 11.94   1750K .......... .......... .......... .......... ..........  2% 41.4M 1s
+#22 11.94   1800K .......... .......... .......... .......... ..........  2% 47.9M 1s
+#22 11.94   1850K .......... .......... .......... .......... ..........  2%  112M 1s
+#22 11.94   1900K .......... .......... .......... .......... ..........  2%  150M 1s
+#22 11.94   1950K .......... .......... .......... .......... ..........  2%  183M 1s
+#22 11.94   2000K .......... .......... .......... .......... ..........  2%  192M 1s
+#22 11.94   2050K .......... .......... .......... .......... ..........  3%  168M 1s
+#22 11.94   2100K .......... .......... .......... .......... ..........  3% 33.9M 1s
+#22 11.95   2150K .......... .......... .......... .......... ..........  3% 70.0M 1s
+#22 11.95   2200K .......... .......... .......... .......... ..........  3%  106M 1s
+#22 11.95   2250K .......... .......... .......... .......... ..........  3%  186M 1s
+#22 11.95   2300K .......... .......... .......... .......... ..........  3% 70.1M 1s
+#22 11.95   2350K .......... .......... .......... .......... ..........  3%  240M 1s
+#22 11.95   2400K .......... .......... .......... .......... ..........  3% 61.3M 1s
+#22 11.95   2450K .......... .......... .......... .......... ..........  3%  118M 1s
+#22 11.95   2500K .......... .......... .......... .......... ..........  3%  180M 1s
+#22 11.95   2550K .......... .......... .......... .......... ..........  3%  190M 1s
+#22 11.95   2600K .......... .......... .......... .......... ..........  3%  195M 1s
+#22 11.95   2650K .......... .......... .......... .......... ..........  3% 64.9M 1s
+#22 11.95   2700K .......... .......... .......... .......... ..........  3%  108M 1s
+#22 11.95   2750K .......... .......... .......... .......... ..........  4% 59.7M 1s
+#22 11.95   2800K .......... .......... .......... .......... ..........  4% 67.1M 1s
+#22 11.95   2850K .......... .......... .......... .......... ..........  4% 69.5M 1s
+#22 11.95   2900K .......... .......... .......... .......... ..........  4%  113M 1s
+#22 11.95   2950K .......... .......... .......... .......... ..........  4% 73.3M 1s
+#22 11.95   3000K .......... .......... .......... .......... ..........  4%  116M 1s
+#22 11.96   3050K .......... .......... .......... .......... ..........  4% 88.0M 1s
+#22 11.96   3100K .......... .......... .......... .......... ..........  4%  175M 1s
+#22 11.96   3150K .......... .......... .......... .......... ..........  4%  173M 1s
+#22 11.96   3200K .......... .......... .......... .......... ..........  4% 95.4M 1s
+#22 11.96   3250K .......... .......... .......... .......... ..........  4% 53.5M 1s
+#22 11.96   3300K .......... .......2025-11-22 19:34:16.176Z: ... .......... .......... ..........  4% 94.3M 1s
+#22 11.96   3350K .......... .......... .......... .......... ..........  4% 89.4M 1s
+#22 11.96   3400K .......... .......... .......... .......... ..........  4%  155M 1s
+#22 11.96   3450K .......... .......... .......... .......... ..........  5% 88.3M 1s
+#22 11.96   3500K .......... .......... .......... .......... ..........  5%  184M 1s
+#22 11.96   3550K .......... .......... .......... .......... ..........  5%  169M 1s
+#22 11.96   3600K .......... .......... .......... .......... ..........  5%  155M 1s
+#22 11.96   3650K .......... .......... .......... .......... ..........  5%  198M 1s
+#22 11.96   3700K .......... .......... .......... .......... ..........  5%  205M 1s
+#22 11.96   3750K .......... .......... .......... .......... ..........  5%  171M 1s
+#22 11.96   3800K .......... .......... .......... .......... ..........  5% 64.0M 1s
+#22 11.96   3850K .......... .......... .......... .......... ..........  5% 59.8M 1s
+#22 11.96   3900K .......... .......... .......... .......... ..........  5% 99.8M 1s
+#22 11.96   3950K .......... .......... .......... .......... ..........  5% 96.1M 1s
+#22 11.96   4000K .......... .......... .......... .......... ..........  5%  186M 1s
+#22 11.96   4050K .......... .......... .......... .......... ..........  5% 72.2M 1s
+#22 11.96   4100K .......... .......... .......... .......... ..........  5%  119M 1s
+#22 11.97   4150K .......... .......... .......... .......... ..........  6% 81.8M 1s
+#22 11.97   4200K .......... .......... .......... .......... ..........  6% 68.7M 1s
+#22 11.97   4250K .......... .......... .......... .......... ..........  6% 72.7M 1s
+#22 11.97   4300K .......... .......... .......... .......... ..........  6%  114M 1s
+#22 11.97   4350K .......... .......... .......... .......... ..........  6%  101M 1s
+#22 11.97   4400K .......... .......... .......... .......... ..........  6%  162M 1s
+#22 11.97   4450K .......... .......... .......... .......... ..........  6%  130M 1s
+#22 11.97   4500K .......... .......... .......... .......... ..........  6%  135M 1s
+#22 11.97   4550K .......... .......... .......... .......... ..........  6%  182M 1s
+#22 11.97   4600K .......... .......... .......... .......... ..........  6%  143M 1s
+#22 11.97   4650K .......... .......... .......... .......... ..........  6%  146M 1s
+#22 11.97   4700K .......... .......... .......... .......... ..........  6%  188M 1s
+#22 11.97   4750K .......... .......... .......... .......... ..........  6%  155M 1s
+#22 11.97   4800K .......... .......... .......... .......... ..........  6%  153M 1s
+#22 11.97   4850K .......... .......... .......... .......... ..........  7%  153M 1s
+#22 11.97   4900K .......... .......... .......... .......... ..........  7%  123M 1s
+#22 11.97   4950K .......... .......... .......... .......... ..........  7%  147M 1s
+#22 11.97   5000K .......... .......... .......... .......... ..........  7%  191M 1s
+#22 11.97   5050K .......... .......... .......... .......... ..........  7%  135M 1s
+#22 11.97   5100K .......... .......... .......... .......... ..........  7%  163M 1s
+#22 11.97   5150K .......... .......... .......... ..2025-11-22 19:34:16.271Z: ........ ..........  7%  144M 1s
+#22 11.97   5200K .......... .......... .......... .......... ..........  7%  187M 1s
+#22 11.97   5250K .......... .......... .......... .......... ..........  7%  149M 1s
+#22 11.97   5300K .......... .......... .......... .......... ..........  7%  170M 1s
+#22 11.97   5350K .......... .......... .......... .......... ..........  7%  186M 1s
+#22 11.97   5400K .......... .......... .......... .......... ..........  7%  188M 1s
+#22 11.97   5450K .......... .......... .......... .......... ..........  7%  124M 1s
+#22 11.98   5500K .......... .......... .......... .......... ..........  7%  163M 1s
+#22 11.98   5550K .......... .......... .......... .......... ..........  8%  194M 1s
+#22 11.98   5600K .......... .......... .......... .......... ..........  8%  222M 1s
+#22 11.98   5650K .......... .......... .......... .......... ..........  8%  151M 1s
+#22 11.98   5700K .......... .......... .......... .......... ..........  8%  226M 1s
+#22 11.98   5750K .......... .......... .......... .......... ..........  8%  212M 1s
+#22 11.98   5800K .......... .......... .......... .......... ..........  8%  258M 1s
+#22 11.98   5850K .......... .......... .......... .......... ..........  8%  226M 1s
+#22 11.98   5900K .......... .......... .......... .......... ..........  8%  237M 1s
+#22 11.98   5950K .......... .......... .......... .......... ..........  8%  236M 1s
+#22 11.98   6000K .......... .......... .......... .......... ..........  8%  219M 1s
+#22 11.98   6050K .......... .......... .......... .......... ..........  8%  178M 1s
+#22 11.98   6100K .......... .......... .......... .......... ..........  8%  186M 1s
+#22 11.98   6150K .......... .......... .......... .......... ..........  8%  160M 1s
+#22 11.98   6200K .......... .......... .......... .......... ..........  9%  192M 1s
+#22 11.98   6250K .......... .......... .......... .......... ..........  9%  199M 1s
+#22 11.98   6300K .......... .......... .......... .......... ..........  9%  199M 1s
+#22 11.98   6350K .......... .......... .......... .......... ..........  9%  148M 1s
+#22 11.98   6400K .......... .......... .......... .......... ..........  9%  221M 1s
+#22 11.98   6450K .......... .......... .......... .......... ..........  9%  200M 1s
+#22 11.98   6500K .......... .......... .......... .......... ..........  9%  138M 1s
+#22 11.98   6550K .......... .......... .......... .......... ..........  9%  126M 1s
+#22 11.98   6600K .......... .......... .......... .......... ..........  9%  141M 1s
+#22 11.98   6650K .......... .......... .......... .......... ..........  9%  185M 1s
+#22 11.98   6700K .......... .......... .......... .......... ..........  9%  177M 1s
+#22 11.98   6750K .......... .......... .......... .......... ..........  9%  172M 1s
+#22 11.98   6800K .......... .......... .......... .......... ..........  9%  157M 1s
+#22 11.98   6850K .......... .......... .......... .......... ..........  9%  150M 1s
+#22 11.98   6900K .......... .......... .......... .......... .......... 10%  196M 1s
+#22 11.98   6950K .......... .......... .......... .......... .......... 10%  218M 1s
+#22 11.98   7000K .......... .......... .......... .......... .......... 10%  215M 1s
+#22 11.98   7050K .......... .......... .......... .......... .......... 10%  226M 1s
+#22 11.98   7100K .......... .......... .......... .......... .......... 10%  157M 1s
+#22 11.98   7150K .......... .......... .......... .......... .......... 10%  177M 1s
+#22 11.98   7200K .......... .......... .......... .......... .......... 10%  135M 1s
+#22 11.98   7250K .......... .......... .......... .......... .......... 10%  132M 1s
+#22 11.98   7300K .......... .......... .......... .......... .......... 10%  203M 1s
+#22 11.99   7350K .......... .......... .......... .......... .......... 10%  181M 1s
+#22 11.99   7400K .......... .......... .......... .......... .......... 10%  178M 1s
+#22 11.99   7450K .......... .......... .......... .......... .......... 10%  185M 1s
+#22 11.99   7500K .......... .......... .......... ........2025-11-22 19:34:16.281Z: .. .......... 10%  217M 1s
+#22 11.99   7550K .......... .......... .......... .......... .......... 10%  210M 1s
+#22 11.99   7600K .......... .......... .......... .......... .......... 11%  230M 1s
+#22 11.99   7650K .......... .......... .......... .......... .......... 11%  222M 1s
+#22 11.99   7700K .......... .......... .......... .......... .......... 11%  259M 1s
+#22 11.99   7750K .......... .......... .......... .......... .......... 11%  188M 1s
+#22 11.99   7800K .......... .......... .......... .......... .......... 11%  217M 1s
+#22 11.99   7850K .......... .......... .......... .......... .......... 11%  176M 1s
+#22 11.99   7900K .......... .......... .......... .......... .......... 11%  235M 1s
+#22 11.99   7950K .......... .......... .......... .......... .......... 11%  193M 1s
+#22 11.99   8000K .......... .......... .......... .......... .......... 11%  186M 1s
+#22 11.99   8050K .......... .......... .......... .......... .......... 11%  168M 1s
+#22 11.99   8100K .......... .......... .......... .......... .......... 11%  115M 1s
+#22 11.99   8150K .......... .......... .......... .......... .......... 11%  123M 1s
+#22 11.99   8200K .......... .......... .......... .......... .......... 11%  150M 1s
+#22 11.99   8250K .......... .......... .......... .......... .......... 11%  191M 1s
+#22 11.99   8300K .......... .......... .......... .......... .......... 12%  222M 1s
+#22 11.99   8350K .......... .......... .......... .......... .......... 12%  148M 1s
+#22 11.99   8400K .......... .......... .......... .......... .......... 12%  143M 1s
+#22 11.99   8450K .......... .......... .......... .......... .......... 12% 92.8M 1s
+#22 11.99   8500K .......... .......... .......... .......... .......... 12%  175M 1s
+#22 11.99   8550K .......... .......... .......... .......... .......... 12%  187M 1s
+#22 11.99   8600K .......... .......... .......... .......... .......... 12%  152M 1s
+#22 11.99   8650K .......... .......... .......... .......... .......... 12%  131M 1s
+#22 11.99   8700K .......... .......... .......... .......... .......... 12%  142M 1s
+#22 11.99   8750K .......... .......... .......... .......... .......... 12%  227M 1s
+#22 11.99   8800K .......... .......... .......... .......... .......... 12%  143M 1s
+#22 11.99   8850K .......... .......... .......... .......... .......... 12%  184M 1s
+#22 11.99   8900K .......... .......... .......... .......... .......... 12%  143M 1s
+#22 11.99   8950K .......... .......... .......... .......... .......... 12%  170M 1s
+#22 11.99   9000K .......... .......... .......... .......... .......... 13%  116M 1s
+#22 11.99   9050K .......... .......... .......... .......... .......... 13%  148M 1s
+#22 12.00   9100K .......... .......... .......... .......... .......... 13%  161M 1s
+#22 12.00   9150K .......... .......... .......... .......... .......... 13%  158M 1s
+#22 12.00   9200K .......... .......... .......... .......... .......... 13%  134M 1s
+#22 12.00   9250K .......... .......... .......... .......... .......... 13%  120M 1s
+#22 12.00   9300K .......... .......... .......... .......... .......... 13%  127M 1s
+#22 12.00   9350K .......... .......... .......... .......... .......... 13%  142M 1s
+#22 12.00   9400K .......... .......... .......... .......... .......... 13%  160M 1s
+#22 12.00   9450K .......... .......... .......... .......... .......... 13%  225M 1s
+#22 12.00   9500K .......... .......... .......... .......... .......... 13%  180M 1s
+#22 12.00   9550K .......... .......... .......... .......... .......... 13%  177M 1s
+#22 12.00   9600K .......... .......... .......... .......... .......... 13%  134M 1s
+#22 12.00   9650K .......... .......... .......... .......... .......... 13%  111M 1s
+#22 12.00   9700K .......... .......... .......... .......... .......... 14%  114M 1s
+#22 12.00   9750K .......... .......... .......... .......... .......... 14%  151M 1s
+#22 12.00   9800K .......... .......... .......... .......... .......... 14%  147M 1s
+#22 12.00   9850K .......... .......... .......... .......... ...2025-11-22 19:34:16.283Z: ....... 14%  131M 1s
+#22 12.00   9900K .......... .......... .......... .......... .......... 14%  121M 1s
+#22 12.00   9950K .......... .......... .......... .......... .......... 14%  179M 1s
+#22 12.00  10000K .......... .......... .......... .......... .......... 14%  138M 1s
+#22 12.00  10050K .......... .......... .......... .......... .......... 14%  171M 1s
+#22 12.00  10100K .......... .......... .......... .......... .......... 14%  186M 1s
+#22 12.00  10150K .......... .......... .......... .......... .......... 14%  180M 1s
+#22 12.00  10200K .......... .......... .......... .......... .......... 14%  153M 1s
+#22 12.00  10250K .......... .......... .......... .......... .......... 14%  220M 1s
+#22 12.00  10300K .......... .......... .......... .......... .......... 14%  186M 1s
+#22 12.00  10350K .......... .......... .......... .......... .......... 14%  177M 1s
+#22 12.00  10400K .......... .......... .......... .......... .......... 15%  199M 1s
+#22 12.00  10450K .......... .......... .......... .......... .......... 15%  229M 1s
+#22 12.00  10500K .......... .......... .......... .......... .......... 15%  177M 1s
+#22 12.00  10550K .......... .......... .......... .......... .......... 15%  144M 1s
+#22 12.01  10600K .......... .......... .......... .......... .......... 15%  154M 1s
+#22 12.01  10650K .......... .......... .......... .......... .......... 15%  181M 1s
+#22 12.01  10700K .......... .......... .......... .......... .......... 15%  126M 1s
+#22 12.01  10750K .......... .......... .......... .......... .......... 15%  143M 1s
+#22 12.01  10800K .......... .......... .......... .......... .......... 15%  135M 1s
+#22 12.01  10850K .......... .......... .......... .......... .......... 15%  116M 1s
+#22 12.01  10900K .......... .......... .......... .......... .......... 15%  131M 1s
+#22 12.01  10950K .......... .......... .......... .......... .......... 15%  148M 1s
+#22 12.01  11000K .......... .......... .......... .......... .......... 15%  158M 1s
+#22 12.01  11050K .......... .......... .......... .......... .......... 15%  113M 1s
+#22 12.01  11100K .......... .......... .......... .......... .......... 16%  174M 1s
+#22 12.01  11150K .......... .......... .......... .......... .......... 16%  163M 1s
+#22 12.01  11200K .......... .......... .......... .......... .......... 16%  134M 1s
+#22 12.01  11250K .......... .......... .......... .......... .......... 16%  147M 1s
+#22 12.01  11300K .......... .......... .......... .......... .......... 16%  171M 1s
+#22 12.01  11350K .......... .......... .......... .......... .......... 16%  207M 1s
+#22 12.01  11400K .......... .......... .......... .......... .......... 16%  181M 1s
+#22 12.01  11450K .......... .......... .......... .......... .......... 16%  180M 1s
+#22 12.01  11500K .......... .......... .......... .......... .......... 16%  225M 1s
+#22 12.01  11550K .......... .......... .......... .......... .......... 16%  189M 1s
+#22 12.01  11600K .......... .......... .......... .......... .......... 16% 57.2M 1s
+#22 12.01  11650K .......... .......... .......... .......... .......... 16%  210M 1s
+#22 12.01  11700K .......... .......... .......... .......... .......... 16%  164M 1s
+#22 12.01  11750K .......... .......... .......... .......... .......... 17%  143M 1s
+#22 12.01  11800K .......... .......... .......... .......... .......... 17%  136M 1s
+#22 12.01  11850K .......... .......... .......... .......... .......... 17%  181M 1s
+#22 12.01  11900K .......... .......... .......... .......... .......... 17%  194M 1s
+#22 12.01  11950K .......... .......... .......... .......... .......... 17%  230M 1s
+#22 12.01  12000K .......... .......... .......... .......... .......... 17%  167M 1s
+#22 12.01  12050K .......... .......... .......... .......... .......... 17%  234M 1s
+#22 12.01  12100K .......... .......... .......... .......... .......... 17%  129M 1s
+#22 12.01  12150K .......... .......... .......... .......... .......... 17%  172M 1s
+#22 12.02  12200K .......... .......... .......... .......... .........2025-11-22 19:34:16.284Z: . 17%  194M 1s
+#22 12.02  12250K .......... .......... .......... .......... .......... 17%  160M 1s
+#22 12.02  12300K .......... .......... .......... .......... .......... 17%  117M 1s
+#22 12.02  12350K .......... .......... .......... .......... .......... 17%  119M 1s
+#22 12.02  12400K .......... .......... .......... .......... .......... 17%  146M 1s
+#22 12.02  12450K .......... .......... .......... .......... .......... 18%  186M 1s
+#22 12.02  12500K .......... .......... .......... .......... .......... 18%  185M 1s
+#22 12.02  12550K .......... .......... .......... .......... .......... 18%  137M 1s
+#22 12.02  12600K .......... .......... .......... .......... .......... 18%  183M 1s
+#22 12.02  12650K .......... .......... .......... .......... .......... 18%  139M 1s
+#22 12.02  12700K .......... .......... .......... .......... .......... 18%  130M 1s
+#22 12.02  12750K .......... .......... .......... .......... .......... 18%  153M 0s2025-11-22 19:34:16.286Z: 
+#22 12.02  12800K .......... .......... .......... .......... .......... 18%  176M 0s
+#22 12.02  12850K .......... .......... .......... .......... .......... 18%  161M 0s
+#22 12.02  12900K .......... .......... .......... .......... .......... 18%  162M 0s
+#22 12.02  12950K .......... .......... .......... .......... .......... 18%  210M 0s
+#22 12.02  13000K .......... .......... .......... .......... .......... 18%  196M 0s
+#22 12.02  13050K .......... .......... .......... .......... .......... 18%  140M 0s
+#22 12.02  13100K .......... .......... .......... .......... .......... 18%  106M 0s
+#22 12.02  13150K .......... .......... .......... .......... .......... 19%  149M 0s
+#22 12.02  13200K .......... .......... .......... .......... .......... 19%  153M 0s
+#22 12.02  13250K .......... .......... .......... .......... .......... 19%  171M 0s
+#22 12.02  13300K .......... .......... .......... .......... .......... 19%  115M 0s
+#22 12.02  13350K .......... .......... .......... .......... .......... 19%  105M 0s
+#22 12.02  13400K .......... .......... .......... .......... .......... 19%  136M 0s
+#22 12.02  13450K .......... .......... .......... .......... .......... 19%  105M 0s
+#22 12.02  13500K .......... .......... .......... .......... .......... 19%  116M 0s
+#22 12.02  13550K .......... .......... .......... .......... .......... 19%  146M 0s
+2025-11-22 19:34:16.286Z: #22 12.02  13600K .......... .......... .......... .......... .......... 19%  132M 0s
+#22 12.02  13650K .......... .......... .......... .......... .......... 19%  149M 0s
+#22 12.03  13700K .......... .......... .......... .......... .......... 19%  140M 0s
+#22 12.03  13750K .......... .......... .......... .......... .......... 19%  152M 0s
+#22 12.03  13800K .......... .......... .......... .......... .......... 19%  182M 0s
+#22 12.03  13850K .......... .......... .......... .......... .......... 20%  167M 0s
+#22 12.03  13900K .......... .......... .......... .......... .......... 20%  173M 0s
+#22 12.03  13950K .......... .......... .......... .......... .......... 20%  197M 0s
+#22 12.03  14000K .......... .......... .......... .......... .......... 20%  215M 0s
+#22 12.03  14050K .......... .......... .......... .......... .......... 20%  189M 0s
+#22 12.03  14100K .......... .......... .......... .......... .......... 20%  173M 0s
+#22 12.03  14150K .......... .......... .......... .......... .......... 20%  190M 0s
+#22 12.03  14200K .......... .......... .......... .......... .......... 20%  220M 0s
+#22 12.03  14250K .......... .......... .......... .......... .......... 20%  158M 0s
+#22 12.03  14300K .......... .......... .......... .......... .......... 20%  127M 0s
+#22 12.03  14350K .......... .......... .......... .......... .......... 20%  177M 0s
+#22 12.03  14400K .......... .......... .......... .......... .......... 20%  138M 0s
+#22 12.03  14450K .......... .......... .......... .......... .......... 20%  181M 0s
+#22 12.03  14500K .......... .......... .......... .......... .......... 20%  142M 0s
+#22 12.03  14550K .......... .......... .......... .......... .......... 21%  146M 0s
+#22 12.03  14600K .......... .......... .......... .......... .......... 21%  155M 0s
+#22 12.03  14650K .......... .......... .......... .......... .......... 21%  174M 0s
+#22 12.03  14700K .......... .......... .......... .......... .......... 21%  115M 0s
+#22 12.03  14750K .......... .......... .......... .......... .......... 21%  155M 0s
+#22 12.03  14800K .......... .......... .......... .......... .......... 21%  157M 0s
+#22 12.03  14850K .......... .......... .......... .......... .......... 21%  146M 0s
+#22 12.03  14900K .......... .......... .......... .......... .......... 21%  137M 0s
+#22 12.03  14950K .......... .......... .......... .......... .......... 21%  158M 0s
+#22 12.03  15000K .......... .......... .......... .......... .......... 21%  150M 0s
+#22 12.03  15050K .......... .......... .......... .......... .......... 21%  138M 0s
+#22 12.03  15100K .......... .......... .......... .......... .......... 21%  137M 0s
+#22 12.03  15150K .......... .......... .......... .......... .......... 21%  131M 0s
+#22 12.03  15200K .......... .......... .......... .......... .......... 21%  145M 0s
+#22 12.03  15250K .......... .......... .......... .......... .......... 22%  193M 0s
+#22 12.04  15300K .......... .......... .......... .......... .......... 22%  223M 0s
+#22 12.04  15350K .......... .......... .......... .......... .......... 22%  161M 0s
+#22 12.04  15400K .......... .......... .......... .......... .......... 22%  249M 0s
+#22 12.04  15450K .......... .......... .......... .......... .......... 22%  208M 0s
+#22 12.04  15500K .......... .......... .......... .......... .......... 22%  188M 0s
+#22 12.04  15550K .......... .......... .......... .......... .......... 22%  150M 0s
+#22 12.04  15600K .......... .......... .......... .......... .......... 22%  234M 0s
+#22 12.04  15650K .......... .......... .......... .......... .......... 22%  196M 0s
+#22 12.04  15700K .......... .......... .......... .......... .......... 22%  123M 0s
+#22 12.04  15750K .......... .......... .......... .......... .......... 22%  156M 0s
+#22 12.04  15800K .......... .......... .......... .......... .......... 22%  186M 0s
+#22 12.04  15850K .......... .......... .......... .......... .......... 22%  145M 0s
+#22 12.04  15900K .......... .......... .......... .......... .......... 22%  145M 0s
+#22 122025-11-22 19:34:16.287Z: .04  15950K .......... .......... .......... .......... .......... 23%  149M 0s
+#22 12.04  16000K .......... .......... .......... .......... .......... 23%  150M 0s
+#22 12.04  16050K .......... .......... .......... .......... .......... 23%  150M 0s
+#22 12.04  16100K .......... .......... .......... .......... .......... 23%  123M 0s
+#22 12.04  16150K .......... .......... .......... .......... .......... 23%  167M 0s
+#22 12.04  16200K .......... .......... .......... .......... .......... 23%  173M 0s
+#22 12.04  16250K .......... .......... .......... .......... .......... 23%  178M 0s
+#22 12.04  16300K .......... .......... .......... .......... .......... 23%  192M 0s
+#22 12.04  16350K .......... .......... .......... .......... .......... 23%  164M 0s
+#22 12.04  16400K .......... .......... .......... .......... .......... 23%  169M 0s
+#22 12.04  16450K .......... .......... .......... .......... .......... 23%  148M 0s
+#22 12.04  16500K .......... .......... .......... .......... .......... 23%  248M 0s
+#22 12.04  16550K .......... .......... .......... .......... .......... 23%  190M 0s
+#22 12.04  16600K .......... .......... .......... .......... .......... 23%  230M 0s
+#22 12.04  16650K .......... .......... .......... .......... .......... 24%  173M 0s
+#22 12.04  16700K .......... .......... .......... .......... .......... 24%  160M 0s
+#22 12.04  16750K .......... .......... .......... .......... .......... 24%  155M 0s
+#22 12.04  16800K .......... .......... .......... .......... .......... 24%  145M 0s
+#22 12.04  16850K .......... .......... .......... .......... .......... 24%  131M 0s
+#22 12.04  16900K .......... .......... .......... .......... .......... 24%  204M 0s
+#22 12.04  16950K .......... .......... .......... .......... .......... 24%  149M 0s
+#22 12.05  17000K .......... .......... .......... .......... .......... 24%  153M 0s
+#22 12.05  17050K .......... .......... .......... .......... .......... 24%  121M 0s
+#22 12.05  17100K .......... .......... .......... .......... .......... 24%  165M 0s
+#22 12.05  17150K .......... .......... .......... .......... .......... 24%  169M 0s
+#22 12.05  17200K .......... .......... .......... .......... .......... 24%  112M 0s
+#22 12.05  17250K .......... .......... .......... .......... .......... 24%  116M 0s
+#22 12.05  17300K .......... .......... .......... .......... .......... 24%  173M 0s
+#22 12.05  17350K .......... .......... .......... .......... .......... 25%  126M 0s
+#22 12.05  17400K .......... .......... .......... .......... .......... 25%  142M 0s
+#22 12.05  17450K .......... .......... .......... .......... .......... 25%  179M 0s
+#22 12.05  17500K .......... .......... .......... .......... .......... 25%  187M 0s
+#22 12.05  17550K .......... .......... .......... .......... .......... 25%  189M 0s
+#22 12.05  17600K .......... .......... .......... .......... .......... 25%  222M 0s
+#22 12.05  17650K .......... .......... .......... .......... .......... 25%  191M 0s
+#22 12.05  17700K .......... .......... .......... .......... .......... 25%  141M 0s
+#22 12.05  17750K .......... .......... .......... .......... .......... 25%  160M 0s
+#22 12.05  17800K .......... .......... .......... .......... .......... 25%  184M 0s
+#22 12.05  17850K .......... .......... .......... .......... .......... 25%  144M 0s
+#22 12.05  17900K .......... .......... .......... .......... .......... 25%  136M 0s
+#22 12.05  17950K .......... .......... .......... .......... .......... 25%  149M 0s
+#22 12.05  18000K .......... .......... .......... .......... .......... 26%  155M 0s
+#22 12.05  18050K .......... .......... .......... .......... .......... 26%  151M 0s
+#22 12.05  18100K .......... .......... .......... .......... .......... 26%  129M 0s
+#22 12.05  18150K .......... .......... .......... .......... .......... 26%  166M 0s
+#22 12.05  18200K .......... .......... .......... .......... .......... 26%  112M 0s
+#22 12.05  18250K .......... .......... .......... .......... .......... 26%  122M 0s
+#22 12.05  12025-11-22 19:34:16.287Z: 8300K .......... .......... .......... .......... .......... 26%  115M 0s
+#22 12.05  18350K .......... .......... .......... .......... .......... 26%  144M 0s
+#22 12.05  18400K .......... .......... .......... .......... .......... 26%  176M 0s
+#22 12.05  18450K .......... .......... .......... .......... .......... 26%  182M 0s
+#22 12.05  18500K .......... .......... .......... .......... .......... 26%  220M 0s
+#22 12.06  18550K .......... .......... .......... .......... .......... 26%  176M 0s
+#22 12.06  18600K .......... .......... .......... .......... .......... 26%  150M 0s
+#22 12.06  18650K .......... .......... .......... .......... .......... 26%  210M 0s
+#22 12.06  18700K .......... .......... .......... .......... .......... 27%  168M 0s
+#22 12.06  18750K .......... .......... .......... .......... .......... 27%  131M 0s
+#22 12.06  18800K .......... .......... .......... .......... .......... 27%  155M 0s
+#22 12.06  18850K .......... .......... .......... .......... .......... 27%  138M 0s
+#22 12.06  18900K .......... .......... .......... .......... .......... 27%  114M 0s
+#22 12.06  18950K .......... .......... .......... .......... .......... 27%  132M 0s
+#22 12.06  19000K .......... .......... .......... .......... .......... 27%  139M 0s
+#22 12.06  19050K .......... .......... .......... .......... .......... 27%  137M 0s
+#22 12.06  19100K .......... .......... .......... .......... .......... 27%  122M 0s
+#22 12.06  19150K .......... .......... .......... .......... .......... 27%  176M 0s
+#22 12.06  19200K .......... .......... .......... .......... .......... 27%  149M 0s
+#22 12.06  19250K .......... .......... .......... .......... .......... 27%  131M 0s
+#22 12.06  19300K .......... .......... .......... .......... .......... 27%  129M 0s
+#22 12.06  19350K .......... .......... .......... .......... .......... 27%  209M 0s
+#22 12.06  19400K .......... .......... .......... .......... .......... 28%  191M 0s
+#22 12.06  19450K .......... .......... .......... .......... .......... 28%  196M 0s
+#22 12.06  19500K .......... .......... .......... .......... .......... 28%  179M 0s
+#22 12.06  19550K .......... .......... .......... .......... .......... 28%  159M 0s
+#22 12.06  19600K .......... .......... .......... .......... .......... 28%  196M 0s
+#22 12.06  19650K .......... .......... .......... .......... .......... 28%  226M 0s
+#22 12.06  19700K .......... .......... .......... .......... .......... 28%  128M 0s
+#22 12.06  19750K .......... .......... .......... .......... .......... 28%  137M 0s
+#22 12.06  19800K .......... .......... .......... .......... .......... 28%  117M 0s
+#22 12.06  19850K .......... .......... .......... .......... .......... 28%  153M 0s
+#22 12.06  19900K .......... .......... .......... .......... .......... 28%  176M 0s
+#22 12.06  19950K .......... .......... .......... .......... .......... 28%  160M 0s
+#22 12.06  20000K .......... .......... .......... .......... .......... 28%  112M 0s
+#22 12.06  20050K .......... .......... .......... .......... .......... 28%  147M 0s
+#22 12.07  20100K .......... .......... .......... .......... .......... 29%  124M 0s
+#22 12.07  20150K .......... .......... .......... .......... .......... 29%  166M 0s
+#22 12.07  20200K .......... .......... .......... .......... .......... 29%  206M 0s
+#22 12.07  20250K .......... .......... .......... .......... .......... 29%  164M 0s
+#22 12.07  20300K .......... .......... .......... .......... .......... 29%  156M 0s
+#22 12.07  20350K .......... .......... .......... .......... .......... 29%  162M 0s
+#22 12.07  20400K .......... .......... .......... .......... .......... 29%  148M 0s
+#22 12.07  20450K .......... .......... .......... .......... .......... 29%  113M 0s
+#22 12.07  20500K .......... .......... .......... .......... .......... 29%  166M 0s
+#22 12.07  20550K .......... .......... .......... .......... .......... 29%  140M 0s
+#22 12.07  20600K .......... .......... .......... .......... .......... 29%  164M 0s
+#22 12.07  20650K 2025-11-22 19:34:16.287Z: .......... .......... .......... .......... .......... 29%  189M 0s
+#22 12.07  20700K .......... .......... .......... .......... .......... 29%  150M 0s
+#22 12.07  20750K .......... .......... .......... .......... .......... 29%  188M 0s
+#22 12.07  20800K .......... .......... .......... .......... .......... 30%  205M 0s
+#22 12.07  20850K .......... .......... .......... .......... .......... 30%  181M 0s
+#22 12.07  20900K .......... .......... .......... .......... .......... 30%  186M 0s
+#22 12.07  20950K .......... .......... .......... .......... .......... 30%  147M 0s
+#22 12.07  21000K .......... .......... .......... .......... .......... 30%  140M 0s
+#22 12.07  21050K .......... .......... .......... .......... .......... 30%  141M 0s
+#22 12.07  21100K .......... .......... .......... .......... .......... 30%  122M 0s
+#22 12.07  21150K .......... .......... .......... .......... .......... 30%  171M 0s
+#22 12.07  21200K .......... .......... .......... .......... .......... 30%  151M 0s
+#22 12.07  21250K .......... .......... .......... .......... .......... 30%  135M 0s
+#22 12.07  21300K .......... .......... .......... .......... .......... 30%  123M 0s
+#22 12.07  21350K .......... .......... ...2025-11-22 19:34:16.397Z: ....... .......... .......... 30%  174M 0s
+#22 12.07  21400K .......... .......... .......... .......... .......... 30%  120M 0s
+#22 12.07  21450K .......... .......... .......... .......... .......... 30%  125M 0s
+#22 12.08  21500K .......... .......... .......... .......... .......... 31%  138M 0s
+#22 12.08  21550K .......... .......... .......... .......... .......... 31%  158M 0s
+#22 12.08  21600K .......... .......... .......... .......... .......... 31%  161M 0s
+#22 12.08  21650K .......... .......... .......... .......... .......... 31%  166M 0s
+#22 12.08  21700K .......... .......... .......... .......... .......... 31%  170M 0s
+#22 12.08  21750K .......... .......... .......... .......... .......... 31%  201M 0s
+#22 12.08  21800K .......... .......... .......... .......... .......... 31%  211M 0s
+#22 12.08  21850K .......... .......... .......... .......... .......... 31%  185M 0s
+#22 12.08  21900K .......... .......... .......... .......... .......... 31%  131M 0s
+#22 12.08  21950K .......... .......... .......... .......... .......... 31%  157M 0s
+#22 12.08  22000K .......... .......... .......... .......... .......... 31%  235M 0s
+#22 12.08  22050K .......... .......... .......... .......... .......... 31%  192M 0s
+#22 12.08  22100K .......... .......... .......... .......... .......... 31%  178M 0s
+#22 12.08  22150K .......... .......... .......... .......... .......... 31%  196M 0s
+#22 12.08  22200K .......... .......... .......... .......... .......... 32%  203M 0s
+#22 12.08  22250K .......... .......... .......... .......... .......... 32%  169M 0s
+#22 12.08  22300K .......... .......... .......... .......... .......... 32%  164M 0s
+#22 12.08  22350K .......... .......... .......... .......... .......... 32%  138M 0s
+#22 12.08  22400K .......... .......... .......... .......... .......... 32%  139M 0s
+#22 12.08  22450K .......... .......... .......... .......... .......... 32%  150M 0s
+#22 12.08  22500K .......... .......... .......... .......... .......... 32%  168M 0s
+#22 12.08  22550K .......... .......... .......... .......... .......... 32%  111M 0s
+#22 12.08  22600K .......... .......... .......... .......... .......... 32%  115M 0s
+#22 12.08  22650K .......... .......... .......... .......... .......... 32%  158M 0s
+#22 12.08  22700K .......... .......... .......... .......... .......... 32%  214M 0s
+#22 12.08  22750K .......... .......... .......... .......... .......... 32%  194M 0s
+#22 12.08  22800K .......... .......... .......... .......... .......... 32%  189M 0s
+#22 12.08  22850K .......... .......... .......... .......... .......... 32%  171M 0s
+#22 12.08  22900K .......... .......... .......... .......... .......... 33%  211M 0s
+#22 12.08  22950K .......... .......... .......... .......... .......... 33%  159M 0s
+#22 12.08  23000K .......... .......... .......... .......... .......... 33%  112M 0s
+#22 12.08  23050K .......... .......... .......... .......... .......... 33%  137M 0s
+#22 12.08  23100K .......... .......... .......... .......... .......... 33%  139M 0s
+#22 12.08  23150K .......... .......... .......... .......... .......... 33% 25.9M 0s
+#22 12.09  23200K .......... .......... .......... .......... .......... 33%  146M 0s
+#22 12.09  23250K .......... .......... .......... .......... .......... 33%  173M 0s
+#22 12.09  23300K .......... .......... .......... .......... .......... 33%  165M 0s
+#22 12.09  23350K .......... .......... .......... .......... .......... 33%  199M 0s
+#22 12.09  23400K .......... .......... .......... .......... .......... 33%  137M 0s
+#22 12.09  23450K .......... .......... .......... .......... .......... 33%  175M 0s
+#22 12.09  23500K .......... .......... .......... .......... .......... 33%  187M 0s
+#22 12.09  23550K .......... .......... .......... .......... .......... 34%  179M 0s
+#22 12.09  23600K .......... .......... .......... .......... .......... 34% 60.8M 0s
+#22 12.09  23650K .......... .......... .......... .......... .......... 34%  191M 0s
+#22 12.09  23700K .......... .......... .........2025-11-22 19:34:16.397Z: . .......... .......... 34%  174M 0s
+#22 12.09  23750K .......... .......... .......... .......... .......... 34%  191M 0s
+#22 12.09  23800K .......... .......... .......... .......... .......... 34%  167M 0s
+#22 12.09  23850K .......... .......... .......... .......... .......... 34% 39.4M 0s
+#22 12.09  23900K .......... .......... .......... .......... .......... 34%  185M 0s
+#22 12.09  23950K .......... .......... .......... .......... .......... 34%  207M 0s
+#22 12.09  24000K .......... .......... .......... .......... .......... 34%  170M 0s
+#22 12.09  24050K .......... .......... .......... .......... .......... 34%  183M 0s
+#22 12.09  24100K .......... .......... .......... .......... .......... 34%  201M 0s
+#22 12.09  24150K .......... .......... .......... .......... .......... 34%  158M 0s
+#22 12.09  24200K .......... .......... .......... .......... .......... 34% 35.8M 0s
+#22 12.10  24250K .......... .......... .......... .......... .......... 35% 99.4M 0s
+#22 12.10  24300K .......... .......... .......... .......... .......... 35%  218M 0s
+#22 12.10  24350K .......... .......... .......... .......... .......... 35%  242M 0s
+#22 12.10  24400K .......... .......... .......... .......... .......... 35%  219M 0s
+#22 12.10  24450K .......... .......... .......... .......... .......... 35%  253M 0s
+#22 12.10  24500K .......... .......... .......... .......... .......... 35%  224M 0s
+#22 12.10  24550K .......... .......... .......... .......... .......... 35%  262M 0s
+#22 12.10  24600K .......... .......... .......... .......... .......... 35%  244M 0s
+#22 12.10  24650K .......... .......... .......... .......... .......... 35% 10.8M 0s
+#22 12.13  24700K .......... .......... .......... .......... .......... 35%  300M 0s
+#22 12.13  24750K .......... .......... .......... .......... .......... 35%  306M 0s
+#22 12.13  24800K .......... .......... .......... .......... .......... 35%  298M 0s
+#22 12.13  24850K .......... .......... .......... .......... .......... 35%  248M 0s
+#22 12.13  24900K .......... .......... .......... .......... .......... 35%  310M 0s
+#22 12.13  24950K .......... .......... .......... .......... .......... 36%  311M 0s
+#22 12.13  25000K .......... .......... .......... .......... .......... 36%  250M 0s
+#22 12.13  25050K .......... .......... .......... .......... .......... 36%  258M 0s
+#22 12.13  25100K .......... .......... .......... .......... .......... 36%  161M 0s
+#22 12.13  25150K .......... .......... .......... .......... .......... 36%  219M 0s
+#22 12.13  25200K .......... .......... .......... .......... .......... 36%  221M 0s
+#22 12.13  25250K .......... .......... .......... .......... .......... 36%  267M 0s
+#22 12.13  25300K .......... .......... .......... .......... .......... 36%  239M 0s
+#22 12.13  25350K .......... .......... .......... .......... .......... 36%  258M 0s
+#22 12.13  25400K .......... .......... .......... .......... .......... 36%  234M 0s
+#22 12.13  25450K .......... .......... .......... .......... .......... 36%  214M 0s
+#22 12.13  25500K .......... .......... .......... .......... .......... 36%  164M 0s
+#22 12.13  25550K .......... .......... .......... .......... .......... 36%  236M 0s
+#22 12.13  25600K .......... .......... .......... .......... .......... 36%  238M 0s
+#22 12.13  25650K .......... .......... .......... .......... .......... 37%  194M 0s
+#22 12.13  25700K .......... .......... .......... .......... .......... 37%  192M 0s
+#22 12.13  25750K .......... .......... .......... .......... .......... 37%  251M 0s
+#22 12.13  25800K .......... .......... .......... .......... .......... 37%  291M 0s
+#22 12.13  25850K .......... .......... .......... .......... .......... 37%  285M 0s
+#22 12.13  25900K .......... .......... .......... .......... .......... 37%  181M 0s
+#22 12.13  25950K .......... .......... .......... .......... .......... 37%  207M 0s
+#22 12.13  26000K .......... .......... .......... .......... .......... 37%  251M 0s
+#22 12.13  26050K .......... .......... .......... ....2025-11-22 19:34:16.397Z: ...... .......... 37%  266M 0s
+#22 12.13  26100K .......... .......... .......... .......... .......... 37%  298M 0s
+#22 12.13  26150K .......... .......... .......... .......... .......... 37%  296M 0s
+#22 12.13  26200K .......... .......... .......... .......... .......... 37%  298M 0s
+#22 12.13  26250K .......... .......... .......... .......... .......... 37%  244M 0s
+#22 12.13  26300K .......... .......... .......... .......... .......... 37%  249M 0s
+#22 12.13  26350K .......... .......... .......... .......... .......... 38%  289M 0s
+#22 12.13  26400K .......... .......... .......... .......... .......... 38%  252M 0s
+#22 12.13  26450K .......... .......... .......... .......... .......... 38%  223M 0s
+#22 12.13  26500K .......... .......... .......... .......... .......... 38%  222M 0s
+#22 12.13  26550K .......... .......... .......... .......... .......... 38%  192M 0s
+#22 12.13  26600K .......... .......... .......... .......... .......... 38%  278M 0s
+#22 12.13  26650K .......... .......... .......... .......... .......... 38%  248M 0s
+#22 12.13  26700K .......... .......... .......... .......... .......... 38%  294M 0s
+#22 12.13  26750K .......... .......... .......... .......... .......... 38%  286M 0s
+#22 12.13  26800K .......... .......... .......... .......... .......... 38%  239M 0s
+#22 12.13  26850K .......... .......... .......... .......... .......... 38%  228M 0s
+#22 12.13  26900K .......... .......... .......... .......... .......... 38%  297M 0s
+#22 12.13  26950K .......... .......... .......... .......... .......... 38%  290M 0s
+#22 12.13  27000K .......... .......... .......... .......... .......... 38%  247M 0s
+#22 12.13  27050K .......... .......... .......... .......... .......... 39%  244M 0s
+#22 12.13  27100K .......... .......... .......... .......... .......... 39%  250M 0s
+#22 12.13  27150K .......... .......... .......... .......... .......... 39%  267M 0s
+#22 12.13  27200K .......... .......... .......... .......... .......... 39%  295M 0s
+#22 12.13  27250K .......... .......... .......... .......... .......... 39%  296M 0s
+#22 12.13  27300K .......... .......... .......... .......... .......... 39%  306M 0s
+#22 12.13  27350K .......... .......... .......... .......... .......... 39%  200M 0s
+#22 12.13  27400K .......... .......... .......... .......... .......... 39%  254M 0s
+#22 12.13  27450K .......... .......... .......... .......... .......... 39%  295M 0s
+#22 12.13  27500K .......... .......... .......... .......... .......... 39%  295M 0s
+#22 12.13  27550K .......... .......... .......... .......... .......... 39%  296M 0s
+#22 12.13  27600K .......... .......... .......... .......... .......... 39%  198M 0s
+#22 12.13  27650K .......... .......... .......... .......... .......... 39%  281M 0s
+#22 12.13  27700K .......... .......... .......... .......... .......... 39%  278M 0s
+#22 12.13  27750K .......... .......... .......... .......... .......... 40%  300M 0s
+#22 12.13  27800K .......... .......... .......... .......... .......... 40%  300M 0s
+#22 12.13  27850K .......... .......... .......... .......... .......... 40%  268M 0s
+#22 12.13  27900K .......... .......... .......... .......... .......... 40%  209M 0s
+#22 12.13  27950K .......... .......... .......... .......... .......... 40%  303M 0s
+#22 12.13  28000K .......... .......... .......... .......... .......... 40%  302M 0s
+#22 12.13  28050K .......... .......... .......... .......... .......... 40%  250M 0s
+#22 12.13  28100K .......... .......... .......... .......... .......... 40%  304M 0s
+#22 12.13  28150K .......... .......... .......... .......... .......... 40%  241M 0s
+#22 12.13  28200K .......... .......... .......... .......... .......... 40%  266M 0s
+#22 12.13  28250K .......... .......... .......... .......... .......... 40%  273M 0s
+#22 12.13  28300K .......... .......... .......... .......... .......... 40%  267M 0s
+#22 12.13  28350K .......... .......... .......... .......... .......... 40%  299M 0s
+#22 12.13  28400K .......... .......... .......... ..........2025-11-22 19:34:16.398Z:  .......... 40%  307M 0s
+#22 12.13  28450K .......... .......... .......... .......... .......... 41% 98.3M 0s
+#22 12.13  28500K .......... .......... .......... .......... .......... 41%  262M 0s
+#22 12.13  28550K .......... .......... .......... .......... .......... 41%  310M 0s
+#22 12.13  28600K .......... .......... .......... .......... .......... 41%  285M 0s
+#22 12.13  28650K .......... .......... .......... .......... .......... 41%  112M 0s
+#22 12.13  28700K .......... .......... .......... .......... .......... 41%  244M 0s
+#22 12.13  28750K .......... .......... .......... .......... .......... 41%  292M 0s
+#22 12.13  28800K .......... .......... .......... .......... .......... 41%  300M 0s
+#22 12.13  28850K .......... .......... .......... .......... .......... 41%  228M 0s
+#22 12.13  28900K .......... .......... .......... .......... .......... 41%  197M 0s
+#22 12.13  28950K .......... .......... .......... .......... .......... 41%  295M 0s
+#22 12.13  29000K .......... .......... .......... .......... .......... 41%  297M 0s
+#22 12.13  29050K .......... .......... .......... .......... .......... 41%  271M 0s
+#22 12.13  29100K .......... .......... .......... .......... .......... 42%  212M 0s
+#22 12.13  29150K .......... .......... .......... .......... .......... 42%  279M 0s
+#22 12.13  29200K .......... .......... .......... .......... .......... 42%  269M 0s
+#22 12.13  29250K .......... .......... .......... .......... .......... 42%  294M 0s
+#22 12.13  29300K .......... .......... .......... .......... .......... 42%  302M 0s
+#22 12.13  29350K .......... .......... .......... .......... .......... 42%  302M 0s
+#22 12.13  29400K .......... .......... .......... .......... .......... 42%  151M 0s
+#22 12.13  29450K .......... .......... .......... .......... .......... 42%  298M 0s
+#22 12.13  29500K .......... .......... .......... .......... .......... 42%  302M 0s
+#22 12.13  29550K .......... .......... .......... .......... .......... 42%  301M 0s
+#22 12.13  29600K .......... .......... .......... .......... .......... 42% 56.6M 0s
+#22 12.13  29650K .......... .......... .......... .......... .......... 42%  236M 0s
+#22 12.13  29700K .......... .......... .......... .......... .......... 42%  245M 0s
+#22 12.13  29750K .......... .......... .......... .......... .......... 42%  234M 0s
+#22 12.13  29800K .......... .......... .......... .......... .......... 43%  303M 0s
+#22 12.13  29850K .......... .......... .......... .......... .......... 43%  271M 0s
+#22 12.13  29900K .......... .......... .......... .......... .......... 43%  294M 0s
+#22 12.13  29950K .......... .......... .......... .......... .......... 43% 36.2M 0s
+#22 12.13  30000K .......... .......... .......... .......... .......... 43%  223M 0s
+#22 12.13  30050K .......... .......... .......... .......... .......... 43%  244M 0s
+#22 12.13  30100K .......... .......... .......... .......... .......... 43%  311M 0s
+#22 12.13  30150K .......... .......... .......... .......... .......... 43%  303M 0s
+#22 12.13  30200K .......... .......... .......... .......... .......... 43%  244M 0s
+#22 12.13  30250K .......... .......... .......... .......... .......... 43%  238M 0s
+#22 12.13  30300K .......... .......... .......... .......... .......... 43%  273M 0s
+#22 12.13  30350K .......... .......... .......... .......... .......... 43%  301M 0s
+#22 12.13  30400K .......... .......... .......... .......... .......... 43%  305M 0s
+#22 12.13  30450K .......... .......... .......... .......... .......... 43% 12.4M 0s
+#22 12.13  30500K .......... .......... .......... .......... .......... 44%  230M 0s
+#22 12.13  30550K .......... .......... .......... .......... .......... 44%  232M 0s
+#22 12.13  30600K .......... .......... .......... .......... .......... 44%  225M 0s
+#22 12.13  30650K .......... .......... .......... .......... .......... 44%  299M 0s
+#22 12.13  30700K .......... .......... .......... .......... .......... 44%  276M 0s
+#22 12.13  30750K .......... .......... .......... .......... .....2025-11-22 19:34:16.403Z: ..... 44%  267M 0s
+#22 12.13  30800K .......... .......... .......... .......... .......... 44%  233M 0s
+#22 12.13  30850K .......... .......... .......... .......... .......... 44%  219M 0s
+#22 12.13  30900K .......... .......... .......... .......... .......... 44%  270M 0s
+#22 12.13  30950K .......... .......... .......... .......... .......... 44%  301M 0s2025-11-22 19:34:16.403Z: 
+#22 12.13  31000K .......... .......... .......... .......... .......... 44%  299M 0s
+#22 12.13  31050K .......... .......... .......... .......... .......... 44%  298M 0s
+#22 12.14  31100K .......... .......... .......... .......... .......... 44% 10.8M 0s
+#22 12.14  31150K .......... .......... .......... .......... .......... 44%  284M 0s
+#22 12.14  31200K .......... .......... .......... .......... .......... 45%  270M 0s
+#22 12.14  31250K .......... .......... .......... .......... .......... 45%  230M 0s
+#22 12.14  31300K .......... .......... .......... .......... .......... 45%  237M 0s
+#22 12.14  31350K .......... .......... .......... .......... .......... 45%  296M 0s
+#22 12.14  31400K .......... .......... .......... .......... .......... 45%  295M 0s
+#22 12.14  31450K .......... .......... .......... .......... .......... 45%  294M 0s
+#22 12.14  31500K .......... .......... .......... .......... .......... 45%  244M 0s
+#22 12.14  31550K .......... .......... .......... .......... .......... 45% 13.1M 0s
+#22 12.14  31600K .......... .......... .......... .......... .......... 45%  288M 0s
+#22 12.14  31650K .......... .......... .......... .......... .......... 45%  240M 0s
+#22 12.14  31700K .......... .......... .......... .......... .......... 45%  232M 0s
+#22 12.14  31750K .......... .......... .......... .......... .......... 45%  291M 0s
+#22 12.14  31800K .......... .......... .......... .......... .......... 45%  292M 0s
+#22 12.14  31850K .......... .......... .......... .......... .......... 45%  298M 0s
+#22 12.14  31900K .......... .......... .......... .......... .......... 46%  246M 0s
+#22 12.15  31950K .......... .......... .......... .......... .......... 46% 12.8M 0s
+#22 12.15  32000K .......... .......... .......... .......... .......... 46%  274M 0s
+#22 12.15  32050K .......... .......... .......... .......... .......... 46%  212M 0s
+#22 12.15  32100K .......... .......... .......... .......... .......... 46%  259M 0s
+#22 12.15  32150K .......... .......... .......... .......... .......... 46%  297M 0s
+#22 12.15  32200K .......... .......... .......... .......... .......... 46%  294M 0s
+#22 12.15  32250K .......... .......... .......... .......... .......... 46%  290M 0s
+#22 12.15  32300K .......... .......... .......... .......... .......... 46% 18.0M 0s
+#22 12.15  32350K .......... .......... .......... .......... .......... 46%  298M 0s
+#22 12.15  32400K .......... .......... .......... .......... .......... 46%  294M 0s
+#22 12.15  32450K .......... .......... .......... .......... .......... 46%  213M 0s
+#22 12.15  32500K .......... .......... .......... .......... .......... 46%  296M 0s
+#22 12.15  32550K .......... .......... .......... .......... .......... 46%  291M 0s
+#22 12.15  32600K .......... .......... .......... .......... .......... 47%  270M 0s
+#22 12.15  32650K .......... .......... .......... .......... .......... 47%  298M 0s
+#22 12.15  32700K .......... .......... .......... .......... .......... 47% 13.4M 0s
+#22 12.16  32750K .......... .......... .......... .......... .......... 47%  284M 0s
+#22 12.16  32800K .......... .......... .......... .......... .......... 47%  301M 0s
+#22 12.16  32850K .......... .......... .......... .......... .......... 47% 34.3M 0s
+#22 12.16  32900K .......... .......... .......... .......... .......... 47%  171M 0s
+#22 12.16  32950K .......... .......... .......... .......... .......... 47%  299M 0s
+#22 12.16  33000K .......... .......... .......... .......... .......... 47%  296M 0s
+#22 12.16  33050K .......... .......... .......... .......... .......... 47% 27.3M 0s
+#22 12.16  33100K .......... .......... .......... .......... .......... 47%  217M 0s
+#22 12.16  33150K .......... .......... .......... .......... .......... 47% 49.7M 0s
+#22 12.16  33200K .......... .......... .......... .......... .......... 47%  248M 0s
+#22 12.16  33250K .......... .......... .......... .......... .......... 47%  208M 0s
+#22 12.16  33300K .......... .......... .......... .......... .......... 48%  238M 0s
+#22 2025-11-22 19:34:16.409Z: 12.16  33350K .......... .......... .......... .......... .......... 48%  298M 0s
+#22 12.16  33400K .......... .......... .......... .......... .......... 48%  308M 0s
+#22 12.16  33450K .......... .......... .......... .......... .......... 48% 18.5M 0s
+#22 12.17  33500K .......... .......... .......... .......... .......... 48%  195M 0s
+#22 12.17  33550K .......... .......... .......... .......... .......... 48%  300M 0s
+#22 12.17  33600K .......... .......... .......... .......... .......... 48%  235M 0s2025-11-22 19:34:16.415Z: 
+2025-11-22 19:34:16.418Z: #22 12.17  33650K .......... .......... .......... .......... .......... 48%  226M 0s
+#22 12.17  33700K .......... .......... .......... .......... .......... 48%  292M 0s
+#22 12.17  33750K .......... .......... .......... .......... .......... 48%  299M 0s
+#22 12.17  33800K .......... .......... .......... .......... .......... 48%  299M 0s
+#22 12.17  33850K .......... .......... .......... .......... .......... 48%  267M 0s
+#22 12.17  33900K .......... .......... .......... .......... .......... 48% 13.0M 0s
+#22 12.17  33950K .......... .......... .......... .......... .......... 48%  253M 0s
+#22 12.17  34000K .......... .......... .......... .......... .......... 49%  237M 0s
+2025-11-22 19:34:16.423Z: #22 12.17  34050K .......... .......... .......... .......... .......... 49%  286M 0s
+#22 12.17  34100K .......... .......... .......... .......... .......... 49%  259M 0s
+#22 12.17  34150K .......... .......... .......... .......... .......... 49%  269M 0s
+#22 12.17  34200K .......... .......... .......... .......... .......... 49%  294M 0s
+#22 12.17  34250K .......... .......... .......... .......2025-11-22 19:34:16.469Z: ... .......... 49% 16.9M 0s
+#22 12.18  34300K .......... .......... .......... .......... .......... 49%  158M 0s
+#22 12.18  34350K .......... .......... .......... .......... .......... 49%  239M 0s
+#22 12.18  34400K .......... .......... .......... .......... .......... 49%  236M 0s
+#22 12.18  34450K .......... .......... .......... .......... .......... 49%  303M 0s
+#22 12.18  34500K .......... .......... .......... .......... .......... 49%  270M 0s
+#22 12.18  34550K .......... .......... .......... .......... .......... 49%  311M 0s
+#22 12.18  34600K .......... .......... .......... .......... .......... 49%  195M 0s
+#22 12.18  34650K .......... .......... .......... .......... .......... 49%  217M 0s
+#22 12.18  34700K .......... .......... .......... .......... .......... 50%  295M 0s
+#22 12.18  34750K .......... .......... .......... .......... .......... 50%  297M 0s
+#22 12.18  34800K .......... .......... .......... .......... .......... 50%  265M 0s
+#22 12.18  34850K .......... .......... .......... .......... .......... 50% 9.38M 0s
+#22 12.18  34900K .......... .......... .......... .......... .......... 50%  272M 0s
+#22 12.18  34950K .......... .......... .......... .......... .......... 50%  294M 0s
+#22 12.18  35000K .......... .......... .......... .......... .......... 50%  246M 0s
+#22 12.18  35050K .......... .......... .......... .......... .......... 50%  289M 0s
+#22 12.18  35100K .......... .......... .......... .......... .......... 50%  227M 0s
+#22 12.18  35150K .......... .......... .......... .......... .......... 50%  237M 0s
+#22 12.18  35200K .......... .......... .......... .......... .......... 50%  262M 0s
+#22 12.18  35250K .......... .......... .......... .......... .......... 50%  294M 0s
+#22 12.18  35300K .......... .......... .......... .......... .......... 50%  294M 0s
+#22 12.18  35350K .......... .......... .......... .......... .......... 51%  299M 0s2025-11-22 19:34:16.469Z: 
+#22 12.18  35400K .......... .......... .......... .......... .......... 51% 10.9M 0s
+#22 12.19  35450K .......... .......... .......... .......... .......... 51%  234M 0s
+#22 12.19  35500K .......... .......... .......... .......... .......... 51%  290M 0s
+#22 12.19  35550K .......... .......... .......... .......... .......... 51%  294M 0s
+#22 12.19  35600K .......... .......... .......... .......... .......... 51% 22.9M 0s
+#22 12.19  35650K .......... .......... .......... .......... .......... 51%  217M 0s
+#22 12.19  35700K .......... .......... .......... .......... .......... 51%  298M 0s
+#22 12.19  35750K .......... .......... .......... .......... .......... 51%  297M 0s
+#22 12.19  35800K .......... .......... .......... .......... .......... 51%  245M 0s
+#22 12.19  35850K .......... .......... .......... .......... .......... 51% 16.3M 0s
+#22 12.20  35900K .......... .......... .......... .......... .......... 51%  178M 0s
+#22 12.20  35950K .......... .......... .......... .......... .......... 51%  243M 0s
+#22 12.20  36000K .......... .......... .......... .......... .......... 51%  296M 0s
+#22 12.20  36050K .......... .......... .......... .......... .......... 52%  300M 0s
+#22 12.20  36100K .......... .......... .......... .......... .......... 52%  295M 0s
+#22 12.20  36150K .......... .......... .......... .......... .......... 52%  230M 0s
+#22 12.20  36200K .......... .......... .......... .......... .......... 52%  263M 0s
+#22 12.20  36250K .......... .......... .......... .......... .......... 52%  298M 0s
+#22 12.20  36300K .......... .......... .......... .......... .......... 52%  289M 0s
+#22 12.20  36350K .......... .......... .......... .......... .......... 52%  248M 0s
+#22 12.20  36400K .......... .......... .......... .......... .......... 52%  303M 0s
+#22 12.20  36450K .......... .......... .......... .......... .......... 52% 10.9M 0s
+#22 12.20  36500K .......... .......... .......... .......... .......... 52%  223M 0s
+#22 12.20  36550K .......... .......... .......... .......... .......... 52%  295M 0s
+#22 12.20  36600K .......... .......... .......... .......... .......... 52% 30.1M 0s
+#22 12.20  36650K .......... .......... .......... .......... .......... 52%  214M 0s
+#22 12.20  36700K .......... .......... .......... .......... .......... 52%  240M 0s
+#22 12.20  36750K .......... .......... .......... .......... .......... 53% 43.6M 0s
+#22 12.21  36800K .......... .......... .......... .......... .......... 53%  133M 0s
+#22 12.21  36850K .......... .......... .......... .......... .......... 53%  216M 0s
+#22 12.21  36900K .......... .......... .......... .......... .......... 53%  245M 0s
+#22 12.21  36950K .......... .......... .......... .......... .......... 53%  262M 0s
+#22 12.21  37000K .......... .......... .......... .......... .......... 53%  163M 0s
+#22 12.21  37050K .......... .......... .......... .......... .......... 53%  219M 0s
+#22 12.21  37100K .......... .......... .......... .......... .......... 53%  194M 0s
+#22 12.21  37150K .......... .......... .......... .......... .......... 53%  208M 0s
+#22 12.21  37200K .......... .......... .......... .......... .......... 53% 17.4M 0s
+#22 12.21  37250K .......... .......... .......... .......... .......... 53%  184M 0s
+#22 12.21  37300K .......... .......... .......... .......... .......... 53%  171M 0s
+#22 12.21  37350K .......... .......... .......... .......... .......... 53%  217M 0s
+#22 12.21  37400K .......... .......... .......... .......... .......... 53%  199M 0s
+#22 12.21  37450K .......... .......... .......... .......... .......... 54% 74.4M 0s
+#22 12.21  37500K .......... .......... .......... .......... .......... 54%  171M 0s
+#22 12.21  37550K .......... .......... .......... .......... .......... 54%  222M 0s
+#22 12.21  37600K .......... .......... .......... .......... .......... 54%  198M 0s
+#22 12.21  37650K .......... .......... .......... .......... .......... 54%  203M 0s
+#22 12.21  37700K .......... .......... .......... .......... .......... 54%  170M 0s
+#22 2025-11-22 19:34:16.470Z: 12.21  37750K .......... .......... .......... .......... .......... 54%  239M 0s
+#22 12.21  37800K .......... .......... .......... .......... .......... 54% 15.1M 0s
+#22 12.22  37850K .......... .......... .......... .......... .......... 54%  249M 0s
+#22 12.22  37900K .......... .......... .......... .......... .......... 54%  275M 0s
+#22 12.22  37950K .......... .......... .......... .......... .......... 54%  190M 0s
+#22 12.22  38000K .......... .......... .......... .......... .......... 54%  271M 0s
+#22 12.22  38050K .......... .......... .......... .......... .......... 54%  228M 0s
+#22 12.22  38100K .......... .......... .......... .......... .......... 54%  243M 0s
+#22 12.22  38150K .......... .......... .......... .......... .......... 55%  237M 0s
+#22 12.22  38200K .......... .......... .......... .......... .......... 55%  272M 0s
+#22 12.22  38250K .......... .......... .......... .......... .......... 55%  254M 0s
+#22 12.22  38300K .......... .......... .......... .......... .......... 55% 10.3M 0s
+#22 12.22  38350K .......... .......... .......... .......... .......... 55%  210M 0s
+#22 12.22  38400K .......... .......... .......... .......... .......... 55%  228M 0s
+#22 12.22  38450K .......... .......... .......... .......... .......... 55%  227M 0s
+#22 12.22  38500K .......... .......... .......... .......... .......... 55%  245M 0s
+#22 12.22  38550K .......... .......... .......... .......... .......... 55%  274M 0s
+#22 12.22  38600K .......... .......... .......... .......... .......... 55%  276M 0s
+#22 12.22  38650K .......... .......... .......... .......... .......... 55% 22.3M 0s
+#22 12.23  38700K .......... .......... .......... .......... .......... 55%  270M 0s
+#22 12.23  38750K .......... .......... .......... .......... .......... 55%  274M 0s
+#22 12.23  38800K .......... .......... .......... .......... .......... 55%  281M 0s
+#22 12.23  38850K .......... .......... .......... .......... .......... 56%  248M 0s
+#22 12.23  38900K .......... .......... .......... .......... .......... 56% 28.5M 0s
+#22 12.23  38950K .......... .......... .......... .......... .......... 56% 33.8M 0s
+#22 12.23  39000K .......... .......... .......... .......... .......... 56% 38.0M 0s
+#22 12.23  39050K .......... .......... .......... .......... .......... 56%  257M 0s
+#22 12.23  39100K .......... .......... .......... .......... .......... 56%  266M 0s
+#22 12.23  39150K .......... .......... .......... .......... .......... 56%  216M 0s
+#22 12.23  39200K .......... .......... .......... .......... .......... 56%  123M 0s
+#22 12.23  39250K .......... .......... .......... .......... .......... 56%  232M 0s
+#22 12.23  39300K .......... .......... .......... .......... .......... 56%  205M 0s
+#22 12.23  39350K .......... .......... .......... .......... .......... 56%  210M 0s
+#22 12.23  39400K .......... .......... .......... .......... .......... 56% 11.5M 0s
+#22 12.24  39450K .......... .......... .......... .......... .......... 56%  265M 0s
+#22 12.24  39500K .......... .......... .......... .......... .......... 56%  270M 0s
+#22 12.24  39550K .......... .......... .......... .......... .......... 57%  225M 0s
+#22 12.24  39600K .......... .......... .......... .......... .......... 57% 38.0M 0s
+#22 12.24  39650K .......... .......... .......... .......... .......... 57% 85.6M 0s
+#22 12.24  39700K .......... .......... .......... .......... .......... 57%  274M 0s
+#22 12.24  39750K .......... .......... .......... .......... .......... 57%  250M 0s
+#22 12.24  39800K .......... .......... .......... .......... .......... 57%  259M 0s
+#22 12.24  39850K .......... .......... .......... .......... .......... 57%  273M 0s
+#22 12.24  39900K .......... .......... .......... .......... .......... 57%  211M 0s
+#22 12.24  39950K .......... .......... .......... .......... .......... 57%  261M 0s
+#22 12.24  40000K .......... .......... .......... .......... .......... 57%  257M 0s
+#22 12.24  40050K .......... .......... .......... .......... .......... 57%  190M 0s
+#22 12.24 2025-11-22 19:34:16.472Z:  40100K .......... .......... .......... .......... .......... 57%  183M 0s
+#22 12.24  40150K .......... .......... .......... .......... .......... 57%  211M 0s
+#22 12.24  40200K .......... .......... .......... .......... .......... 57%  248M 0s
+#22 12.24  40250K .......... .......... .......... .......... .......... 58% 21.3M 0s
+#22 12.24  40300K .......... .......... .......... .......... .......... 58%  220M 0s
+#22 12.24  40350K .......... .......... .......... .......... .......... 58%  274M 0s
+#22 12.24  40400K .......... .......... .......... .......... .......... 58%  279M 0s
+#22 12.24  40450K .......... .......... .......... .......... .......... 58%  256M 0s
+#22 12.24  40500K .......... .......... .......... .......... .......... 58%  268M 0s
+#22 12.24  40550K .......... .......... .......... .......... .......... 58%  234M 0s
+#22 12.24  40600K .......... .......... .......... .......... .......... 58%  280M 0s
+#22 12.24  40650K .......... .......... .......... .......... .......... 58%  268M 0s
+#22 12.24  40700K .......... .......... .......... .......... .......... 58% 72.5M 0s
+#22 12.25  40750K .......... .......... .......... .......... .......... 58% 21.2M 0s
+#22 12.25  40800K .......... .......... .......... .......... .......... 58%  254M 0s
+#22 12.25  40850K .......... .......... .......... .......... .......... 58%  244M 0s
+#22 12.25  40900K .......... .......... .......... .......... .......... 59%  264M 0s
+#22 12.25  40950K .......... .......... .......... .......... .......... 59%  230M 0s
+#22 12.25  41000K .......... .......... .......... .......... .......... 59%  258M 0s
+#22 12.25  41050K .......... .......... .......... .......... .......... 59%  277M 0s
+#22 12.25  41100K .......... .......... .......... .......... .......... 59% 27.9M 0s
+#22 12.25  41150K .......... .......... .......... .......... .......... 59% 90.7M 0s
+#22 12.25  41200K .......... .......... .......... .......... .......... 59%  203M 0s
+#22 12.25  41250K .......... .......... .......... .......... .......... 59%  206M 0s
+#22 12.25  41300K .......... .......... .......... .......... .......... 59%  204M 0s
+#22 12.25  41350K .......... .......... .......... .......... .......... 59% 71.0M 0s
+#22 12.25  41400K .......... .......... .......... .......... .......... 59%  141M 0s
+#22 12.25  41450K .......... .......... .......... .......... .......... 59%  106M 0s
+#22 12.25  41500K .......... .......... .......... .......... .......... 59%  134M 0s
+#22 12.25  41550K .......... .......... .......... .......... .......... 59%  126M 0s
+#22 12.25  41600K .......... .......... .......... .......... .......... 60%  175M 0s
+#22 12.25  41650K .......... .......... .......... .......... .......... 60%  154M 0s
+#22 12.25  41700K .......... .......... .......... .......... .......... 60%  130M 0s
+#22 12.25  41750K .......... .......... .......... .......... .......... 60%  121M 0s
+#22 12.26  41800K .......... .......... .......... .......... .......... 60%  138M 0s
+#22 12.26  41850K .......... .......... .......... .......... .......... 60%  146M 0s
+#22 12.26  41900K .......... .......... .......... .......... .......... 60%  207M 0s
+#22 12.26  41950K .......... .......... .......... .......... .......... 60%  202M 0s
+#22 12.26  42000K .......... .......... .......... .......... .......... 60% 50.3M 0s
+#22 12.26  42050K .......... .......... .......... .......... .......... 60% 49.6M 0s
+#22 12.26  42100K .......... .......... .......... .......... .......... 60%  217M 0s
+#22 12.26  42150K .......... .......... .......... .......... .......... 60%  185M 0s
+#22 12.26  42200K .......... .......... .......... .......... .......... 60%  212M 0s
+#22 12.26  42250K .......... .......... .......... .......... .......... 60%  181M 0s
+#22 12.26  42300K .......... .......... .......... .......... .......... 61%  203M 0s
+#22 12.26  42350K .......... .......... .......... .......... .......... 61%  171M 0s
+#22 12.26  42400K .......... .......... .......... .......... .......... 61%  194M 0s
+#22 12.26  424502025-11-22 19:34:16.472Z: K .......... .......... .......... .......... .......... 61%  137M 0s
+#22 12.26  42500K .......... .......... .......... .......... .......... 61%  111M 0s
+#22 12.26  42550K .......... .......... .......... .......... .......... 61%  153M 0s
+#22 12.26  42600K .......... .......... .......... .......... .......... 61% 94.6M 0s
+#22 12.26  42650K .......... .......... .......... .......... .......... 61%  105M 0s
+#22 12.26  42700K .......... .......... .......... .......... .......... 61% 81.1M 0s
+#22 12.26  42750K .......... .......... .......... .......... .......... 61% 62.3M 0s
+#22 12.26  42800K .......... .......... .......... .......... .......... 61%  141M 0s
+#22 12.26  42850K .......... .......... .......... .......... .......... 61%  206M 0s
+#22 12.26  42900K .......... .......... .......... .......... .......... 61%  192M 0s
+#22 12.26  42950K .......... .......... .......... .......... .......... 61%  201M 0s
+#22 12.26  43000K .......... .......... .......... .......... .......... 62%  162M 0s
+#22 12.26  43050K .......... .......... .......... .......... .......... 62%  198M 0s
+#22 12.27  43100K .......... .......... .......... .......... .......... 62%  127M 0s
+#22 12.27  43150K .......... .......... .......... .......... .......... 62%  124M 0s
+#22 12.27  43200K .......... .......... .......... .......... .......... 62%  120M 0s
+#22 12.27  43250K .......... .......... .......... .......... .......... 62% 76.3M 0s
+#22 12.27  43300K .......... .......... .......... .......... .......... 62%  112M 0s
+#22 12.27  43350K .......... .......... .......... .......... .......... 62%  113M 0s
+#22 12.27  43400K .......... .......... .......... .......... .......... 62%  201M 0s
+#22 12.27  43450K .......... .......... .......... .......... .......... 62%  211M 0s
+#22 12.27  43500K .......... .......... .......... .......... .......... 62%  104M 0s
+#22 12.27  43550K .......... .......... .......... .......... .......... 62%  115M 0s
+#22 12.27  43600K .......... .......... .......... .......... .......... 62%  173M 0s
+#22 12.27  43650K .......... .......... .......... .......... .......... 62%  188M 0s
+#22 12.27  43700K .......... .......... .......... .......... .......... 63%  175M 0s
+#22 12.27  43750K .......... .......... .......... .......... .......... 63%  199M 0s
+#22 12.27  43800K .......... .......... .......... .......... .......... 63%  117M 0s
+#22 12.27  43850K .......... .......... .......... .......... .......... 63%  107M 0s
+#22 12.27  43900K .......... .......... .......... .......... .......... 63%  121M 0s
+#22 12.27  43950K .......... .......... .......... .......... .......... 63%  110M 0s
+#22 12.27  44000K .......... .......... .......... .......... .......... 63%  185M 0s
+#22 12.27  44050K .......... .......... .......... .......... .......... 63% 93.8M 0s
+#22 12.27  44100K .......... .......... .......... .......... .......... 63%  105M 0s
+#22 12.27  44150K .......... .......... .......... .......... .......... 63%  203M 0s
+#22 12.27  44200K .......... .......... .......... .......... .......... 63%  133M 0s
+#22 12.27  44250K .......... .......... .......... .......... .......... 63%  100M 0s
+#22 12.27  44300K .......... .......... .......... .......... .......... 63%  203M 0s
+#22 12.27  44350K .......... .......... .......... .......... .......... 63%  203M 0s
+#22 12.27  44400K .......... .......... .......... .......... .......... 64%  212M 0s
+#22 12.28  44450K .......... .......... .......... .......... .......... 64%  177M 0s
+#22 12.28  44500K .......... ....2025-11-22 19:34:16.569Z: ...... .......... .......... .......... 64%  201M 0s
+#22 12.28  44550K .......... .......... .......... .......... .......... 64% 9.35M 0s
+#22 12.28  44600K .......... .......... .......... .......... .......... 64% 89.9M 0s
+#22 12.28  44650K .......... .......... .......... .......... .......... 64%  230M 0s
+#22 12.28  44700K .......... .......... .......... .......... .......... 64%  183M 0s
+#22 12.28  44750K .......... .......... .......... .......... .......... 64%  212M 0s
+#22 12.28  44800K .......... .......... .......... .......... .......... 64%  249M 0s
+#22 12.28  44850K .......... .......... .......... .......... .......... 64%  255M 0s
+#22 12.28  44900K .......... .......... .......... .......... .......... 64% 47.4M 0s
+#22 12.28  44950K .......... .......... .......... .......... .......... 64%  156M 0s
+#22 12.28  45000K .......... .......... .......... .......... .......... 64%  196M 0s
+#22 12.28  45050K .......... .......... .......... .......... .......... 64%  217M 0s
+#22 12.28  45100K .......... .......... .......... .......... .......... 65%  183M 0s
+#22 12.28  45150K .......... .......... .......... .......... .......... 65%  186M 0s
+#22 12.28  45200K .......... .......... .......... .......... .......... 65%  197M 0s
+#22 12.29  45250K .......... .......... .......... .......... .......... 65%  211M 0s
+#22 12.29  45300K .......... .......... .......... .......... .......... 65%  170M 0s
+#22 12.29  45350K .......... .......... .......... .......... .......... 65%  122M 0s
+2025-11-22 19:34:16.572Z: #22 12.29  45400K .......... .......... .......... .......... .......... 65%  176M 0s
+#22 12.29  45450K .......... .......... .......... .......... .......... 65%  200M 0s
+#22 12.29  45500K .......... .......... .......... .......... .......... 65%  112M 0s
+#22 12.29  45550K .......... .......... .......... .......... .......... 65%  162M 0s
+#22 12.29  45600K .......... .......... .......... .......... .......... 65%  108M 0s
+#22 12.29  45650K .......... .......... .......... .......... .......... 65%  206M 0s
+#22 12.29  45700K .......... .......... .......... .......... .......... 65%  179M 0s
+#22 12.29  45750K .......... .......... .......... .......... .......... 65%  210M 0s
+#22 12.29  45800K .......... .......... .......... .......... .......... 66%  119M 0s
+#22 12.29  45850K .......... .......... .......... .......... .......... 66%  138M 0s
+#22 12.29  45900K .......... .......... .......... .......... .......... 66%  120M 0s
+#22 12.29  45950K .......... .......... .......... .......... .......... 66% 97.0M 0s
+#22 12.29  46000K .......... .......... .......... .......... .......... 66%  203M 0s
+#22 12.29  46050K .......... .......... .......... .......... .......... 66%  219M 0s
+#22 12.29  46100K .......... .......... .......... .......... .......... 66%  139M 0s
+#22 12.29  46150K .......... .......... .......... .......... .......... 66% 95.0M 0s
+#22 12.29  46200K .......... .......... .......... .......... .......... 66%  170M 0s
+#22 12.29  46250K .......... .......... .......... .......... .......... 66% 88.0M 0s
+#22 12.29  46300K .......... .......... .......... .......... .......... 66% 75.3M 0s
+#22 12.29  46350K .......... .......... .......... .......... .......... 66%  219M 0s
+#22 12.29  46400K .......... .......... .......... .......... .......... 66%  184M 0s
+#22 12.29  46450K .......... .......... .......... .......... .......... 66%  194M 0s
+#22 12.29  46500K .......... .......... .......... .......... .......... 67%  120M 0s
+#22 12.29  46550K .......... .......... .......... .......... .......... 67%  111M 0s
+#22 12.29  46600K .......... .......... .......... .......... .......... 67%  102M 0s
+#22 12.29  46650K .......... .......... .......... .......... .......... 67%  198M 0s
+#22 12.30  46700K .......... .......... .......... .......... .......... 67%  190M 0s
+#22 12.30  46750K .......... .......... .......... .......... .......... 67%  191M 0s
+#22 12.30  46800K .......... .......... .......... .......... .......... 67%  155M 0s
+#22 12.30  46850K .......... .......... .......... .......... .......... 67%  147M 0s
+#22 12.30  46900K .......... .......... .......... .......... .......... 67% 91.6M 0s
+#22 12.30  46950K .......... .......... .......... .......... .......... 67%  112M 0s
+#22 12.30  47000K .......... .......... .......... .......... .......... 67%  120M 0s
+#22 12.30  47050K .......... .......... .......... .......... .......... 67%  160M 0s
+#22 12.30  47100K .......... .......... .......... .......... .......... 67%  182M 0s
+#22 12.30  47150K .......... .......... .......... .......... .......... 68%  219M 0s
+#22 12.30  47200K .......... .......... .......... .......... .......... 68%  189M 0s
+#22 12.30  47250K .......... .......... .......... .......... .......... 68%  207M 0s
+#22 12.30  47300K .......... .......... .......... .......... .......... 68%  130M 0s
+#22 12.30  47350K .......... .......... .......... .......... .......... 68% 74.0M 0s
+#22 12.30  47400K .......... .......... .......... .......... .......... 68%  191M 0s
+#22 12.30  47450K .......... .......... .......... .......... .......... 68%  196M 0s
+#22 12.30  47500K .......... .......... .......... .......... .......... 68%  211M 0s
+#22 12.30  47550K .......... .......... .......... .......... .......... 68%  206M 0s
+#22 12.30  47600K .......... .......... .......... .......... .......... 68%  107M 0s
+#22 12.30  47650K .......... .......... .......... .......... .......... 68% 79.8M 0s
+#22 12.30  47700K .......... .......... .......... .......... .......... 68%  123M 0s
+#22 122025-11-22 19:34:16.572Z: .30  47750K .......... .......... .......... .......... .......... 68%  150M 0s
+#22 12.30  47800K .......... .......... .......... .......... .......... 68%  126M 0s
+#22 12.30  47850K .......... .......... .......... .......... .......... 69%  201M 0s
+#22 12.30  47900K .......... .......... .......... .......... .......... 69%  198M 0s
+#22 12.30  47950K .......... .......... .......... .......... .......... 69%  180M 0s
+#22 12.30  48000K .......... .......... .......... .......... .......... 69%  204M 0s
+#22 12.30  48050K .......... .......... .......... .......... .......... 69%  116M 0s
+#22 12.30  48100K .......... .......... .......... .......... .......... 69%  107M 0s
+#22 12.31  48150K .......... .......... .......... .......... .......... 69%  116M 0s
+#22 12.31  48200K .......... .......... .......... .......... .......... 69%  170M 0s
+#22 12.31  48250K .......... .......... .......... .......... .......... 69%  214M 0s
+#22 12.31  48300K .......... .......... .......... .......... .......... 69%  212M 0s
+#22 12.31  48350K .......... .......... .......... .......... .......... 69%  163M 0s
+#22 12.31  48400K .......... .......... .......... .......... .......... 69% 85.6M 0s
+#22 12.31  48450K .......... .......... .......... .......... .......... 69%  147M 0s
+#22 12.31  48500K .......... .......... .......... .......... .......... 69%  121M 0s
+#22 12.31  48550K .......... .......... .......... .......... .......... 70%  105M 0s
+#22 12.31  48600K .......... .......... .......... .......... .......... 70%  209M 0s
+#22 12.31  48650K .......... .......... .......... .......... .......... 70%  193M 0s
+#22 12.31  48700K .......... .......... .......... .......... .......... 70%  200M 0s
+#22 12.31  48750K .......... .......... .......... .......... .......... 70%  178M 0s
+#22 12.31  48800K .......... .......... .......... .......... .......... 70% 84.0M 0s
+#22 12.31  48850K .......... .......... .......... .......... .......... 70% 98.2M 0s
+#22 12.31  48900K .......... .......... .......... .......... .......... 70%  127M 0s
+#22 12.31  48950K .......... .......... .......... .......... .......... 70%  207M 0s
+#22 12.31  49000K .......... .......... .......... .......... .......... 70%  179M 0s
+#22 12.31  49050K .......... .......... .......... .......... .......... 70%  128M 0s
+#22 12.31  49100K .......... .......... .......... .......... .......... 70% 90.0M 0s
+#22 12.31  49150K .......... .......... .......... .......... .......... 70%  125M 0s
+#22 12.31  49200K .......... .......... .......... .......... .......... 70%  106M 0s
+#22 12.31  49250K .......... .......... .......... .......... .......... 71%  128M 0s
+#22 12.31  49300K .......... .......... .......... .......... .......... 71%  182M 0s
+#22 12.31  49350K .......... .......... .......... .......... .......... 71%  209M 0s
+#22 12.31  49400K .......... .......... .......... .......... .......... 71%  179M 0s
+#22 12.31  49450K .......... .......... .......... .......... .......... 71%  146M 0s
+#22 12.31  49500K .......... .......... .......... .......... .......... 71%  184M 0s
+#22 12.31  49550K .......... .......... .......... .......... .......... 71% 71.2M 0s
+#22 12.32  49600K .......... .......... .......... .......... .......... 71%  109M 0s
+#22 12.32  49650K .......... .......... .......... .......... .......... 71%  204M 0s
+#22 12.32  49700K .......... .......... .......... .......... .......... 71%  185M 0s
+#22 12.32  49750K .......... .......... .......... .......... .......... 71% 93.4M 0s
+#22 12.32  49800K .......... .......... .......... .......... .......... 71%  147M 0s
+#22 12.32  49850K .......... .......... .......... .......... .......... 71%  109M 0s
+#22 12.32  49900K .......... .......... .......... .......... .......... 71%  160M 0s
+#22 12.32  49950K .......... .......... .......... .......... .......... 72%  218M 0s
+#22 12.32  50000K .......... .......... .......... .......... .......... 72% 90.1M 0s
+#22 12.32  50050K .......... .......... .......... .......... .......... 72%  111M 0s
+#22 12.32  52025-11-22 19:34:16.573Z: 0100K .......... .......... .......... .......... .......... 72%  115M 0s
+#22 12.32  50150K .......... .......... .......... .......... .......... 72% 98.0M 0s
+#22 12.32  50200K .......... .......... .......... .......... .......... 72%  149M 0s
+#22 12.32  50250K .......... .......... .......... .......... .......... 72%  115M 0s
+#22 12.32  50300K .......... .......... .......... .......... .......... 72%  210M 0s
+#22 12.32  50350K .......... .......... .......... .......... .......... 72%  186M 0s
+#22 12.32  50400K .......... .......... .......... .......... .......... 72% 56.0M 0s
+#22 12.32  50450K .......... .......... .......... .......... .......... 72% 51.1M 0s
+#22 12.32  50500K .......... .......... .......... .......... .......... 72% 81.0M 0s
+#22 12.32  50550K .......... .......... .......... .......... .......... 72%  174M 0s
+#22 12.32  50600K .......... .......... .......... .......... .......... 72%  210M 0s
+#22 12.32  50650K .......... .......... .......... .......... .......... 73% 67.4M 0s
+#22 12.33  50700K .......... .......... .......... .......... .......... 73% 83.2M 0s
+#22 12.33  50750K .......... .......... .......... .......... .......... 73%  190M 0s
+#22 12.33  50800K .......... .......... .......... .......... .......... 73%  227M 0s
+#22 12.33  50850K .......... .......... .......... .......... .......... 73%  186M 0s
+#22 12.33  50900K .......... .......... .......... .......... .......... 73% 87.8M 0s
+#22 12.33  50950K .......... .......... .......... .......... .......... 73% 95.2M 0s
+#22 12.33  51000K .......... .......... .......... .......... .......... 73%  200M 0s
+#22 12.33  51050K .......... .......... .......... .......... .......... 73%  173M 0s
+#22 12.33  51100K .......... .......... .......... .......... .......... 73%  223M 0s
+#22 12.33  51150K .......... .......... .......... .......... .......... 73%  214M 0s
+#22 12.33  51200K .......... .......... .......... .......... .......... 73% 61.2M 0s
+#22 12.33  51250K .......... .......... .......... .......... .......... 73%  225M 0s
+#22 12.33  51300K .......... .......... .......... .......... .......... 73% 70.9M 0s
+#22 12.33  51350K .......... .......... .......... .......... .......... 74%  194M 0s
+#22 12.33  51400K .......... .......... .......... .......... .......... 74%  100M 0s
+#22 12.33  51450K .......... .......... .......... .......... .......... 74%  191M 0s
+#22 12.33  51500K .......... .......... .......... .......... .......... 74%  218M 0s
+#22 12.33  51550K .......... .......... .......... .......... .......... 74%  165M 0s
+#22 12.33  51600K .......... .......... .......... .......... .......... 74%  122M 0s
+#22 12.33  51650K .......... .......... .......... .......... .......... 74%  130M 0s
+#22 12.33  51700K .......... .......... .......... .......... .......... 74% 87.4M 0s
+#22 12.33  51750K .......... .......... .......... .......... .......... 74% 89.4M 0s
+#22 12.33  51800K .......... .......... .......... .......... .......... 74%  124M 0s
+#22 12.33  51850K .......... .......... .......... .......... .......... 74% 98.3M 0s
+#22 12.33  51900K .......... .......... .......... .......... .......... 74% 67.4M 0s
+#22 12.34  51950K .......... .......... .......... .......... .......... 74%  185M 0s
+#22 12.34  52000K .......... .......... .......... .......... .......... 74%  191M 0s
+#22 12.34  52050K .......... .......... .......... .......... .......... 75%  121M 0s
+#22 12.34  52100K .......... .......... .......... .......... .......... 75%  140M 0s
+#22 12.34  52150K .......... .......... .......... .......... .......... 75% 74.9M 0s
+#22 12.34  52200K .......... .......... .......... .......... .......... 75% 72.3M 0s
+#22 12.34  52250K .......... .......... .......... .......... .......... 75%  202M 0s
+#22 12.34  52300K .......... .......... .......... .......... .......... 75%  216M 0s
+#22 12.34  52350K .......... .......... .......... .......... .......... 75%  184M 0s
+#22 12.34  52400K .......... .......... .......... .......... .......... 75% 61.1M 0s
+#22 12.34  52450K 2025-11-22 19:34:16.575Z: .......... .......... .......... .......... .......... 75%  109M 0s
+#22 12.34  52500K .......... .......... .......... .......... .......... 75%  212M 0s
+#22 12.34  52550K .......... .......... .......... .......... .......... 75%  119M 0s
+#22 12.34  52600K .......... .......... .......... .......... .......... 75%  121M 0s
+#22 12.34  52650K .......... .......... .......... .......... .......... 75% 70.1M 0s
+#22 12.34  52700K .......... .......... .......... .......... .......... 76%  186M 0s
+#22 12.34  52750K .......... .......... .......... .......... .......... 76%  160M 0s
+#22 12.34  52800K .......... .......... .......... .......... .......... 76%  115M 0s
+#22 12.34  52850K .......... .......... .......... .......... .......... 76% 61.1M 0s
+#22 12.34  52900K .......... .......... .......... .......... .......... 76%  223M 0s
+#22 12.34  52950K .......... .......... .......... .......... .......... 76%  192M 0s
+#22 12.34  53000K .......... .......... .......... .......... .......... 76%  155M 0s
+#22 12.34  53050K .......... .......... .......... .......... .......... 76%  132M 0s
+#22 12.34  53100K .......... .......... .......... .......... .......... 76% 60.7M 0s
+#22 12.35  53150K .......... .......... .......... .......... .......... 76% 92.2M 0s
+#22 12.35  53200K .......... .......... .......... .......... .......... 76%  205M 0s
+#22 12.35  53250K .......... .......... .......... .......... .......... 76%  123M 0s
+#22 12.35  53300K .......... .......... .......... .......... .......... 76% 65.7M 0s
+#22 12.35  53350K .......... .......... .......... .......... .......... 76% 81.3M 0s
+#22 12.35  53400K .......... .......... .......... .......... .......... 77%  133M 0s
+#22 12.35  53450K .......... .......... .......... .......... .......... 77%  216M 0s
+#22 12.35  53500K .......... .......... .......... .......... .......... 77%  195M 0s
+#22 12.35  53550K .......... .......... .......... .......... .......... 77% 66.1M 0s
+#22 12.35  53600K .......... .......... .......... .......... .......... 77%  113M 0s
+#22 12.35  53650K .......... .......... .......... .......... .......... 77%  219M 0s
+#22 12.35  53700K .......... .......... .......... .......... .......... 77%  211M 0s
+#22 12.35  53750K .......... .......... .......... .......... .......... 77%  161M 0s
+#22 12.35  53800K .......... .......... .......... .......... .......... 77% 50.8M 0s
+#22 12.35  53850K .......... .......... .......... .......... .......... 77%  119M 0s
+#22 12.35  53900K .......... .......... .......... .......... .......... 77%  198M 0s
+#22 12.35  53950K .......... .......... .......... .......... .......... 77%  116M 0s
+#22 12.35  54000K .......... .......... .......... .......... .......... 77% 54.8M 0s
+#22 12.35  54050K .......... .......... .......... .......... .......... 77%  163M 0s
+#22 12.35  54100K .......... .......... .......... .......... .......... 78%  217M 0s
+#22 12.35  54150K .......... .......... .......... .......... .......... 78%  137M 0s
+#22 12.35  54200K .......... .......... .......... .......... .......... 78% 70.6M 0s
+#22 12.36  54250K .......... .......... .......... .......... .......... 78%  188M 0s
+#22 12.36  54300K .......... .......... .......... .......... .......... 78%  225M 0s
+#22 12.36  54350K .......... .......... .......... .......... .......... 78%  116M 0s
+#22 12.36  54400K .......... .......... .......... .......... .......... 78%  100M 0s
+#22 12.36  54450K .......... .......... .......... .......... .......... 78% 69.7M 0s
+#22 12.36  54500K .......... .......... .......... .......... .......... 78%  120M 0s
+#22 12.36  54550K .......... .......... .......... .......... .......... 78%  147M 0s
+#22 12.36  54600K .......... .......... .......... .......... .......... 78%  224M 0s
+#22 12.36  54650K .......... .......... .......... .......... .......... 78%  223M 0s
+#22 12.36  54700K .......... .......... .......... .......... .......... 78% 97.8M 0s
+#22 12.36  54750K .......... .......... .......... .......... .......... 78% 61.8M 0s
+#22 12.36  54800K ......2025-11-22 19:34:16.576Z: .... .......... .......... .......... .......... 79% 94.4M 0s
+#22 12.36  54850K .......... .......... .......... .......... .......... 79%  149M 0s
+#22 12.36  54900K .......... .......... .......... .......... .......... 79%  169M 0s
+#22 12.36  54950K .......... .......... .......... .......... .......... 79%  209M 0s
+#22 12.36  55000K .......... .......... .......... .......... .......... 79%  210M 0s
+#22 12.36  55050K .......... .......... .......... .......... .......... 79%  213M 0s
+#22 12.36  55100K .......... .......... .......... .......... .......... 79% 44.9M 0s
+#22 12.36  55150K .......... .......... .......... .......... .......... 79%  155M 0s
+#22 12.36  55200K .......... .......... .......... .......... .......... 79%  124M 0s
+#22 12.36  55250K .......... .......... .......... .......... .......... 79%  211M 0s
+#22 12.36  55300K .......... .......... .......... .......... .......... 79% 50.4M 0s
+#22 12.36  55350K .......... .......... .......... .......... .......... 79%  156M 0s
+#22 12.36  55400K .......... .......... .......... .......... .......... 79%  219M 0s
+#22 12.36  55450K .......... .......... .......... .......... .......... 79%  125M 0s
+#22 12.37  55500K .......... .......... .......... .......... .......... 80%  209M 0s
+#22 12.37  55550K .......... .......... .......... .......... .......... 80% 52.5M 0s
+#22 12.37  55600K .......... .......... .......... .......... .......... 80%  159M 0s
+#22 12.37  55650K .......... .......... .......... .......... .......... 80%  149M 0s
+#22 12.37  55700K .......... .......... .......... .......... .......... 80%  140M 0s
+#22 12.37  55750K .......... .......... .......... .......... .......... 80% 43.0M 0s
+#22 12.37  55800K .......... .......... .......... .......... .......... 80% 81.0M 0s
+#22 12.37  55850K .......... .......... .......... .......... .......... 80%  129M 0s
+#22 12.37  55900K .......... .......... .......... .......... .......... 80%  183M 0s
+#22 12.37  55950K .......... .......... .......... .......... .......... 80%  173M 0s
+#22 12.37  56000K .......... .......... .......... .......... .......... 80%  145M 0s
+#22 12.37  56050K .......... .......... .......... .......... .......... 80% 83.8M 0s
+#22 12.37  56100K .......... .......... .......... .......... .......... 80%  130M 0s
+#22 12.37  56150K .......... .......... .......... .......... .......... 80%  119M 0s
+#22 12.37  56200K .......... .......... .......... .......... .......... 81% 81.2M 0s
+#22 12.37  56250K .......... .......... .......... .......... .......... 81% 57.0M 0s
+#22 12.37  56300K .......... .......... .......... .......... .......... 81%  113M 0s
+#22 12.37  56350K .......... .......... .......... .......... .......... 81% 95.8M 0s
+#22 12.37  56400K .......... .......... .......... .......... .......... 81%  136M 0s
+#22 12.37  56450K .......... .......... .......... .......... .......... 81%  154M 0s
+#22 12.38  56500K .......... .......... .......... .......... .......... 81%  173M 0s
+#22 12.38  56550K .......... .......... .......... .......... .......... 81%  124M 0s
+#22 12.38  56600K .......... ...2025-11-22 19:34:16.704Z: ....... .......... .......... .......... 81% 10.5M 0s2025-11-22 19:34:16.704Z: 
+#22 12.38  56650K .......... .......... .......... .......... .......... 81%  178M 0s
+#22 12.38  56700K .......... .......... .......... .......... .......... 81%  172M 0s
+#22 12.38  56750K .......... .......... .......... .......... .......... 81%  218M 0s
+#22 12.38  56800K .......... .......... .......... .......... .......... 81%  233M 0s
+#22 12.38  56850K .......... .......... .......... .......... .......... 81%  248M 0s
+#22 12.38  56900K .......... .......... .......... .......... .......... 82%  203M 0s
+#22 12.38  56950K .......... .......... .......... .......... .......... 82%  223M 0s
+#22 12.38  57000K .......... .......... .......... .......... .......... 82%  250M 0s
+#22 12.38  57050K .......... .......... .......... .......... .......... 82%  221M 0s
+#22 12.38  57100K .......... .......... .......... .......... .......... 82%  255M 0s
+#22 12.38  57150K .......... .......... .......... .......... .......... 82% 16.9M 0s
+#22 12.39  57200K .......... .......... .......... .......... .......... 82%  166M 0s
+#22 12.39  57250K .......... .......... .......... .......... .......... 82%  225M 0s
+#22 12.39  57300K .......... .......... .......... .......... .......... 82%  221M 0s
+#22 12.39  57350K .......... .......... .......... .......... .......... 82%  232M 0s
+#22 12.39  57400K .......... .......... .......... .......... .......... 82%  209M 0s
+#22 12.39  57450K .......... .......... .......... .......... .......... 82% 33.3M 0s
+#22 12.39  57500K .......... .......... .......... .......... .......... 82%  227M 0s
+#22 12.39  57550K .......... .......... .......... .......... .......... 82%  185M 0s
+#22 12.39  57600K .......... .......... .......... .......... .......... 83%  186M 0s2025-11-22 19:34:16.704Z: 
+#22 12.39  57650K .......... .......... .......... .......... .......... 83%  215M 0s
+#22 12.39  57700K .......... .......... .......... .......... .......... 83%  216M 0s
+#22 12.39  57750K .......... .......... .......... .......... .......... 83%  218M 0s
+#22 12.39  57800K .......... .......... .......... .......... .......... 83% 78.7M 0s
+#22 12.39  57850K .......... .......... .......... .......... .......... 83% 48.9M 0s
+#22 12.39  57900K .......... .......... .......... .......... .......... 83% 57.5M 0s
+#22 12.39  57950K .......... .......... .......... .......... .......... 83%  213M 0s
+#22 12.39  58000K .......... .......... .......... .......... .......... 83%  177M 0s
+#22 12.39  58050K .......... .......... .......... .......... .......... 83% 90.1M 0s
+#22 12.39  58100K .......... .......... .......... .......... .......... 83%  174M 0s
+#22 12.39  58150K .......... .......... .......... .......... .......... 83%  189M 0s
+#22 12.39  58200K .......... .......... .......... .......... .......... 83%  178M 0s
+#22 12.39  58250K .......... .......... .......... .......... .......... 84%  184M 0s
+#22 12.39  58300K .......... .......... .......... .......... .......... 84%  213M 0s
+#22 12.39  58350K .......... .......... .......... .......... .......... 84%  205M 0s
+#22 12.39  58400K .......... .......... .......... .......... .......... 84% 56.5M 0s
+#22 12.40  58450K .......... .......... .......... .......... .......... 84%  111M 0s
+#22 12.40  58500K .......... .......... .......... .......... .......... 84%  207M 0s
+#22 12.40  58550K .......... .......... .......... .......... .......... 84%  206M 0s
+#22 12.40  58600K .......... .......... .......... .......... .......... 84%  188M 0s
+#22 12.40  58650K .......... .......... .......... .......... .......... 84% 31.1M 0s
+#22 12.40  58700K .......... .......... .......... .......... .......... 84%  163M 0s2025-11-22 19:34:16.704Z: 
+#22 12.40  58750K .......... .......... .......... .......... .......... 84% 82.0M 0s
+#22 12.40  58800K .......... .......... .......... .......... .......... 84%  209M 0s
+#22 12.40  58850K .......... .......... .......... .......... .......... 84%  217M 0s
+#22 12.40  58900K .......... .......... .......... .......... .......... 84%  226M 0s
+2025-11-22 19:34:16.705Z: #22 12.40  58950K .......... .......... .......... .......... .......... 85%  202M 0s
+#22 12.40  59000K .......... .......... .......... .......... .......... 85%  165M 0s
+#22 12.40  59050K .......... .......... .......... .......... .......... 85%  204M 0s
+#22 12.40  59100K .......... .......... .......... .......... .......... 85% 81.6M 0s
+#22 12.40  59150K .......... .......... .......... .......... .......... 85% 40.7M 0s
+#22 12.40  59200K .......... .......... .......... .......... .......... 85% 59.8M 0s
+#22 12.40  59250K .......... .......... .......... .......... .......... 85% 47.1M 0s
+#22 12.40  59300K .......... .......... .......... .......... .......... 85% 99.2M 0s
+#22 12.40  59350K .......... .......... .......... .......... .......... 85% 93.0M 0s
+#22 12.41  59400K .......... .......... .......... .......... .......... 85% 83.4M 0s
+#22 12.41  59450K .......... .......... .......... .......... .......... 85% 77.4M 0s
+#22 12.41  59500K .......... .......... .......... .......... .......... 85% 66.3M 0s
+#22 12.41  59550K .......... .......... .......... .......... .......... 85% 68.8M 0s
+#22 12.41  59600K .......... .......... .......... .......... .......... 85%  181M 0s
+#22 12.41  59650K .......... .......... .......... .......... .......... 86%  176M 0s
+#22 12.41  59700K .......... .......... .......... .......... .......... 86%  132M 0s
+#22 12.41  59750K .......... .......... .......... .......... .......... 86%  195M 0s
+#22 12.41  59800K .......... .......... .......... .......... .......... 86%  207M 0s2025-11-22 19:34:16.706Z: 
+#22 12.41  59850K .......... .......... .......... .......... .......... 86%  198M 0s
+#22 12.41  59900K .......... .......... .......... .......... .......... 86%  123M 0s
+#22 12.41  59950K .......... .......... .......... .......... .......... 86%  156M 0s
+#22 12.41  60000K .......... .......... .......... .......... .......... 86%  140M 0s
+#22 12.41  60050K .......... .......... .......... .......... .......... 86%  137M 0s
+#22 12.41  60100K .......... .......... .......... .......... .......... 86% 85.6M 0s
+#22 12.41  60150K .......... .......... .......... .......... .......... 86% 87.1M 0s
+#22 12.41  60200K .......... .......... .......... .......... .......... 86%  107M 0s
+#22 12.41  60250K .......... .......... .......... .......... .......... 86%  177M 0s2025-11-22 19:34:16.707Z: 
+#22 12.41  60300K .......... .......... .......... .......... .......... 86%  109M 0s
+#22 12.41  60350K .......... .......... .......... .......... .......... 87%  131M 0s
+#22 12.41  60400K .......... .......... .......... .......... .......... 87% 64.1M 0s
+#22 12.41  60450K .......... .......... .......... .......... .......... 87%  157M 0s
+#22 12.41  60500K .......... .......... .......... .......... .......... 87%  146M 0s
+#22 12.41  60550K .......... .......... .......... .......... .......... 87%  156M 0s
+#22 12.42  60600K .......... .......... .......... .......... .......... 87%  194M 0s2025-11-22 19:34:16.708Z: 
+#22 12.42  60650K .......... .......... .......... .......... .......... 87%  142M 0s
+#22 12.42  60700K .......... .......... .......... .......... .......... 87%  138M 0s
+#22 12.42  60750K .......... .......... .......... .......... .......... 87% 69.8M 0s
+#22 12.42  60800K .......... .......... .......... .......... .......... 87%  171M 0s
+#22 12.42  60850K .......... .......... .......... .......... .......... 87% 48.4M 0s2025-11-22 19:34:16.708Z: 
+#22 12.42  60900K .......... .......... .......... .......... .......... 87% 84.7M 0s
+#22 12.42  60950K .......... .......... .......... .......... .......... 87%  213M 0s
+#22 12.42  61000K .......... .......... .......... .......... .......... 87%  200M 0s
+#22 12.42  61050K .......... .......... .......... .......... .......... 88%  149M 0s
+#22 12.42  61100K .......... .......... .......... .......... .......... 88%  151M 0s
+#22 12.42  61150K .......... .......... .......... .......... .......... 88%  138M 0s
+#22 12.42  61200K .......... .......... .......... .......... .......... 88%  133M 0s
+#22 12.42  61250K .......... .......... .......... .......... .......... 88%  133M 0s
+#22 12.42  61300K .......... .......... .......... .......... .......... 88%  149M 0s
+#22 12.42  61350K .......... .......... .......... .......... .......... 88% 93.0M 0s
+#22 12.42  61400K .......... .......... .......... .......... .......... 88% 88.9M 0s2025-11-22 19:34:16.710Z: 
+2025-11-22 19:34:16.711Z: #22 12.42  61450K .......... .......... .......... .......... .......... 88% 50.9M 0s
+#22 12.42  61500K .......... .......... .......... .......... .......... 88%  123M 0s
+#22 12.42  61550K .......... .......... .......... .......... .......... 88%  106M 0s
+#22 12.42  61600K .......... .......... .......... .......... .......... 88%  218M 0s
+#22 12.42  61650K .......... .......... .......... .......... .......... 88% 73.5M 0s
+#22 12.43  61700K .......... .......... .......... .......... .......... 88% 86.1M 0s
+#22 12.43  61750K .......... .......... .......... .......... .......... 89%  101M 0s
+#22 12.43  61800K .......... .......... .......... .......... .......... 89% 59.4M 0s
+#22 12.43  61850K .......... .......... .......... .......... .......... 89% 55.2M 0s
+#22 12.43  61900K .......... .......... .......... .......... .......... 89% 88.6M 0s
+#22 12.43  61950K .......... .......... .......... .......... .......... 89% 68.3M 0s
+#22 12.43  62000K .......... .......... .......... .......... .......... 89%  107M 0s
+#22 12.43  62050K .......... .......... .......... .......... .......... 89%  209M 0s2025-11-22 19:34:16.712Z: 
+#22 12.43  62100K .......... .......... .......... .......... .......... 89%  204M 0s
+#22 12.43  62150K .......... .......... .......... .......... .......... 89%  193M 0s
+#22 12.43  62200K .......... .......... .......... .......... .......... 89%  198M 0s
+#22 12.43  62250K .......... .......... .......... .......... .......... 89%  190M 0s
+#22 12.43  62300K .......... .......... .......... .......... .......... 89%  216M 0s
+#22 12.43  62350K .......... .......... .......... .......... .......... 89%  177M 0s
+#22 12.43  62400K .......... .......... .......... .......... .......... 89% 75.5M 0s
+#22 12.43  62450K .......... .......... .......... .......... .......... 90% 43.2M 0s
+#22 12.43  62500K .......... .......... .......... .......... .......... 90%  115M 0s
+#22 12.43  62550K .......... .......... .......... .......... .......... 90% 73.3M 0s
+#22 12.43  62600K .......... .......... .......... .......... .......... 90% 80.1M 0s
+#22 12.43  62650K .......... .......... .......... .......... .......... 90%  186M 0s2025-11-22 19:34:16.712Z: 
+#22 12.43  62700K .......... .......... .......... .......... .......... 90%  195M 0s
+#22 12.44  62750K .......... .......... .......... .......... .......... 90%  169M 0s
+#22 12.44  62800K .......... .......... .......... .......... .......... 90%  197M 0s
+#22 12.44  62850K .......... .......... .......... .......... .......... 90%  204M 0s
+#22 12.44  62900K .......... .......... .......... .......... .......... 90%  216M 0s
+#22 12.44  62950K .......... .......... .......... .......... .......... 90%  146M 0s
+#22 12.44  63000K .......... .......... .......... .......... .......... 90% 93.4M 0s
+#22 12.44  63050K .......... .......... .......... .......... .......... 90% 48.7M 0s2025-11-22 19:34:16.713Z: 
+#22 12.44  63100K .......... .......... .......... .......... .......... 90%  115M 0s
+#22 12.44  63150K .......... .......... .......... .......... .......... 91% 91.4M 0s
+#22 12.44  63200K .......... .......... .......... .......... .......... 91% 63.1M 0s
+#22 12.44  63250K .......... .......... .......... .......... .......... 91%  157M 0s
+#22 12.44  63300K .......... .......... .......... .......... .......... 91%  181M 0s
+#22 12.44  63350K .......... .......... .......... .......... .......... 91%  180M 0s
+#22 12.44  63400K .......... .......... .......... .......... .......... 91%  212M 0s
+#22 12.44  63450K .......... .......... .......... .......... .......... 91%  192M 0s
+#22 12.44  63500K .......... .......... .......... .......... .......... 91%  188M 0s
+#22 12.44  63550K .......... .......... .......... .......... .......... 91%  105M 0s
+#22 12.44  63600K .......... .......... .......... .......... .......... 91% 92.4M 0s
+#22 12.44  63650K .......... .......... .......... .......... .......... 91% 84.1M 0s
+#22 12.44  63700K .......... .......... .......... .......... .......... 91%  258M 0s
+#22 12.44  63750K .......... .......... .......... .......... .......... 91%  329M 0s
+#22 12.44  63800K .......... .......... .......... .......... .......... 91%  273M 0s
+#22 12.44  63850K .......... .......... .......... .......... .......... 92%  307M 0s2025-11-22 19:34:16.715Z: 
+#22 12.44  63900K .......... .......... .......... .......... .......... 92%  311M 0s
+#22 12.44  63950K .......... .......... .......... .......... .......... 92%  311M 0s
+#22 12.44  64000K .......... .......... .......... .......... .......... 92%  259M 0s
+#22 12.44  64050K .......... .......... .......... .......... .......... 92%  318M 0s
+2025-11-22 19:34:16.715Z: #22 12.44  64100K .......... .......... .......... .......... .......... 92%  309M 0s
+#22 12.45  64150K .......... .......... .......... .......... .......... 92% 20.4M 0s
+#22 12.45  64200K .......... .......... .......... .......... .......... 92%  240M 0s
+#22 12.45  64250K .......... .......... .......... .......... .......... 92%  266M 0s
+#22 12.45  64300K .......... .......... .......... .......... .......... 92%  262M 0s
+#22 12.45  64350K .......... .......... .......... .......... .......... 92%  221M 0s
+2025-11-22 19:34:16.715Z: #22 12.45  64400K .......... .......... .......... .......... .......... 92%  265M 0s
+#22 12.45  64450K .......... .......... .......... .......... .......... 92%  265M 0s
+#22 12.45  64500K .......... .......... .......... .......... .......... 93%  182M 0s
+#22 12.45  64550K .......... .......... .......... .......... .......... 93% 24.1M 0s
+#22 12.49  64600K .......... .......... .......... .......... .......... 93%  136M 0s
+#22 12.49  64650K .......... .......... .......... .......... .......... 93%  296M 0s
+#22 12.49  64700K .......... .......... .......... .......... .......... 93%  244M 0s
+#22 12.49  64750K .......... .......... .......... .......... .......... 93%  284M 0s
+#22 12.49  64800K .......... .......... .......... .......... .......... 93%  284M 0s
+#22 12.49  64850K .......... .......... .......... .......... .......... 93%  255M 0s
+#22 12.49  64900K .......... .......... .......... .......... .......... 93%  251M 0s
+#22 12.49  64950K .......... .......... .......... .......... .......... 93%  269M 0s
+#22 12.49  65000K .......... .......... .......... .......... .......... 93%  294M 0s
+#22 12.49  65050K .......... .......... .......... .......... .......... 93%  299M 0s2025-11-22 19:34:16.715Z: 
+#22 12.49  65100K .......... .......... .......... .......... .......... 93%  295M 0s
+#22 12.49  65150K .......... .......... .......... .......... .......... 93% 33.9M 0s
+2025-11-22 19:34:16.716Z: #22 12.49  65200K .......... .......... .......... .......... .......... 94% 79.1M 0s
+#22 12.49  65250K .......... .......... .......... .......... .......... 94% 48.9M 0s
+#22 12.49  65300K .......... .......... .......... .......... .......... 94% 67.0M 0s
+#22 12.49  65350K .......... .......... .......... .......... .......... 94%  246M 0s
+#22 12.49  65400K .......... .......... .......... .......... .......... 94%  202M 0s
+#22 12.49  65450K .......... .......... .......... .......... .......... 94%  293M 0s
+#22 12.49  65500K .......... .......... .......... .......... .......... 94%  275M 0s
+#22 12.49  65550K .......... .......... .......... .......... .......... 94%  297M 0s
+#22 12.49  65600K .......... .......... .......... .......... .......... 94%  291M 0s
+#22 12.49  65650K .......... .......... .......... .......... .......... 94%  163M 0s
+#22 12.49  65700K .......... .......... .......... .......... .......... 94% 40.3M 0s
+#22 12.49  65750K .......... .......... .......... .......... .......... 94% 72.0M 0s
+#22 12.49  65800K .......... .......... .......... .......... .......... 94%  263M 0s
+#22 12.49  65850K .......... .......... .......... .......... .......... 94%  291M 0s
+#22 12.49  65900K .......... .......... .......... .......... .......... 95%  294M 0s
+#22 12.49  65950K .......... .......... .......... .......... .......... 95%  262M 0s
+#22 12.49  66000K .......... .......... .......... .......... .......... 95%  289M 0s
+#22 12.49  66050K .......... .......... .......... .......... .......... 95% 69.4M 0s
+#22 12.49  66100K .......... .......... .......... .......... .......... 95% 42.0M 0s
+#22 12.49  66150K .......... .......... .......... .......... .......... 95%  159M 0s
+#22 12.49  66200K .......... .......... .......... .......... .......... 95%  287M 0s
+#22 12.49  66250K .......... .......... .......... .......... .......... 95%  291M 0s
+#22 12.49  66300K .......... .......... .......... .......... .......... 95%  277M 0s
+#22 12.49  66350K .......... .......... .......... .......... .......... 95%  293M 0s
+#22 12.49  66400K .......... .......... .......... .......... .......... 95%  245M 0s
+#22 12.49  66450K .......... .......... .......... .......... .......... 95% 58.6M 0s2025-11-22 19:34:16.716Z: 
+#22 12.49  66500K .......... .......... .......... .......... .......... 95%  173M 0s2025-11-22 19:34:16.719Z: 
+#22 12.49  66550K .......... .......... .......... .......... .......... 95%  148M 0s
+#22 12.49  66600K .......... .......... .......... .......... .......... 96%  167M 0s
+#22 12.49  66650K .......... .......... .......... .......... .......... 96%  290M 0s
+#22 12.49  66700K .......... .......... .......... .......... .......... 96%  251M 0s
+#22 12.49  66750K .......... .......... .......... .......... .......... 96%  295M 0s
+#22 12.49  66800K .......... .......... .......... .......... .......... 96%  163M 0s
+#22 12.49  66850K .......... .......... .......... .......... .......... 96%  323M 0s
+#22 12.49  66900K .......... .......... .......... .......... .......... 96%  266M 0s
+#22 12.49  66950K .......... .......... .......... .......... .......... 96%  221M 0s
+#22 12.49  67000K .......... .......... .......... .......... .......... 96%  292M 0s
+#22 12.49  67050K .......... .......... .......... .......... .......... 96%  299M 0s
+#22 12.49  67100K .......... .......... .......... .......... .......... 96%  246M 0s
+#22 12.49  67150K .......... .......... .......... .......... .......... 96%  298M 0s
+#22 12.49  67200K .......... .......... .......... .......... .......... 96%  161M 0s
+#22 12.49  67250K .......... .......... .......... .......... .......... 96%  183M 0s
+#22 12.49  67300K .......... .......... .......... .......... .......... 97%  209M 0s
+#22 12.49  67350K .......... .......... .......... .......... .......... 97%  228M 0s
+#22 12.49  67400K .......... .......... .......... .......... .......... 97%  298M 0s
+#22 12.49  67450K .......... .......... .......... .......... .......... 97%  246M 0s
+#22 12.49  67500K .......... .......... .......... .......... .......... 97%  297M 0s
+#22 12.49  67550K .......... .......... .......... .......... .......... 97%  267M 0s
+#22 12.49  67600K .......... .......... .......... .......... .......... 97%  305M 0s
+#22 12.49  67650K .......... .......... .......... .......... .......... 97%  274M 0s
+#22 12.49  67700K .......... .......... .......... .......... .......... 97%  256M 0s
+#22 12.49  67750K .......... .......... .......... .......... .......... 97%  299M 0s
+#22 12.49  67800K .......... .......... .......... .......... .......... 97%  300M 0s
+#22 12.49  67850K .......... .......... .......... .......... .......... 97%  176M 0s
+#22 12.49  67900K .......... .......... .......... .......... .......... 97%  289M 0s
+#22 12.49  67950K .......... .......... .......... .......... .......... 97%  276M 0s
+#22 12.49  68000K .......... .......... .......... .......... .......... 98%  294M 0s
+2025-11-22 19:34:16.720Z: #22 12.49  68050K .......... .......... .......... .......... .......... 98%  296M 0s
+#22 12.49  68100K .......... .......... .......... .......... .......... 98%  249M 0s
+#22 12.49  68150K .......... .......... .......... .......... .......... 98%  299M 0s
+#22 12.49  68200K .......... .......... .......... .......... .......... 98%  283M 0s
+#22 12.49  68250K .......... .......... .......... .......... .......... 98%  273M 0s
+#22 12.49  68300K .......... .......... .......... .......... .......... 98%  304M 0s
+#22 12.49  68350K .......... .......... .......... .......... .......... 98%  252M 0s2025-11-22 19:34:16.720Z: 
+#22 12.49  68400K .......... .......... .......... .......... .......... 98%  301M 0s
+#22 12.49  68450K .......... .......... .......... .......... .......... 98%  306M 0s
+#22 12.49  68500K .......... .......... .......... .......... .......... 98%  299M 0s
+#22 12.49  68550K .......... .......... .......... .......... .......... 98%  229M 0s
+#22 12.49  68600K .......... .......... .......... .......... .......... 98%  295M 0s2025-11-22 19:34:16.720Z: 
+#22 12.49  68650K .......... .......... .......... .......... .......... 98%  296M 0s
+#22 12.49  68700K .......... .......... .......... .......... .......... 99%  293M 0s
+#22 12.49  68750K .......... .......... .......... .......... .......... 99%  269M 0s
+#22 12.49  68800K .......... .......... .......... .......... .......... 99%  261M 0s
+#22 12.49  68850K .......... .......... .......... .......... .......... 99%  250M 0s
+#22 12.49  68900K .......... .......... .......... .......... .......... 99%  290M 0s
+#22 12.49  68950K .......... .......... .......... .......... .......... 99%  263M 0s
+#22 12.49  69000K .......... .......... .......... .......... .......... 99%  300M 0s
+#22 12.49  69050K .......... .......... .......... .......... .......... 99%  272M 0s
+#22 12.49  69100K .......... .......... .......... .......... .......... 99%  264M 0s
+#22 12.49  69150K .......... .......... .......... .......... .......... 99%  255M 0s
+#22 12.49  69200K .......... .......... .......... .......... .......... 99%  301M 0s
+#22 12.49  69250K .......... .......... .......... .......... .......... 99%  253M 0s
+#22 12.49  69300K .......... .......... .......... .......... .......... 99%  295M 0s
+#22 12.49  69350K .......... .......... .......... .......... .......... 99%  309M 0s
+#22 12.49  69400K ....                                                  100%  171M=0.6s
+#22 12.49 
+#22 12.49 2025-11-22 19:34:16 (119 MB/s) - 'buildx-v0.30.1.linux-amd64' saved [71069880/71069880]
+#22 12.49 
+2025-11-22 19:34:16.904Z: #22 12.56 docker-in-docker-debian script has completed!
+2025-11-22 19:34:19.698Z: #22 DONE 15.5s
+2025-11-22 19:34:19.847Z: 
+#23 preparing layers for inline cache
+2025-11-22 19:34:30.941Z: #23 DONE 11.2s
+
+2025-11-22 19:34:30.942Z: #24 exporting to image
+#24 exporting layers done
+2025-11-22 19:34:31.040Z: #24 writing image sha256:a00ef712b4dc8424940eb3ffa8ea02f56626fd8395147353558e110697cb9e0d done
+#24 naming to docker.io/library/vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 0.0s done
+#24 DONE 0.0s
+2025-11-22 19:34:31.048Z: Stop: Run: docker buildx build --load --build-arg BUILDKIT_INLINE_CACHE=1 -f /tmp/devcontainercli-root/container-features/0.80.0-1763840005761/Dockerfile-with-features -t vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 --target dev_containers_target_stage --build-context dev_containers_feature_content_source=/tmp/devcontainercli-root/container-features/0.80.0-1763840005761 --build-arg _DEV_CONTAINERS_BASE_IMAGE=dev_container_auto_added_stage_label --build-arg _DEV_CONTAINERS_IMAGE_USER=z2h --build-arg _DEV_CONTAINERS_FEATURE_CONTENT_SOURCE=dev_container_feature_content_temp /var/lib/docker/codespacemount/workspace/student-test/.devcontainer
+2025-11-22 19:34:31.055Z: $127.0.0.1 --cap-add sys_nice --network host --privileged --entrypoint /bin/sh vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 -c echo Container started
+2025-11-22 19:34:31.113Z: docker: Error response from daemon: create /var/lib/docker: "/var/lib/docker" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path.
+See 'docker run --help'.
+2025-11-22 19:34:31.115Z: Stop: Run: docker run --sig-proxy=false -a STDOUT -a STDERR --mount type=bind,src=/var/lib/docker/codespacemount/workspace,dst=/workspaces --mount source=/var/lib/docker,target=/var/lib/docker,type=volume --mount source=/root/.codespaces/shared,target=/workspaces/.codespaces/shared,type=bind --mount source=/var/lib/docker/codespacemount/.persistedshare,target=/workspaces/.codespaces/.persistedshare,type=bind --mount source=/.codespaces/agent/mount,target=/.codespaces/bin,type=bind --mount source=/mnt/containerTmp,target=/tmp,type=bind --mount type=bind,src=/.codespaces/agent/mount/cache,dst=/vscode -l Type=codespaces -e CODESPACES=******** -e ContainerVersion=13 -e RepositoryName=student-test --privileged --label ContainerVersion=13 --hostname codespaces-1faa92 --add-host codespaces-1faa92:127.0.0.1 --cap-add sys_nice --network host --privileged --entrypoint /bin/sh vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 -c echo Container started
+2025-11-22 19:34:31.132Z: Error: Command failed: docker run --sig-proxy=false -a STDOUT -a STDERR --mount type=bind,src=/var/lib/docker/codespacemount/workspace,dst=/workspaces --mount source=/var/lib/docker,target=/var/lib/docker,type=volume --mount source=/root/.codespaces/shared,target=/workspaces/.codespaces/shared,type=bind --mount source=/var/lib/docker/codespacemount/.persistedshare,target=/workspaces/.codespaces/.persistedshare,type=bind --mount source=/.codespaces/agent/mount,target=/.codespaces/bin,type=bind --mount source=/mnt/containerTmp,target=/tmp,type=bind --mount type=bind,src=/.codespaces/agent/mount/cache,dst=/vscode -l Type=codespaces -e CODESPACES=true -e ContainerVersion=13 -e RepositoryName=student-test --privileged --label ContainerVersion=13 --hostname codespaces-1faa92 --add-host codespaces-1faa92:127.0.0.1 --cap-add sys_nice --network host --privileged --entrypoint /bin/sh vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 -c echo Container started
+2025-11-22 19:34:31.132Z: trap "exit 0" 15
+2025-11-22 19:34:31.132Z: {"outcome":"error","message":"Command failed: docker run --sig-proxy=false -a STDOUT -a STDERR --mount type=bind,src=/var/lib/docker/codespacemount/workspace,dst=/workspaces --mount source=/var/lib/docker,target=/var/lib/docker,type=volume --mount source=/root/.codespaces/shared,target=/workspaces/.codespaces/shared,type=bind --mount source=/var/lib/docker/codespacemount/.persistedshare,target=/workspaces/.codespaces/.persistedshare,type=bind --mount source=/.codespaces/agent/mount,target=/.codespaces/bin,type=bind --mount source=/mnt/containerTmp,target=/tmp,type=bind --mount type=bind,src=/.codespaces/agent/mount/cache,dst=/vscode -l Type=codespaces -e CODESPACES=true -e ContainerVersion=13 -e RepositoryName=student-test --privileged --label ContainerVersion=13 --hostname codespaces-1faa92 --add-host codespaces-1faa92:127.0.0.1 --cap-add sys_nice --network host --privileged --entrypoint /bin/sh vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 -c echo Container started\ntrap \"exit 0\" 15\n/usr/local/share/docker-init.sh\nexec \"$@\"\nwhile sleep 1 & wait $!; do :; done -","description":"An error occurred setting up the container."}
+2025-11-22 19:34:31.134Z: /usr/local/share/docker-init.sh
+2025-11-22 19:34:31.134Z: exec "$@"
+2025-11-22 19:34:31.134Z: while sleep 1 & wait $!; do :; done -
+2025-11-22 19:34:31.135Z:     at w6 (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:467:1253)
+2025-11-22 19:34:31.135Z:     at ax (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:467:997)
+2025-11-22 19:34:31.135Z:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-11-22 19:34:31.136Z:     at async Y6 (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:484:3842)
+2025-11-22 19:34:31.136Z:     at async BC (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:484:4957)
+2025-11-22 19:34:31.136Z:     at async p7 (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:665:202)
+2025-11-22 19:34:31.137Z:     at async d7 (/.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:664:14804)
+2025-11-22 19:34:31.137Z:     at async /.codespaces/agent/bin/node_modules/@devcontainers/cli/dist/spec-node/devContainersSpecCLI.js:484:1188
+2025-11-22 19:34:31.141Z: devcontainer process exited with exit code 1
+
+====================================== ERROR ====================================
+2025-11-22 19:34:31.150Z: Failed to create container.
+=================================================================================
+2025-11-22 19:34:31.150Z: Error: Command failed: docker run --sig-proxy=false -a STDOUT -a STDERR --mount type=bind,src=/var/lib/docker/codespacemount/workspace,dst=/workspaces --mount source=/var/lib/docker,target=/var/lib/docker,type=volume --mount source=/root/.codespaces/shared,target=/workspaces/.codespaces/shared,type=bind --mount source=/var/lib/docker/codespacemount/.persistedshare,target=/workspaces/.codespaces/.persistedshare,type=bind --mount source=/.codespaces/agent/mount,target=/.codespaces/bin,type=bind --mount source=/mnt/containerTmp,target=/tmp,type=bind --mount type=bind,src=/.codespaces/agent/mount/cache,dst=/vscode -l Type=codespaces -e CODESPACES=true -e ContainerVersion=13 -e RepositoryName=student-test --privileged --label ContainerVersion=13 --hostname codespaces-1faa92 --add-host codespaces-1faa92:127.0.0.1 --cap-add sys_nice --network host --privileged --entrypoint /bin/sh vsc-student-test-5fdedd98bd26c5b77b4f08c32abf6972b926d2afa534614067b0296e7822cdf6 -c echo Container started
+trap "exit 0" 15
+/usr/local/share/docker-init.sh
+exec "$@"
+while sleep 1 & wait $!; do :; done -
+2025-11-22 19:34:31.153Z: Error code: 1302 (UnifiedContainersErrorFatalCreatingContainer)
+
+====================================== ERROR ====================================
+2025-11-22 19:34:31.162Z: Container creation failed.
+=================================================================================
+2025-11-22 19:34:31.172Z: 
+
+===================================== WARNING ===================================
+2025-11-22 19:34:31.173Z: Creating recovery container.
+=================================================================================
+
+=================================================================================
+2025-11-22 19:34:59.501Z: Creating container...
+2025-11-22 19:34:59.529Z: $ devcontainer up --id-label Type=codespaces --workspace-folder /var/lib/docker/codespacemount/workspace/student-test --mount type=bind,source=/.codespaces/agent/mount/cache,target=/vscode --user-data-folder /var/lib/docker/codespacemount/.persistedshare --container-data-folder .vscode-remote/data/Machine --container-system-data-folder /var/vscode-remote --log-level trace --log-format json --update-remote-user-uid-default never --mount-workspace-git-root false --omit-config-remote-env-from-metadata --skip-non-blocking-commands --skip-post-create --config "/var/lib/docker/codespacemount/workspace/student-test/.devcontainer/devcontainer.json" --override-config /root/.codespaces/shared/merged_devcontainer.json --default-user-env-probe loginInteractiveShell --container-session-data-folder /workspaces/.codespaces/.persistedshare/devcontainers-cli/cache --secrets-file /root/.codespaces/shared/user-secrets-envs.json
+2025-11-22 19:34:59.678Z: @devcontainers/cli 0.80.0. Node.js v18.20.6. linux 6.8.0-1030-azure x64.
+2025-11-22 19:35:00.133Z: $alpine -c echo Container started
+2025-11-22 19:35:00.153Z: Unable to find image 'mcr.microsoft.com/devcontainers/base:alpine' locally
+2025-11-22 19:35:00.318Z: alpine: Pulling from devcontainers/base
+2025-11-22 19:35:00.365Z: 
+2025-11-22 19:35:00.365Z: [1A[2K
+2d35ebdb57d9: Pulling fs layer 
+[1B
+[1A[2K
+3c239a0e64e6: Pulling fs layer 
+[1B
+[1A[2K
+976f3cdeb29a: Pulling fs layer 
+[1B
+[1A[2K
+1c3af81ceb4d: Pulling fs layer 
+[1B
+[1A[2K
+9d9f88965a3d: Pulling fs layer 
+[1B
+[1A[2K
+934c86e00306: Pulling fs layer 
+[1B
+[1A[2K
+5a6c72fb2b63: Pulling fs layer 
+[1B[3A[2K
+9d9f88965a3d: Waiting 
+[3B[2A[2K
+934c86e00306: Waiting 
+[2B[1A[2K
+5a6c72fb2b63: Waiting 
+[1B2025-11-22 19:35:00.367Z: [4A2025-11-22 19:35:00.371Z: [2K
+1c3af81ceb4d: Waiting 
+[4B2025-11-22 19:35:00.435Z: [7A2025-11-22 19:35:00.435Z: [2K
+2d35ebdb57d9: Downloading  48.34kB/3.802MB
+[7B2025-11-22 19:35:00.435Z: [5A[2K
+976f3cdeb29a: Downloading     134B/134B
+[5B[5A[2K
+976f3cdeb29a: Verifying Checksum 
+[5B[5A[2K
+976f3cdeb29a: Download complete 
+[5B2025-11-22 19:35:00.466Z: [7A2025-11-22 19:35:00.468Z: [2K
+2d35ebdb57d9: Verifying Checksum 
+[7B2025-11-22 19:35:00.468Z: [7A2025-11-22 19:35:00.468Z: [2K
+2d35ebdb57d9: Download complete 
+[7B2025-11-22 19:35:00.468Z: [6A[2K
+3c239a0e64e6: Downloading     407B/407B
+[6B[6A[2K
+3c239a0e64e6: Verifying Checksum 
+[6B[6A[2K
+3c239a0e64e6: Download complete 
+[6B2025-11-22 19:35:00.479Z: [7A2025-11-22 19:35:00.482Z: [2K
+2d35ebdb57d9: Extracting  65.54kB/3.802MB
+[7B2025-11-22 19:35:00.524Z: [4A2025-11-22 19:35:00.524Z: [2K
+1c3af81ceb4d: Downloading     223B/223B
+[4B[4A[2K
+1c3af81ceb4d: Download complete 
+[4B2025-11-22 19:35:00.541Z: [3A[2K
+9d9f88965a3d: Downloading     232B/232B
+[3B[3A[2K
+9d9f88965a3d: Verifying Checksum 
+[3B[3A[2K
+9d9f88965a3d: Download complete 
+[3B2025-11-22 19:35:00.560Z: [2A[2K
+934c86e00306: Downloading  538.7kB/203.2MB
+[2B2025-11-22 19:35:00.587Z: [7A[2K
+2d35ebdb57d9: Extracting  262.1kB/3.802MB
+[7B2025-11-22 19:35:00.600Z: [1A[2K2025-11-22 19:35:00.600Z: 
+5a6c72fb2b63: Downloading  440.4kB/42.51MB
+[1B2025-11-22 19:35:00.669Z: [2A2025-11-22 19:35:00.674Z: [2K
+934c86e00306: Downloading  16.74MB/203.2MB
+[2B2025-11-22 19:35:00.695Z: [7A[2K
+2d35ebdb57d9: Extracting    852kB/3.802MB
+[7B2025-11-22 19:35:00.710Z: [1A2025-11-22 19:35:00.712Z: [2K
+5a6c72fb2b63: Downloading  9.388MB/42.51MB
+[1B2025-11-22 19:35:00.774Z: [2A[2K
+934c86e00306: Downloading  31.34MB/203.2MB
+[2B2025-11-22 19:35:00.803Z: [7A[2K
+2d35ebdb57d9: Extracting  1.376MB/3.802MB
+[7B2025-11-22 19:35:00.811Z: [1A[2K2025-11-22 19:35:00.812Z: 
+5a6c72fb2b63: Downloading     26MB/42.51MB
+[1B2025-11-22 19:35:00.873Z: [2A2025-11-22 19:35:00.873Z: [2K
+934c86e00306: Downloading  47.56MB/203.2MB
+[2B2025-11-22 19:35:00.876Z: [1A[2K2025-11-22 19:35:00.877Z: 
+5a6c72fb2b63: 2025-11-22 19:35:00.878Z: Verifying Checksum 
+[1B2025-11-22 19:35:00.879Z: [1A[2K2025-11-22 19:35:00.880Z: 
+5a6c72fb2b63: Download complete 
+[1B2025-11-22 19:35:00.902Z: [7A[2K
+2d35ebdb57d9: Extracting  3.211MB/3.802MB
+[7B2025-11-22 19:35:00.921Z: [7A2025-11-22 19:35:00.922Z: [2K
+2d35ebdb57d9: Extracting  3.802MB/3.802MB
+[7B2025-11-22 19:35:00.965Z: [7A2025-11-22 19:35:00.966Z: [2K
+2d35ebdb57d9: Pull complete 
+[7B2025-11-22 19:35:00.966Z: [2A[2K
+934c86e00306: Downloading  72.43MB/203.2MB
+[2B2025-11-22 19:35:00.976Z: [6A[2K
+3c239a0e64e6: 2025-11-22 19:35:00.976Z: Extracting     407B/407B
+[6B2025-11-22 19:35:00.977Z: [6A[2K
+3c239a0e64e6: Extracting     407B/407B
+[6B2025-11-22 19:35:01.072Z: [2A[2K
+934c86e00306: Downloading  89.74MB/203.2MB
+[2B2025-11-22 19:35:01.172Z: [2A[2K
+934c86e00306: Downloading  99.47MB/203.2MB
+[2B2025-11-22 19:35:01.283Z: [2A[2K
+934c86e00306: Downloading  109.2MB/203.2MB
+[2B2025-11-22 19:35:01.379Z: [2A[2K
+934c86e00306: Downloading  123.8MB/203.2MB
+[2B2025-11-22 19:35:01.481Z: [2A[2K
+934c86e00306: Downloading  145.4MB/203.2MB
+[2B2025-11-22 19:35:01.584Z: [2A2025-11-22 19:35:01.585Z: [2K
+934c86e00306: Downloading  163.3MB/203.2MB
+[2B2025-11-22 19:35:01.688Z: [2A[2K2025-11-22 19:35:01.688Z: 
+934c86e00306: Downloading  181.1MB/203.2MB
+[2B2025-11-22 19:35:01.784Z: [2A[2K
+934c86e00306: Verifying Checksum 
+[2B[2A[2K
+934c86e00306: Download complete 
+[2B2025-11-22 19:35:03.104Z: [6A[2K
+3c239a0e64e6: 2025-11-22 19:35:03.105Z: Pull complete 
+[6B2025-11-22 19:35:03.108Z: [5A[2K
+976f3cdeb29a: Extracting     134B/134B
+[5B2025-11-22 19:35:03.109Z: [5A2025-11-22 19:35:03.110Z: [2K
+976f3cdeb29a: Extracting     134B/134B
+[5B2025-11-22 19:35:04.275Z: [5A[2K
+976f3cdeb29a: Pull complete 
+[5B2025-11-22 19:35:04.280Z: [4A[2K
+1c3af81ceb4d: Extracting     223B/223B
+[4B[4A[2K
+1c3af81ceb4d: Extracting     223B/223B
+[4B2025-11-22 19:35:04.302Z: [4A[2K
+1c3af81ceb4d: Pull complete 
+[4B2025-11-22 19:35:04.307Z: [3A[2K
+9d9f88965a3d: 2025-11-22 19:35:04.307Z: Extracting     232B/232B
+[3B2025-11-22 19:35:04.308Z: [3A[2K
+2025-11-22 19:35:04.309Z: 9d9f88965a3d: Extracting     232B/232B
+[3B2025-11-22 19:35:04.329Z: [3A[2K
+2025-11-22 19:35:04.329Z: 9d9f88965a3d: Pull complete 
+2025-11-22 19:35:04.329Z: [3B2025-11-22 19:35:04.348Z: [2A[2K
+934c86e00306: Extracting  557.1kB/203.2MB
+[2B2025-11-22 19:35:04.494Z: [2A[2K
+934c86e00306: Extracting  5.571MB/203.2MB
+[2B2025-11-22 19:35:04.559Z: [2A[2K
+2025-11-22 19:35:04.560Z: 934c86e00306: Extracting  8.356MB/203.2MB
+[2B2025-11-22 19:35:04.669Z: [2A[2K
+934c86e00306: Extracting  16.15MB/203.2MB
+[2B2025-11-22 19:35:04.811Z: [2A[2K
+934c86e00306: Extracting  20.61MB/203.2MB
+[2B2025-11-22 19:35:04.932Z: [2A[2K
+934c86e00306: Extracting  23.95MB/203.2MB
+[2B2025-11-22 19:35:05.146Z: [2A[2K
+934c86e00306: Extracting  25.07MB/203.2MB
+[2B2025-11-22 19:35:05.304Z: [2A[2K2025-11-22 19:35:05.305Z: 
+934c86e00306: Extracting  26.18MB/203.2MB
+[2B2025-11-22 19:35:05.452Z: [2A2025-11-22 19:35:05.454Z: [2K
+934c86e00306: Extracting  26.74MB/203.2MB
+[2B2025-11-22 19:35:05.567Z: [2A[2K2025-11-22 19:35:05.567Z: 
+934c86e00306: Extracting  30.08MB/203.2MB
+[2B2025-11-22 19:35:05.699Z: [2A[2K
+2025-11-22 19:35:05.700Z: 934c86e00306: Extracting   31.2MB/203.2MB
+[2B2025-11-22 19:35:05.799Z: [2A[2K
+934c86e00306: Extracting  37.88MB/203.2MB
+[2B2025-11-22 19:35:05.908Z: [2A[2K
+934c86e00306: Extracting  42.89MB/203.2MB
+[2B2025-11-22 19:35:06.032Z: [2A[2K
+934c86e00306: Extracting  46.24MB/203.2MB
+[2B2025-11-22 19:35:06.136Z: [2A2025-11-22 19:35:06.137Z: [2K
+934c86e00306: Extracting  51.25MB/203.2MB
+[2B2025-11-22 19:35:06.320Z: [2A[2K
+934c86e00306: Extracting  55.15MB/203.2MB
+[2B2025-11-22 19:35:06.413Z: [2A2025-11-22 19:35:06.414Z: [2K
+934c86e00306: Extracting  59.05MB/203.2MB
+[2B2025-11-22 19:35:06.524Z: [2A[2K
+934c86e00306: Extracting  61.83MB/203.2MB
+[2B2025-11-22 19:35:06.648Z: [2A[2K
+2025-11-22 19:35:06.649Z: 934c86e00306: Extracting  66.29MB/203.2MB
+[2B2025-11-22 19:35:06.741Z: [2A[2K
+934c86e00306: Extracting  72.97MB/203.2MB
+[2B2025-11-22 19:35:06.845Z: [2A[2K
+934c86e00306: Extracting  77.99MB/203.2MB
+[2B2025-11-22 19:35:06.974Z: [2A[2K2025-11-22 19:35:06.974Z: 
+934c86e00306: Extracting  80.77MB/203.2MB
+[2B2025-11-22 19:35:07.092Z: [2A2025-11-22 19:35:07.092Z: [2K
+934c86e00306: Extracting  83.56MB/203.2MB
+[2B2025-11-22 19:35:07.224Z: [2A[2K
+934c86e00306: Extracting  84.67MB/203.2MB
+[2B2025-11-22 19:35:07.353Z: [2A[2K2025-11-22 19:35:07.353Z: 
+934c86e00306: Extracting  86.34MB/203.2MB
+[2B2025-11-22 19:35:07.526Z: [2A[2K
+934c86e00306: Extracting  91.91MB/203.2MB
+[2B2025-11-22 19:35:07.571Z: [2A2025-11-22 19:35:07.571Z: [2K
+934c86e00306: Extracting  95.81MB/203.2MB
+[2B2025-11-22 19:35:07.676Z: [2A[2K2025-11-22 19:35:07.676Z: 
+934c86e00306: Extracting  102.5MB/203.2MB
+[2B2025-11-22 19:35:07.860Z: [2A[2K
+934c86e00306: Extracting  110.3MB/203.2MB
+[2B2025-11-22 19:35:07.884Z: [2A2025-11-22 19:35:07.885Z: [2K
+934c86e00306: 2025-11-22 19:35:07.885Z: Extracting  112.5MB/203.2MB
+[2B2025-11-22 19:35:07.998Z: [2A[2K
+934c86e00306: Extracting  119.2MB/203.2MB
+[2B2025-11-22 19:35:08.104Z: [2A[2K
+934c86e00306: 2025-11-22 19:35:08.104Z: Extracting    127MB/203.2MB
+[2B2025-11-22 19:35:08.209Z: [2A[2K
+934c86e00306: Extracting  130.4MB/203.2MB
+[2B2025-11-22 19:35:08.313Z: [2A[2K
+934c86e00306: 2025-11-22 19:35:08.333Z: Extracting  134.8MB/203.2MB
+[2B2025-11-22 19:35:08.462Z: [2A[2K
+934c86e00306: Extracting  140.4MB/203.2MB
+[2B2025-11-22 19:35:08.540Z: [2A2025-11-22 19:35:08.540Z: [2K
+934c86e00306: Extracting  146.5MB/203.2MB
+[2B2025-11-22 19:35:08.653Z: [2A2025-11-22 19:35:08.654Z: [2K
+934c86e00306: Extracting  154.3MB/203.2MB
+[2B2025-11-22 19:35:08.775Z: [2A[2K
+934c86e00306: Extracting  158.8MB/203.2MB
+[2B2025-11-22 19:35:08.868Z: [2A[2K
+934c86e00306: Extracting  165.4MB/203.2MB
+[2B2025-11-22 19:35:08.969Z: [2A[2K
+934c86e00306: 2025-11-22 19:35:08.970Z: Extracting  172.7MB/203.2MB
+[2B2025-11-22 19:35:09.126Z: [2A[2K
+934c86e00306: Extracting  178.3MB/203.2MB
+[2B2025-11-22 19:35:09.191Z: [2A[2K
+934c86e00306: Extracting  183.8MB/203.2MB
+[2B2025-11-22 19:35:09.321Z: [2A[2K
+934c86e00306: Extracting  191.6MB/203.2MB
+[2B2025-11-22 19:35:09.885Z: [2A[2K
+2025-11-22 19:35:09.885Z: 934c86e00306: Extracting  192.2MB/203.2MB
+[2B2025-11-22 19:35:10.011Z: [2A[2K
+934c86e00306: Extracting  193.9MB/203.2MB
+[2B2025-11-22 19:35:10.136Z: [2A2025-11-22 19:35:10.136Z: [2K
+934c86e00306: Extracting  194.4MB/203.2MB
+[2B2025-11-22 19:35:10.240Z: [2A[2K
+934c86e00306: 2025-11-22 19:35:10.241Z: Extracting  196.1MB/203.2MB
+[2B2025-11-22 19:35:10.411Z: [2A2025-11-22 19:35:10.412Z: [2K
+934c86e00306: Extracting  196.6MB/203.2MB
+[2B2025-11-22 19:35:10.738Z: [2A[2K
+2025-11-22 19:35:10.738Z: 934c86e00306: Extracting  198.3MB/203.2MB
+[2B2025-11-22 19:35:10.863Z: [2A[2K
+2025-11-22 19:35:10.864Z: 934c86e00306: Extracting  199.4MB/203.2MB
+[2B2025-11-22 19:35:11.186Z: [2A[2K
+934c86e00306: Extracting  200.5MB/203.2MB
+[2B2025-11-22 19:35:13.274Z: [2A2025-11-22 19:35:13.274Z: [2K
+934c86e00306: Extracting  201.1MB/203.2MB
+[2B2025-11-22 19:35:13.286Z: [2A[2K
+934c86e00306: Extracting  203.2MB/203.2MB
+[2B2025-11-22 19:35:18.140Z: [2A[2K
+934c86e00306: Pull complete 
+[2B2025-11-22 19:35:18.160Z: [1A[2K
+5a6c72fb2b63: Extracting    426kB/42.51MB
+[1B2025-11-22 19:35:18.260Z: [1A[2K
+2025-11-22 19:35:18.261Z: 5a6c72fb2b63: Extracting  1.704MB/42.51MB
+[1B2025-11-22 19:35:18.458Z: [1A2025-11-22 19:35:18.459Z: [2K
+5a6c72fb2b63: Extracting  5.538MB/42.51MB
+[1B2025-11-22 19:35:18.594Z: [1A2025-11-22 19:35:18.595Z: [2K
+5a6c72fb2b63: Extracting  5.964MB/42.51MB
+[1B2025-11-22 19:35:18.744Z: [1A[2K
+5a6c72fb2b63: 2025-11-22 19:35:18.745Z: Extracting   8.52MB/42.51MB
+[1B2025-11-22 19:35:18.893Z: [1A[2K
+2025-11-22 19:35:18.893Z: 5a6c72fb2b63: Extracting  12.78MB/42.51MB
+[1B2025-11-22 19:35:19.087Z: [1A[2K2025-11-22 19:35:19.088Z: 
+5a6c72fb2b63: Extracting  13.21MB/42.51MB
+[1B2025-11-22 19:35:19.209Z: [1A[2K
+5a6c72fb2b63: Extracting  15.76MB/42.51MB
+2025-11-22 19:35:19.210Z: [1B2025-11-22 19:35:19.317Z: [1A[2K
+5a6c72fb2b63: Extracting  18.32MB/42.51MB
+[1B2025-11-22 19:35:19.418Z: [1A[2K
+5a6c72fb2b63: Extracting  22.15MB/42.51MB
+2025-11-22 19:35:19.419Z: [1B2025-11-22 19:35:19.518Z: [1A2025-11-22 19:35:19.518Z: [2K
+5a6c72fb2b63: Extracting  27.26MB/42.51MB
+[1B2025-11-22 19:35:19.618Z: [1A[2K
+5a6c72fb2b63: Extracting  28.54MB/42.51MB
+[1B2025-11-22 19:35:19.950Z: [1A2025-11-22 19:35:19.950Z: [2K
+5a6c72fb2b63: Extracting  30.67MB/42.51MB
+[1B2025-11-22 19:35:20.220Z: [1A[2K
+5a6c72fb2b63: Extracting  31.95MB/42.51MB
+[1B2025-11-22 19:35:20.331Z: [1A2025-11-22 19:35:20.331Z: [2K
+5a6c72fb2b63: Extracting  32.37MB/42.51MB
+[1B2025-11-22 19:35:20.501Z: [1A[2K
+5a6c72fb2b63: Extracting   32.8MB/42.51MB
+[1B2025-11-22 19:35:20.632Z: [1A[2K
+5a6c72fb2b63: Extracting  34.08MB/42.51MB
+[1B2025-11-22 19:35:20.745Z: [1A[2K
+5a6c72fb2b63: Extracting  35.36MB/42.51MB
+[1B2025-11-22 19:35:20.939Z: [1A[2K
+5a6c72fb2b63: Extracting  37.49MB/42.51MB
+[1B2025-11-22 19:35:21.067Z: [1A[2K
+5a6c72fb2b63: Extracting  38.76MB/42.51MB
+[1B2025-11-22 19:35:21.215Z: [1A[2K
+5a6c72fb2b63: Extracting  40.89MB/42.51MB
+[1B2025-11-22 19:35:21.414Z: [1A[2K
+5a6c72fb2b63: 2025-11-22 19:35:21.414Z: Extracting  42.17MB/42.51MB
+[1B2025-11-22 19:35:21.517Z: [1A2025-11-22 19:35:21.518Z: [2K
+5a6c72fb2b63: Extracting  42.51MB/42.51MB
+[1B2025-11-22 19:35:23.236Z: [1A[2K
+5a6c72fb2b63: Pull complete 
+[1B2025-11-22 19:35:23.244Z: Digest: sha256:51961964f65dd75cb55e846b6e0cd16c364148452a2d73df933e68394129ea242025-11-22 19:35:23.244Z: 
+2025-11-22 19:35:23.247Z: Status: Downloaded newer image for mcr.microsoft.com/devcontainers/base:alpine
+2025-11-22 19:35:23.425Z: Container started
+2025-11-22 19:35:23.645Z: Outcome: success User: vscode WorkspaceFolder: /workspaces/student-test
+2025-11-22 19:35:23.651Z: devcontainer process exited with exit code 0
+
+=================================================================================
+2025-11-22 19:35:24.110Z: Running blocking commands...
+2025-11-22 19:35:24.198Z: $ devcontainer up --id-label Type=codespaces --workspace-folder /var/lib/docker/codespacemount/workspace/student-test --mount type=bind,source=/.codespaces/agent/mount/cache,target=/vscode --user-data-folder /var/lib/docker/codespacemount/.persistedshare --container-data-folder .vscode-remote/data/Machine --container-system-data-folder /var/vscode-remote --log-level trace --log-format json --update-remote-user-uid-default never --mount-workspace-git-root false --omit-config-remote-env-from-metadata --skip-non-blocking-commands --expect-existing-container --config "/var/lib/docker/codespacemount/workspace/student-test/.devcontainer/devcontainer.json" --override-config /root/.codespaces/shared/merged_devcontainer.json --default-user-env-probe loginInteractiveShell --container-session-data-folder /workspaces/.codespaces/.persistedshare/devcontainers-cli/cache --secrets-file /root/.codespaces/shared/user-secrets-envs.json
+2025-11-22 19:35:24.444Z: @devcontainers/cli 0.80.0. Node.js v18.20.6. linux 6.8.0-1030-azure x64.
+2025-11-22 19:35:25.011Z: Outcome: success User: vscode WorkspaceFolder: /workspaces/student-test
+2025-11-22 19:35:25.020Z: devcontainer process exited with exit code 0
+
+=================================================================================
+2025-11-22 19:35:25.051Z: Configuring codespace...
+
+=================================================================================
+2025-11-22 19:35:25.051Z: Finished configuring codespace.
