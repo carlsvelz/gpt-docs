@@ -1,0 +1,583 @@
+
+# 🧪 LAB — Nivel-0
+
+## 🎯 Objetivo del LAB
+
+Este laboratorio tiene como objetivo:
+
+- Cargar un dataset **real, crudo, sin maquillar** desde CSV usando **SQL puro**
+    
+- Explorar y validar la calidad de los datos
+    
+- Diseñe un **modelo relacional OLTP-like**
+    
+- Transformar datos desde una capa RAW hacia una capa CURATED
+    
+- Practicar SQL, modelado, EDA y performance básico
+    
+
+> **Este LAB no es ETL avanzado ni pipelines.**  
+> Es **fundamento sólido** para pensar como ingeniero de datos.
+
+---
+
+## 🧩 Contexto del Dataset (CSV real)
+
+El archivo CSV (`yellow_tripdata_YYYY-MM.csv`) contiene datos **tal como vienen del origen**:
+
+- Sin claves primarias
+    
+- Sin claves foráneas
+    
+- Tipos genéricos (`TEXT`, `REAL`)
+    
+- Datos inconsistentes o ruidosos
+    
+- Estructura plana
+    
+
+Esto **es intencional** y representa la realidad.
+
+## 🧭 Mapa general del LAB (visión completa)
+
+```
+┌───────────────────────────────┐
+│ 🐳INFRAESTRUCTURA (SETUP)     │
+│ Docker + PostgreSQL + pgAdmin │
+│ + Notebooks                  │
+└───────────────┬───────────────┘
+                ▼
+┌───────────────────────────────┐
+│ 🟦 FASE 1 — RAW               │
+│ Ingesta directa desde CSV    │
+│ Herramienta: psql            │
+│ Rol: Data Engineer           │
+└───────────────┬───────────────┘
+                ▼
+┌───────────────────────────────┐
+│ 🟩 FASE 2 — CURATED           │
+│ Modelo relacional (OLTP-like)│
+│ Herramienta: psql            │
+│ Rol: Data Engineer           │
+└───────────────┬───────────────┘
+                ▼
+┌───────────────────────────────┐
+│ 🟨 FASE 3 — ANALYTICS         │
+│ EDA + Performance            │
+│ Herramienta: JupySQL         │
+│ Rol: Data Analyst            │
+└───────────────┬───────────────┘
+                ▼
+┌───────────────────────────────┐
+│ 🟧 FASE 4 — OLAP PREP         │
+│ Denormalización + Agregados  │
+│ Herramienta: SQL             │
+│ Rol: Data Engineer           │
+└───────────────────────────────┘
+
+```
+
+---
+
+## 🟦 FASE 1 — Capa RAW
+
+### Carga directa desde CSV
+
+### 🎯 Objetivo
+
+Cargar los datos **tal como llegan del origen**, sin interpretarlos.
+
+---
+
+### 🧠 Flujo mental (FASE 1)
+
+```
+CSV ORIGEN
+   │
+   │  (COPY / sin lógica)
+   ▼
+┌────────────────────┐
+│ raw.yellow_taxi_raw│
+│ - TEXT everywhere  │
+│ - sin PK           │
+│ - sin FK           │
+│ - sin reglas       │
+└────────────────────┘
+```
+
+---
+
+### 🔧 Conexión (psql)
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres
+```
+
+---
+
+### 🧱 Crear esquema RAW
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+CREATE SCHEMA IF NOT EXISTS raw;
+SQL
+```
+
+---
+
+### 📋 Crear tabla RAW
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+CREATE TABLE IF NOT EXISTS raw.yellow_taxi_raw (
+    vendor_id TEXT,
+    pickup_datetime TEXT,
+    dropoff_datetime TEXT,
+    passenger_count TEXT,
+    trip_distance TEXT,
+    ratecode_id TEXT,
+    store_and_fwd_flag TEXT,
+    pulocation_id TEXT,
+    dolocation_id TEXT,
+    payment_type TEXT,
+    fare_amount TEXT,
+    extra TEXT,
+    mta_tax TEXT,
+    tip_amount TEXT,
+    tolls_amount TEXT,
+    improvement_surcharge TEXT,
+    total_amount TEXT
+);
+SQL
+```
+
+---
+
+### 📥 Carga CSV → RAW
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+COPY raw.yellow_taxi_raw
+FROM '/data/yellow_tripdata_2024-01.csv'
+CSV HEADER;
+SQL
+```
+
+---
+
+### ✅ Validación mínima
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+SELECT COUNT(*) FROM raw.yellow_taxi_raw;
+SQL
+```
+
+---
+
+## 🟩 FASE 2 — Modelo Relacional (CURATED)
+
+### 🎯 Objetivo
+
+Transformar datos crudos en un **modelo consistente y consultable**.
+
+---
+
+### 🧠 Flujo mental (FASE 2)
+
+```
+┌────────────────────┐
+│ raw.yellow_taxi_raw│
+│ (datos crudos)     │
+└─────────┬──────────┘
+          │
+          │  (CAST + reglas)
+          ▼
+┌────────────────────┐
+│ curated.trip       │
+│ - tipos correctos  │
+│ - PK               │
+│ - reglas           │
+└────────────────────┘
+```
+
+---
+
+### 🧱 Crear esquema CURATED
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+CREATE SCHEMA IF NOT EXISTS curated;
+SQL
+```
+
+---
+
+### 🚕 Tabla `trip`
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+CREATE TABLE curated.trip (
+    trip_id BIGSERIAL PRIMARY KEY,
+    vendor_id INTEGER,
+    pickup_datetime TIMESTAMP,
+    dropoff_datetime TIMESTAMP,
+    passenger_count INTEGER,
+    trip_distance NUMERIC,
+    fare_amount NUMERIC,
+    tip_amount NUMERIC,
+    total_amount NUMERIC
+);
+SQL
+```
+
+---
+
+### 🔄 RAW → CURATED
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+INSERT INTO curated.trip (
+    vendor_id,
+    pickup_datetime,
+    dropoff_datetime,
+    passenger_count,
+    trip_distance,
+    fare_amount,
+    tip_amount,
+    total_amount
+)
+SELECT
+    vendor_id::INTEGER,
+    pickup_datetime::TIMESTAMP,
+    dropoff_datetime::TIMESTAMP,
+    passenger_count::INTEGER,
+    trip_distance::NUMERIC,
+    fare_amount::NUMERIC,
+    tip_amount::NUMERIC,
+    total_amount::NUMERIC
+FROM raw.yellow_taxi_raw;
+SQL
+```
+
+---
+
+### ✅ Validación
+
+```bash
+%%bash
+psql postgresql://root:root@localhost:5432/postgres <<'SQL'
+SELECT COUNT(*) FROM curated.trip;
+SQL
+```
+
+---
+
+## 🟨 FASE 3 — EDA, Índices y Performance
+
+### 🎯 Objetivo
+
+Explorar, analizar y optimizar consultas.
+
+---
+
+### 🧠 Flujo mental (FASE 3)
+
+```
+┌────────────────────┐
+│ curated.trip       │
+│ (modelo limpio)    │
+└─────────┬──────────┘
+          │
+          │  (queries analíticas)
+          ▼
+┌────────────────────┐
+│ Insights            │
+│ Patrones            │
+│ Performance         │
+└────────────────────┘
+```
+
+---
+
+### 🔗 Conexión (JupySQL)
+
+```python
+%load_ext sql
+%sql postgresql://root:root@localhost:5432/postgres
+```
+
+---
+
+### 🔍 EDA básico
+
+```sql
+%%sql
+SELECT
+    COUNT(*) AS total_trips,
+    MIN(pickup_datetime),
+    MAX(pickup_datetime)
+FROM curated.trip;
+```
+
+---
+
+### 📊 Ingresos por día
+
+```sql
+%%sql
+SELECT
+    DATE(pickup_datetime) AS day,
+    SUM(total_amount) AS revenue
+FROM curated.trip
+GROUP BY day
+ORDER BY day;
+```
+
+---
+
+### ⚙️ Índices
+
+```sql
+%%sql
+CREATE INDEX idx_trip_pickup_datetime
+ON curated.trip (pickup_datetime);
+```
+
+---
+
+### 🔬 EXPLAIN
+
+```sql
+%%sql
+EXPLAIN ANALYZE
+SELECT *
+FROM curated.trip
+WHERE pickup_datetime >= '2024-01-15';
+```
+
+---
+## 🟧 FASE 4 — Preparación para OLAP
+
+### (Puente a Nivel-1)
+
+### 🎯 Objetivo
+
+Preparar estructuras **orientadas a análisis** sin abandonar PostgreSQL:
+
+- reducir joins
+    
+- precalcular métricas
+    
+- separar OLTP de consumo analítico
+    
+
+👉 **No es BI**  
+👉 **No es Data Warehouse completo**  
+👉 Es **criterio de ingeniería**
+
+---
+
+### 🧠 Flujo mental (FASE 4)
+
+```
+┌────────────────────┐
+│ curated.trip       │  ← OLTP
+│ + tablas ref       │
+└─────────┬──────────┘
+          │
+          │  (denormalización)
+          ▼
+┌────────────────────┐
+│ VIEW / MV          │
+│ lectura rápida     │
+│ consumo analítico  │
+└────────────────────┘
+```
+
+---
+
+### 🔍 Qué cambia respecto a FASE 3
+
+```
+FASE 3 → preguntas exploratorias
+FASE 4 → estructuras estables
+```
+
+- FASE 3 = **consultar**
+    
+- FASE 4 = **preparar**
+    
+
+---
+
+### 12️⃣ Vista denormalizada
+
+### (Join resuelto una sola vez)
+
+```
+trip + vendor + zone
+        │
+        ▼
+vw_trip_denorm
+```
+
+### SQL (psql o JupySQL, indiferente)
+
+```sql
+CREATE OR REPLACE VIEW vw_trip_denorm AS
+SELECT
+    t.trip_id,
+    DATE(t.pickup_datetime)    AS pickup_date,
+    EXTRACT(HOUR FROM t.pickup_datetime)::INT AS pickup_hour,
+    t.trip_distance,
+    t.total_amount,
+    v.vendor_name,
+    z.zone_name  AS pickup_zone,
+    z.borough    AS pickup_borough
+FROM curated.trip t
+LEFT JOIN curated.vendor v
+       ON t.vendor_id = v.vendor_id
+LEFT JOIN curated.zone z
+       ON t.pulocation_id = z.location_id;
+```
+
+### 🧠 Idea clave
+
+```
+El analista NO debería escribir joins complejos
+si el modelo ya los conoce
+```
+
+---
+
+### 13️⃣ Materialized View agregada
+
+#### (Pre-cálculo OLAP básico)
+
+```
+curated.trip
+        │
+        │  GROUP BY
+        ▼
+mv_daily_zone
+```
+
+```sql
+CREATE MATERIALIZED VIEW mv_daily_zone AS
+SELECT
+    DATE(pickup_datetime) AS pickup_date,
+    pulocation_id,
+    COUNT(*)              AS trips,
+    SUM(total_amount)     AS revenue
+FROM curated.trip
+GROUP BY
+    DATE(pickup_datetime),
+    pulocation_id;
+```
+
+---
+
+#### 🔄 Diferencia conceptual
+
+```
+VIEW             → se recalcula siempre
+MATERIALIZED VIEW→ se precalcula y persiste
+```
+
+Esto introduce por primera vez:
+
+- **latencia**
+    
+- **refresh**
+    
+- **trade-offs**
+    
+
+Conceptos clave para **Nivel-1**.
+
+---
+
+### 🧠 Relación con Nivel-1
+
+```
+Nivel-0
+│
+├── COPY manual
+├── SQL explícito
+└── Comprensión total
+        │
+        ▼
+Nivel-1
+├── Scripts
+├── Orquestación
+├── Refresh MV
+└── Pipelines
+```
+
+FASE 4 **prepara la cabeza**, no el tooling.
+
+---
+
+## ✅ Buenas prácticas Nivel-0 (resumen final)
+
+```
+✔ RAW primero
+✔ CURATED después
+✔ ANALYTICS separado
+✔ OLAP preparado, no improvisado
+```
+
+- No confíes en tipos del CSV
+    
+- Modela antes de automatizar
+    
+- Usa SQL como lenguaje base
+    
+- Valida con conteos
+    
+- Entiende EXPLAIN
+    
+- Documenta decisiones
+    
+
+---
+
+## 🧠 Cierre conceptual definitivo
+
+```
+Nivel-0 ≠ rapidez
+Nivel-0 = criterio
+```
+
+> Si puedes explicar **por qué existe cada capa**,  
+> estás listo para **Nivel-1**.
+
+---
+
+```
+RAW     → entender cómo llegan los datos
+CURATED → pensar como ingeniero
+EDA     → pensar como analista
+```
+
+> **NOTA>
+> Nivel-0 no busca velocidad.  
+> Busca criterio, orden y claridad mental.**
+
+Cuando el estudiante termina este LAB:
+
+- entiende el flujo real
+    
+- sabe cuándo usar cada herramienta
+    
+- está listo para **Nivel-1 (automatización y pipelines)**
+
