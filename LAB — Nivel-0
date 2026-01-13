@@ -1,448 +1,880 @@
 
-# 🧪 LAB — Nivel-0
+# 🟧 FASE 4 — Preparación para OLAP-Parte-2
 
-## 🎯 Objetivo del LAB
-
-Este laboratorio tiene como objetivo:
-
-- Cargar un dataset **real, crudo, sin maquillar** desde CSV usando **SQL puro**
-    
-- Explorar y validar la calidad de los datos
-    
-- Diseñe un **modelo relacional OLTP-like**
-    
-- Transformar datos desde una capa RAW hacia una capa CURATED
-    
-- Practicar SQL, modelado, EDA y performance básico
-    
-
-> **Este LAB no es ETL avanzado ni pipelines.**  
-> Es **fundamento sólido** para pensar como ingeniero de datos.
 
 ---
-
-## 🧩 Contexto del Dataset (CSV real)
-
-El archivo CSV (`yellow_tripdata_YYYY-MM.csv`) contiene datos **tal como vienen del origen**:
-
-- Sin claves primarias
-    
-- Sin claves foráneas
-    
-- Tipos genéricos (`TEXT`, `REAL`)
-    
-- Datos inconsistentes o ruidosos
-    
-- Estructura plana
-    
-
-Esto **es intencional** y representa la realidad.
-
-## 🧭 Mapa general del LAB (visión completa)
+## 📐 Flujo conceptual — Vistas Vendor + Zone (Nivel-0)
 
 ```
-┌───────────────────────────────┐
-│ 🐳INFRAESTRUCTURA (SETUP)     │
-│ Docker + PostgreSQL + pgAdmin │
-│ + Notebooks                  │
-└───────────────┬───────────────┘
-                ▼
-┌───────────────────────────────┐
-│ 🟦 FASE 1 — RAW               │
-│ Ingesta directa desde CSV    │
-│ Herramienta: psql            │
-│ Rol: Data Engineer           │
-└───────────────┬───────────────┘
-                ▼
-┌───────────────────────────────┐
-│ 🟩 FASE 2 — CURATED           │
-│ Modelo relacional (OLTP-like)│
-│ Herramienta: psql            │
-│ Rol: Data Engineer           │
-└───────────────┬───────────────┘
-                ▼
-┌───────────────────────────────┐
-│ 🟨 FASE 3 — ANALYTICS         │
-│ EDA + Performance            │
-│ Herramienta: JupySQL         │
-│ Rol: Data Analyst            │
-└───────────────┬───────────────┘
-                ▼
-┌───────────────────────────────┐
-│ 🟧 FASE 4 — OLAP PREP         │
-│ Denormalización + Agregados  │
-│ Herramienta: SQL             │
-│ Rol: Data Engineer           │
-└───────────────────────────────┘
-
+┌──────────────────────────────┐
+│        ARCHIVO CSV           │
+│  taxi_zone_lookup.csv        │
+│                              │
+│ location_id | borough | zone │
+└─────────────┬────────────────┘
+              │
+              │  \copy (bulk load)
+              ▼
+┌──────────────────────────────┐
+│           RAW                │
+│ raw.taxi_zone_lookup         │
+│                              │
+│ - location_id                │
+│ - borough                    │
+│ - zone_name                  │
+│ - service_zone               │
+│                              │
+│ ▶ Datos crudos               │
+│ ▶ Sin lógica                 │
+└─────────────┬────────────────┘
+              │
+              │  SELECT + proyección
+              │  (sin joins, sin reglas)
+              ▼
+┌──────────────────────────────┐
+│          CURATED             │
+│ curated.zone   (VIEW)        │
+│                              │
+│ - location_id                │
+│ - zone_name                  │
+│ - borough                    │
+│                              │
+│ ▶ Dimensión geográfica       │
+│ ▶ Estructura estable         │
+└─────────────┬────────────────┘
+              │
+              │ (referencia lógica)
+              │
+┌─────────────▼────────────────┐
+│          CURATED             │
+│ curated.trip                 │
+│                              │
+│ - vendor_id                  │
+│ - pulocation_id              │
+│ - dolocation_id              │
+│                              │
+│ ▶ Tabla de hechos            │
+└─────────────┬────────────────┘
+              │
+              │ DISTINCT + CASE
+              │ (enriquecimiento)
+              ▼
+┌──────────────────────────────┐
+│          CURATED             │
+│ curated.vendor (VIEW)        │
+│                              │
+│ - vendor_id                  │
+│ - vendor_name                │
+│                              │
+│ ▶ Dimensión semántica        │
+│ ▶ SQL puro                   │
+└──────────────────────────────┘
 ```
 
 ---
 
-## 🟦 FASE 1 — Capa RAW
+### 🧠 Qué se está enseñando realmente (implícito en el diagrama)
 
-### Carga directa desde CSV
+#### 🔹 1. RAW no se toca
 
-### 🎯 Objetivo
-
-Cargar los datos **tal como llegan del origen**, sin interpretarlos.
-
----
-
-### 🧠 Flujo mental (FASE 1)
-
-```
-CSV ORIGEN
-   │
-   │  (COPY / sin lógica)
-   ▼
-┌────────────────────┐
-│ raw.yellow_taxi_raw│
-│ - TEXT everywhere  │
-│ - sin PK           │
-│ - sin FK           │
-│ - sin reglas       │
-└────────────────────┘
-```
+- El CSV entra **tal cual**
+    
+- No hay limpieza
+    
+- No hay semántica
+    
+- Solo persistencia
+    
 
 ---
 
-### 🔧 Conexión (psql)
+#### 🔹 2. CURATED no “corrige”, **modela**
+
+- `curated.zone`:
+    
+    - reduce columnas
+        
+    - define una **dimensión**
+        
+    - no altera valores
+        
+- `curated.vendor`:
+    
+    - traduce códigos a significado
+        
+    - **sin lookup externo**
+        
+    - lógica SQL explícita (`CASE`)
+        
+
+---
+
+#### 🔹 3. No hay joins aún (y eso es intencional)
+
+Este flujo prepara el terreno para el siguiente paso lógico:
+
+```
+curated.trip
+    ├── vendor_id ──▶ curated.vendor
+    ├── pulocation_id ──▶ curated.zone
+    └── dolocation_id ──▶ curated.zone
+```
+
+👉 **El join geográfico viene después**, cuando el alumno ya entiende:
+
+- capas
+    
+- roles de cada tabla
+    
+- por qué NO se hace el join en RAW
+    
+
+---
+
+### 🧩 Mensaje clave del Nivel-0 (muy importante)
+
+> ❝ Antes de unir datos,  
+> primero los **nombras**,  
+> luego los **separas**,  
+> y solo al final los **conectas** ❞
+
+---
+
+## 🧠 Recordemos — Qué estamos haciendo realmente en esta FASE-4 (Nivel-0)
+
+Antes de seguir, **RECORDEMOS**:
+
+> En **Nivel-0** **NO estamos construyendo dimensiones**,  
+> **NO estamos modelando el dominio**,  
+> **NO estamos diseñando un warehouse**.
+
+Lo que estamos haciendo es **preparar un entorno mental y técnico mínimo** para **simular consumo analítico**.
+
+---
+
+### 🎯 El objetivo real de esta fase
+
+En esta FASE-4 el objetivo es **uno solo**:
+
+> **Mostrar cómo se pasa de datos normalizados (OLTP-like)  
+> a un modelo de lectura analítica (OLAP-like)**  
+> **sin entrar aún en modelado formal.**
+
+Para lograr esto, necesitamos **andamios** (_scaffolding_).
+
+---
+
+### 🧱 El rol de `curated.zone`
+
+`curated.zone`**NO es una dimensión**.
+
+En Nivel-0 cumple este rol:
+
+- Es un **dataset externo**
+    
+- Pequeño
+    
+- Estático
+    
+- De referencia
+    
+- Sin historia
+    
+- Sin semántica de negocio profunda
+    
+
+👉 Su única función es:
+
+> **Proveer atributos descriptivos  
+> para poder hacer JOINs y denormalizar datos.**
+
+Por eso:
+
+```
+CSV externo
+   ↓
+raw.taxi_zone_lookup
+```
+
+- No hay lógica
+    
+- No hay reglas
+    
+- No hay decisiones de negocio
+    
+- Solo **ingesta técnica**
+    
+
+Esto **simula exactamente** cómo llegan los datos en un pipeline real.
+
+---
+
+### 🧠 Entonces… ¿qué es `curated.zone`?
+
+`curated.zone` **NO es una dimensión**.
+
+Es una **vista auxiliar de lectura** que:
+
+- Selecciona solo los campos necesarios
+    
+- Simplifica joins
+    
+- Permite explicar:
+    
+    - denormalización
+        
+    - enriquecimiento
+        
+    - modelo de lectura
+        
+
+```text
+raw.taxi_zone_lookup
+        ↓
+curated.zone   ← vista ligera, no dominio
+```
+
+👉 Existe **solo para consumo analítico simple**  
+👉 Existe **solo para enseñar el flujo mental**
+
+---
+
+### 🧠 ¿Y `curated.vendor` entonces?
+
+`curated.vendor` es todavía más claro:
+
+- **No viene de un sistema fuente**
+    
+- **No tiene historia**
+    
+- **No tiene reglas**
+    
+- **No tiene PK**
+    
+- **No tiene SCD**
+    
+
+Es un **lookup sintético**, creado únicamente para:
+
+- Mostrar cómo:
+    
+    - se agrega contexto
+        
+    - se traduce un código
+        
+    - se enriquece una tabla de hechos
+        
+- Sin introducir complejidad de modelado real
+    
+
+👉 Es **scaffolding puro**.
+
+---
+
+### 🧩 Cómo encajan todas las piezas (mapa mental)
+
+```
+curated.trip   (OLTP-like, normalizada)
+      │
+      │ + zone (lookup real)
+      │ + vendor (lookup sintético)
+      ▼
+VIEW / MV
+modelo de lectura analítica
+```
+
+Aquí:
+
+- `trip` aporta los **eventos**
+    
+- `zone` aporta **contexto geográfico**
+    
+- `vendor` aporta **contexto descriptivo**
+    
+- La **VIEW / MV**:
+    
+    - denormaliza
+        
+    - simplifica
+        
+    - habilita consumo analítico
+        
+
+👉 **Nada de esto es el modelo final.**
+
+---
+
+### 🚫 Qué NO debes interpretar
+
+Si esto no se aclara, puedes pensar que:
+
+❌ “Esto ya es un datamart”  
+❌ “Así se modelan dimensiones”  
+❌ “Esto va a producción”
+
+Y eso sería **incorrecto en Nivel-0**.
+
+---
+
+### ✅ Interpretación correcta (Nivel-0)
+
+✔️ `raw.taxi_zone_lookup` = **dato de apoyo**  
+✔️ `curated.zone` = **vista auxiliar**  
+✔️ `curated.vendor` = **lookup sintético**  
+✔️ VIEW / MV = **simulación de capa OLAP**
+
+Todo existe para **entrenar el pensamiento**, no para definir arquitectura.
+
+---
+
+### 🧠 Frase clave
+
+> **En Nivel-0 no modelamos el negocio,  
+> modelamos la forma de pensar los datos.**
+
+## Descarga de taxi_zone_lookup.csv
+
+Ahora descargaremos `taxi_zone_lookup.csv` que existe únicamente para traducir los identificadores geográficos (`PULocationID` y `DOLocationID`) presentes en `yellow_tripdata_2024-01.csv` a atributos legibles por humanos (zona, borough), permitiendo enriquecer cada viaje con contexto geográfico y así poder demostrar joins, denormalización y construcción de modelos de lectura analítica sin introducir todavía modelado de dominio ni dimensiones reales.
+
+### ❓ ¿Debo crear un _schema_ antes de cargar `taxi_zone_lookup.csv`?
+
+👉 **NO. Porque ya existe.**  
+
+En nuestro caso, el esquema correcto es **`raw`**, porque:
+
+- Es **datos tal como vienen de la fuente**
+    
+- Sin lógica
+    
+- Sin reglas
+    
+- Sin transformaciones
+    
+
+👉 Exactamente el rol **Bronze / RAW**.
 
 ```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres
+wget https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv
 ```
 
----
+#### Crear la tabla `raw.taxi_zone_lookup`
 
-### 🧱 Crear esquema RAW
-
-```bash
+```sql
 %%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-CREATE SCHEMA IF NOT EXISTS raw;
-SQL
-```
-
----
-
-### 📋 Crear tabla RAW
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-CREATE TABLE IF NOT EXISTS raw.yellow_taxi_raw (
-    vendor_id TEXT,
-    pickup_datetime TEXT,
-    dropoff_datetime TEXT,
-    passenger_count TEXT,
-    trip_distance TEXT,
-    ratecode_id TEXT,
-    store_and_fwd_flag TEXT,
-    pulocation_id TEXT,
-    dolocation_id TEXT,
-    payment_type TEXT,
-    fare_amount TEXT,
-    extra TEXT,
-    mta_tax TEXT,
-    tip_amount TEXT,
-    tolls_amount TEXT,
-    improvement_surcharge TEXT,
-    total_amount TEXT
+psql postgresql://root:root@localhost:5432/ny_taxi <<'SQL'
+CREATE TABLE IF NOT EXISTS raw.taxi_zone_lookup (
+    location_id   INTEGER,
+    borough       TEXT,
+    zone_name     TEXT,
+    service_zone  TEXT
 );
-SQL
 ```
+
+📌 Observa:
+
+- Tipos simples
+    
+- Sin PK
+    
+- Sin FK
+    
+- Sin reglas
+    
+
+Eso es **RAW puro**.
 
 ---
 
-### 📥 Carga CSV → RAW
+### Cargar el CSV (cliente-side, correcto)
+
+Ahora sí, procedemos a cargar el CSV:
 
 ```bash
 %%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-COPY raw.yellow_taxi_raw
-FROM '/data/yellow_tripdata_2024-01.csv'
-CSV HEADER;
+psql postgresql://root:root@localhost:5432/ny_taxi <<'SQL'
+\copy raw.taxi_zone_lookup FROM 'taxi_zone_lookup.csv'CSV HEADER;
 SQL
 ```
-
----
-
-### ✅ Validación mínima
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-SELECT COUNT(*) FROM raw.yellow_taxi_raw;
-SQL
-```
-
----
-
-## 🟩 FASE 2 — Modelo Relacional (CURATED)
-
-### 🎯 Objetivo
-
-Transformar datos crudos en un **modelo consistente y consultable**.
-
----
-
-### 🧠 Flujo mental (FASE 2)
-
-```
-┌────────────────────┐
-│ raw.yellow_taxi_raw│
-│ (datos crudos)     │
-└─────────┬──────────┘
-          │
-          │  (CAST + reglas)
-          ▼
-┌────────────────────┐
-│ curated.trip       │
-│ - tipos correctos  │
-│ - PK               │
-│ - reglas           │
-└────────────────────┘
-```
-
----
-
-### 🧱 Crear esquema CURATED
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-CREATE SCHEMA IF NOT EXISTS curated;
-SQL
-```
-
----
-
-### 🚕 Tabla `trip`
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-CREATE TABLE curated.trip (
-    trip_id BIGSERIAL PRIMARY KEY,
-    vendor_id INTEGER,
-    pickup_datetime TIMESTAMP,
-    dropoff_datetime TIMESTAMP,
-    passenger_count INTEGER,
-    trip_distance NUMERIC,
-    fare_amount NUMERIC,
-    tip_amount NUMERIC,
-    total_amount NUMERIC
-);
-SQL
-```
-
----
-
-### 🔄 RAW → CURATED
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-INSERT INTO curated.trip (
-    vendor_id,
-    pickup_datetime,
-    dropoff_datetime,
-    passenger_count,
-    trip_distance,
-    fare_amount,
-    tip_amount,
-    total_amount
-)
-SELECT
-    vendor_id::INTEGER,
-    pickup_datetime::TIMESTAMP,
-    dropoff_datetime::TIMESTAMP,
-    passenger_count::INTEGER,
-    trip_distance::NUMERIC,
-    fare_amount::NUMERIC,
-    tip_amount::NUMERIC,
-    total_amount::NUMERIC
-FROM raw.yellow_taxi_raw;
-SQL
-```
-
----
-
-### ✅ Validación
-
-```bash
-%%bash
-psql postgresql://root:root@localhost:5432/postgres <<'SQL'
-SELECT COUNT(*) FROM curated.trip;
-SQL
-```
-
----
-
-## 🟨 FASE 3 — EDA, Índices y Performance
-
-### 🎯 Objetivo
-
-Explorar, analizar y optimizar consultas.
-
----
-
-### 🧠 Flujo mental (FASE 3)
-
-```
-┌────────────────────┐
-│ curated.trip       │
-│ (modelo limpio)    │
-└─────────┬──────────┘
-          │
-          │  (queries analíticas)
-          ▼
-┌────────────────────┐
-│ Insights            │
-│ Patrones            │
-│ Performance         │
-└────────────────────┘
-```
-
----
-
-### 🔗 Conexión (JupySQL)
-
-```python
-%load_ext sql
-%sql postgresql://root:root@localhost:5432/postgres
-```
-
----
-
-### 🔍 EDA básico
 
 ```sql
 %%sql
+SELECT * FROM raw.taxi_zone_lookup
+LIMIT 10
+```
+
+👉 `\copy` es correcto porque:
+
+- El archivo está en tu filesystem local
+    
+- PostgreSQL corre dentro de un contenedor
+    
+- Evitas el error de permisos del server
+    
+
+---
+
+#### 🔥 Conexión con el mapa mental del LAB
+
+Este flujo refuerza exactamente lo que debes aprender:
+
+```
+CSV externo
+   │
+   │ (sin lógica)
+   ▼
+raw.taxi_zone_lookup
+```
+
+- No hay transformación
+    
+- No hay semántica
+    
+- No hay modelado
+    
+- Solo **ingesta técnica**
+    
+
+---
+
+### 🧩 Y luego… ¿qué hacemos con esto?
+
+```sql
+%%sql
+CREATE OR REPLACE VIEW curated.zone AS
 SELECT
-    COUNT(*) AS total_trips,
-    MIN(pickup_datetime),
-    MAX(pickup_datetime)
+    location_id,
+    zone_name,
+    borough
+FROM raw.taxi_zone_lookup;
+```
+
+```sql
+%%sql
+SELECT * FROM curated.zone
+LIMIT 10
+```
+
+📌 Esa vista:
+
+- expone solo lo necesario
+    
+- sirve para joins
+    
+- habilita ejemplos OLAP
+    
+- **no es una dimensión real**
+
+---
+
+### Y ahora...
+
+```sql
+%%sql
+CREATE OR REPLACE VIEW curated.vendor AS
+SELECT DISTINCT
+    vendor_id,
+    CASE vendor_id
+        WHEN 1 THEN 'Creative Mobile'
+        WHEN 2 THEN 'VeriFone'
+        ELSE 'Unknown'
+    END AS vendor_name
 FROM curated.trip;
 ```
 
----
-
-### 📊 Ingresos por día
-
 ```sql
 %%sql
-SELECT
-    DATE(pickup_datetime) AS day,
-    SUM(total_amount) AS revenue
-FROM curated.trip
-GROUP BY day
-ORDER BY day;
+SELECT * FROM curated.vendor
+LIMIT 10
 ```
 
----
+📌 Observa:
 
-### ⚙️ Índices
+- No hay PKs
+    
+- No hay SCD
+    
+- No hay historia
+    
+- No hay semántica compleja
+    
+- **Todo es SQL puro**
+
+#### 1️⃣ ¿Qué está creando esta consulta?
 
 ```sql
-%%sql
-CREATE INDEX idx_trip_pickup_datetime
-ON curated.trip (pickup_datetime);
+CREATE OR REPLACE VIEW curated.vendor AS
 ```
+
+Aquí **no se crea una tabla**, sino una **vista**.  
+Eso significa que:
+
+- No almacena datos
+    
+- Se recalcula cada vez que se consulta
+    
+- Depende completamente de `curated.trip`
+    
+
+👉 Importante para el mapa mental:  
+**`vendor` no es una entidad gobernada**, es una **proyección conceptual** del modelo.
 
 ---
 
-### 🔬 EXPLAIN
+#### 2️⃣ ¿De dónde salen los datos?
 
 ```sql
-%%sql
-EXPLAIN ANALYZE
-SELECT *
-FROM curated.trip
-WHERE pickup_datetime >= '2024-01-15';
+FROM curated.trip;
 ```
 
----
-## 🟧 FASE 4 — Preparación para OLAP
+Esto es clave.
 
-### (Puente a Nivel-1)
+La “dimensión” `vendor` **no viene de un catálogo externo**, ni de un archivo maestro, ni de una tabla oficial.  
+Sale **exclusivamente de los hechos** (`trip`).
 
-### 🎯 Objetivo
+👉 Traducción mental:
 
-Preparar estructuras **orientadas a análisis** sin abandonar PostgreSQL:
+> “Los vendors que existen son solo los que aparecen en los viajes.”
 
-- reducir joins
-    
-- precalcular métricas
-    
-- separar OLTP de consumo analítico
-    
-
-👉 **No es BI**  
-👉 **No es Data Warehouse completo**  
-👉 Es **criterio de ingeniería**
+Esto es típico de **Nivel-0** y **exploración controlada**.
 
 ---
 
-### 🧠 Flujo mental (FASE 4)
-
-```
-┌────────────────────┐
-│ curated.trip       │  ← OLTP
-│ + tablas ref       │
-└─────────┬──────────┘
-          │
-          │  (denormalización)
-          ▼
-┌────────────────────┐
-│ VIEW / MV          │
-│ lectura rápida     │
-│ consumo analítico  │
-└────────────────────┘
-```
-
----
-
-### 🔍 Qué cambia respecto a FASE 3
-
-```
-FASE 3 → preguntas exploratorias
-FASE 4 → estructuras estables
-```
-
-- FASE 3 = **consultar**
-    
-- FASE 4 = **preparar**
-    
-
----
-
-### 12️⃣ Vista denormalizada
-
-### (Join resuelto una sola vez)
-
-```
-trip + vendor + zone
-        │
-        ▼
-vw_trip_denorm
-```
-
-### SQL (psql o JupySQL, indiferente)
+#### 3️⃣ ¿Por qué `SELECT DISTINCT`?
 
 ```sql
-CREATE OR REPLACE VIEW vw_trip_denorm AS
+SELECT DISTINCT
+    vendor_id,
+```
+
+En `curated.trip` hay **millones de filas**, pero:
+
+- muchos viajes tienen el mismo `vendor_id`
+    
+- aquí solo queremos **una fila por vendor**
+    
+
+`DISTINCT` elimina duplicados y **condensa el hecho en una entidad**.
+
+👉 Conceptualmente:
+
+- pasas de **evento** → **entidad**
+    
+- de **hecho** → **dimensión conceptual**
+    
+
+---
+
+#### 4️⃣ ¿Qué hace realmente el `CASE`?
+
+```sql
+CASE vendor_id
+    WHEN 1 THEN 'Creative Mobile'
+    WHEN 2 THEN 'VeriFone'
+    ELSE 'Unknown'
+END AS vendor_name
+```
+
+Esto introduce **semántica de negocio mínima**:
+
+- Traduce un ID técnico (`vendor_id`)
+    
+- a un significado humano (`vendor_name`)
+    
+
+Pero ojo:
+
+- ❌ no valida el dominio
+    
+- ❌ no impide valores nuevos
+    
+- ❌ no gobierna el catálogo
+    
+
+El `ELSE 'Unknown'` es intencional:
+
+👉 Dice:
+
+> “Existen vendors que **no conozco aún**, pero no los oculto.”
+
+Esto **revela problemas de calidad**, no los tapa.
+
+#### ¿De dónde salen los nombres _Creative Mobile_ y _VeriFone_?
+ 
+Salen de **documentación pública del dataset NYC Taxi & Limousine Commission (TLC)**.
+
+En ese dataset:
+
+| VendorID             | Nombre oficial               |
+| -------------------- | ---------------------------- |
+| 1                    | Creative Mobile Technologies |
+| 2                    | VeriFone Inc                 |
+| cualquier otro valor | **No definido / inválido**   |
+
+Esto está documentado históricamente por TLC y es **conocimiento de dominio**, no inferido del CSV.
+
+#### ¿Cómo “sabemos” que el `vendor_id = 6` es `Unknown`?
+
+OJO, No estamos afirmando que el `6` sea oficialmente “Unknown” en el mundo real.  
+Estamos diciendo:
+
+> “En **este modelo**, cualquier vendor que no tenga semántica definida explícitamente es desconocido.”
+
+Y eso es **exactamente lo que debe pasar en Nivel-0**.
+
+---
+
+Que aparezca `vendor_id = 6` con nombre `Unknown` es un **hallazgo**, no un error.
+
+Te está diciendo:
+
+- hay valores fuera del dominio esperado
+    
+- no tienes una fuente de verdad para vendors
+    
+- el modelo **no está gobernado aún**
+    
+
+👉 Pero si lo usamos como caso de uso.
+
+---
+
+#### ¿Cómo sería “correcto” en niveles superiores?
+
+- **Nivel-4 (dbt / gobernanza)**:
+    
+    - `dim_vendor` vendría de:
+        
+        - una tabla fuente oficial
+            
+        - o un seed versionado
+            
+    - con:
+        
+        - claves surrogate
+            
+        - tests
+            
+        - contratos
+            
+        - ownership
+            
+
+Ahí **ya no existe el `CASE hardcodeado`**.
+
+---
+
+#### 5️⃣ ¿Por qué aparece solo 3 filas?
+
+Porque en tus datos:
+
+- solo existen `vendor_id = 1, 2 y 6`
+    
+- y el `6` no tiene semántica conocida → `Unknown`
+    
+
+Esto confirma que:
+
+- la vista **refleja la realidad del dataset**
+
+---
+
+#### 6️⃣ ¿Qué NO es esta vista (muy importante)?
+
+Esta vista **NO es**:
+
+- una dimensión OLAP real
+    
+- una tabla de referencia gobernada
+    
+- un catálogo oficial
+    
+- un modelo con SCD o claves surrogate
+    
+
+Eso **vendrá en Nivel-4 (dbt)**.
+
+---
+
+#### 7️⃣ Entonces, ¿para qué sirve realmente?
+
+En FASE-4 del Nivel-0, esta vista sirve para:
+
+- reducir joins repetidos
+    
+- mejorar legibilidad de queries
+    
+- introducir **modelado mental**
+    
+- mostrar que los IDs representan entidades reales
+    
+- preparar el terreno para OLAP **sin gobernanza aún**
+    
+
+---
+
+#### Frase clave
+
+> _“Aquí no estamos creando dimensiones técnicas;  
+> estamos aprendiendo a **pensar en dimensiones**.”_
+
+---
+
+#### 🧠 Conclusión clara
+
+✔️ **NO**, debes crear el schema `raw`  
+✔️ `taxi_zone_lookup.csv` vive en **RAW**  
+✔️ El modelado viene después, no ahora
+
+Este orden no es burocracia:  
+es exactamente **cómo piensan los pipelines reales**.
+
+---
+
+### 🚫 Qué **NO** hacer en Nivel-0
+
+❌ No crear `dim_vendor`  
+❌ No hablar de surrogate keys  
+❌ No introducir dbt  
+❌ No versionar modelos  
+❌ No “optimizar como warehouse”
+
+Eso es **Nivel-4**.
+
+---
+
+### 🔥 Por qué esto refuerza el enfoque SQL-First
+
+Porque enseña algo clave:
+
+> “Con SQL puedes ir **desde el CSV hasta un pseudo-OLAP funcional**,  
+> sin frameworks, sin herramientas externas, solo entendiendo el motor.”
+
+Esto:
+
+- hace visible el flujo Bronze → Silver → Gold
+    
+- permite ejecutar todos los ejemplos
+    
+- mantiene el LAB **autocontenido**
+    
+- prepara mentalmente al alumno para dbt y Snowflake
+    
+
+---
+
+### 🧠 Conclusión
+
+- Creamos `curated.vendor` y `curated.zone`
+    
+- **Como vistas auxiliares**
+    
+- **SQL-only**
+    
+- **Con intención pedagógica**
+    
+
+Este equilibrio es exactamente lo que hace que el Nivel-0 sea **fundacional** y no “solo otro tutorial de SQL”.
+
+---
+
+## MV (Materialized View / Vista Materializada)
+
+Una **Materialized View** es una **vista con datos físicos almacenados**.
+
+- **Sí almacena resultados**
+    
+- Se actualiza:
+    
+    - En intervalos
+        
+    - Bajo demanda
+        
+    - O automáticamente (según motor)
+        
+- Ideal para:
+    
+    - Analítica
+        
+    - Dashboards
+        
+    - Queries repetitivas
+        
+
+👉 Pros:
+
+- **Muy rápida** en lectura
+    
+- Reduce carga sobre tablas OLTP
+    
+
+👉 Contras:
+
+- Datos pueden estar **desfasados**
+    
+- Requiere gestión de refresh
+    
+- Ocupa almacenamiento
+    
+
+---
+### En nuestro contexto específico
+
+```
+curated.trip (OLTP-like)        
+↓ 
+denormalización
+↓
+VIEW / MV (lectura rápida, analítica)
+```
+
+Significa que:
+
+- **`curated.trip`** está normalizada y optimizada para escritura
+    
+- **VIEW o MV**:
+    
+    - Junta tablas de referencia
+        
+    - Denormaliza
+        
+    - Presenta un modelo listo para BI / analytics
+        
+- Se elige:
+    
+    - **VIEW** → si necesitas datos en tiempo real y volumen moderado
+        
+    - **MV** → si necesitas **alto performance** y aceptas latencia
+        
+
+---
+
+### Regla práctica rápida
+
+|Necesidad|Usa|
+|---|---|
+|Datos siempre actualizados|VIEW|
+|Dashboards pesados|MV|
+|Muchas lecturas repetidas|MV|
+|Bajo costo de storage|VIEW|
+
+
+---
+
+## View `vw_trip_denorm` Vista denormalizada
+
+```sql
+%%bash
+psql postgresql://root:root@localhost:5432/ny_taxi <<'SQL'
+CREATE OR REPLACE VIEW curated.vw_trip_denorm AS
 SELECT
     t.trip_id,
-    DATE(t.pickup_datetime)    AS pickup_date,
-    EXTRACT(HOUR FROM t.pickup_datetime)::INT AS pickup_hour,
+    DATE(t.pickup_datetime) AS pickup_date,
+    EXTRACT(HOUR FROM t.pickup_datetime) AS pickup_hour,
     t.trip_distance,
     t.total_amount,
     v.vendor_name,
     z.zone_name  AS pickup_zone,
-    z.borough    AS pickup_borough
+    z.borough   AS pickup_borough
 FROM curated.trip t
 LEFT JOIN curated.vendor v
        ON t.vendor_id = v.vendor_id
@@ -450,18 +882,277 @@ LEFT JOIN curated.zone z
        ON t.pulocation_id = z.location_id;
 ```
 
-### 🧠 Idea clave
+```sql
+%%sql
+SELECT * FROM curated.vw_trip_denorm
+LIMIT 10
+```
+### Diagrama — Flujo completo
 
 ```
-El analista NO debería escribir joins complejos
-si el modelo ya los conoce
+┌────────────────────────────┐
+│            RAW             │
+│ yellow_taxi_raw            │
+│ taxi_zone_lookup           │
+└─────────────┬──────────────┘
+              │
+              │  casting / modelado
+              ▼
+┌────────────────────────────┐
+│          CURATED            │
+│ trip (FACT)                 │◀───────────────┐
+│---------------------------- │                │
+│ - vendor_id                 │                │
+│ - pulocation_id             │                │
+│ - pickup_datetime           │                │
+│ - trip_distance             │                │
+│ - total_amount              │                │
+└─────────────┬──────────────┘                │
+              │                               │
+              │ DISTINCT + CASE               │ DISTINCT
+              ▼                               ▼
+┌────────────────────────────┐   ┌────────────────────────────┐
+│ curated.vendor (V)          │   │ curated.zone (V)            │
+│---------------------------- │   │---------------------------- │
+│ - vendor_id                 │   │ - location_id               │
+│ - vendor_name               │   │ - zone_name                  │
+│                             │   │ - borough                    │
+└─────────────┬──────────────┘   └─────────────┬──────────────┘
+              │                               │
+              │                               │
+              └───────────────┬───────────────┘
+                              ▼
+┌────────────────────────────────────────────────┐
+│             curated.vw_trip_denorm              │
+│------------------------------------------------│
+│ - pickup_date                                   │
+│ - pickup_hour                                   │
+│ - trip_distance                                 │
+│ - total_amount                                  │
+│ - vendor_name                                   │
+│ - pickup_zone                                   │
+│ - pickup_borough                                │
+│                                                │
+│ ▶ JOIN lógico (no físico)                       │
+│ ▶ SQL puro                                     │
+│ ▶ Vista de consumo                              │
+└────────────────────────────────────────────────┘
+```
+---
+
+### Qué enseña **vw_trip_denorm** (clave pedagógica)
+
+#### 🔹 1. Aquí **sí aparecen los JOINs**
+
+Pero ojo:
+
+- ❌ No en RAW
+    
+- ❌ No para limpiar
+    
+- ✅ **Solo para consumo**
+    
+
+Esto refuerza una idea clave del Nivel-0:
+
+> **Los joins no son para procesar datos,  
+> son para presentarlos.**
+
+---
+
+#### 🔹 2. Transformaciones “de negocio” (no técnicas)
+
+```sql
+DATE(t.pickup_datetime)
+EXTRACT(HOUR FROM t.pickup_datetime)
+```
+
+Esto **no es limpieza**.  
+Esto es **preparar el dato para análisis**.
+
+👉 Nivel-0 enseña:
+
+- pensar en **qué pregunta responde el dato**
+    
+- no en “optimizar pipelines”
+    
+
+---
+
+#### 🔹 3. LEFT JOIN = decisión consciente
+
+```sql
+LEFT JOIN curated.vendor
+LEFT JOIN curated.zone
+```
+
+Mensaje implícito:
+
+> “Prefiero **perder contexto** antes que **perder viajes**”
+
+Eso es **criterio analítico**, no sintaxis.
+
+---
+
+#### Ahora ¿Qué significa realmente esa frase?
+
+> **“Prefiero perder contexto antes que perder viajes”**
+
+Traducción directa al modelo:
+
+```
+La tabla trip es el hecho.
+El hecho NO se sacrifica.
 ```
 
 ---
 
-### 13️⃣ Materialized View agregada
+#### Qué pasa si uso INNER JOIN (la alternativa implícita)
 
-#### (Pre-cálculo OLAP básico)
+Si escribieras:
+
+```sql
+FROM curated.trip t
+INNER JOIN curated.vendor v
+INNER JOIN curated.zone z
+```
+
+El mensaje oculto sería este:
+
+```
+“Solo me importan los viajes
+que tengan vendor y zone válidos”
+```
+
+Y eso **tiene consecuencias reales**:
+
+- Si un `vendor_id` no existe → el viaje **desaparece**
+    
+- Si una `pulocation_id` no matchea → el viaje **desaparece**
+    
+- El conteo de viajes ya **no es confiable**
+    
+- El revenue puede quedar **subestimado**
+    
+
+👉 No perdiste columnas.  
+👉 **Perdiste hechos.**
+
+---
+
+#### Qué hace realmente el LEFT JOIN
+
+```sql
+LEFT JOIN curated.vendor
+LEFT JOIN curated.zone
+```
+
+El modelo está diciendo:
+
+```
+“Este viaje EXISTE,
+aunque no sepa aún quién fue el vendor
+o cuál fue la zona”
+```
+
+Resultado:
+
+- El viaje **permanece**
+    
+- El monto **permanece**
+    
+- El conteo **permanece**
+    
+- Lo único que puede faltar es:
+    
+    - `vendor_name`
+        
+    - `pickup_zone`
+        
+    - `pickup_borough`
+        
+
+Eso es lo que significa **perder contexto**.
+
+---
+
+####  Entonces… ¿qué es “contexto”?
+
+En este modelo:
+
+- **Viaje** = hecho (lo irrenunciable)
+    
+- **Vendor / Zone** = contexto (enriquecimiento)
+    
+
+Perder contexto significa:
+
+```
+Tengo el evento,
+pero no toda la etiqueta alrededor
+```
+
+Y eso es **aceptable** en Nivel-0.
+
+Perder viajes significa:
+
+```
+Mi modelo miente
+```
+
+Y eso **no es aceptable nunca**.
+
+---
+
+#### Por qué esto es criterio analítico (no SQL)
+
+Cualquier junior sabe escribir `LEFT JOIN`.
+
+Lo que **no es obvio** es esta decisión:
+
+```
+¿Qué prefiero proteger:
+el conteo o la pureza referencial?
+```
+
+Tu elección dice:
+
+- qué consideras **verdad**
+    
+- qué consideras **error tolerable**
+    
+- qué capa está lista (o no) para gobierno
+    
+
+Eso es **pensamiento de ingeniería de datos**, no sintaxis.
+
+---
+
+#### Frase final (para que quede grabada)
+
+```
+Los hechos no se negocian.
+El contexto se puede reconstruir después.
+```
+
+Versión Roadmap-2026:
+
+```
+Primero preservo eventos.
+El modelo se refina después.
+```
+
+#### 🧠 Idea clave
+
+```
+El analista NO debería recalcular agregados
+si el modelo ya los precomputó
+```
+
+---
+## View Materialized `mv_daily_zone`(Pre-cálculo OLAP básico)
+
+### `mv_daily_zone` SQL (psql o JupySQL, indiferente)
 
 ```
 curated.trip
@@ -472,7 +1163,7 @@ mv_daily_zone
 ```
 
 ```sql
-CREATE MATERIALIZED VIEW mv_daily_zone AS
+CREATE MATERIALIZED VIEW curated.mv_daily_zone AS
 SELECT
     DATE(pickup_datetime) AS pickup_date,
     pulocation_id,
@@ -484,9 +1175,294 @@ GROUP BY
     pulocation_id;
 ```
 
+```sql
+%%sql
+SELECT * FROM curated.mv_daily_zone 
+LIMIT 10
+```
+
+#### 🧠 Idea clave
+
+```
+El analista NO debería recalcular agregados
+si el modelo ya los precomputó
+```
+
+### View Materialized `mv_daily_zone`
+
+Este es el **segundo artefacto del ejercicio**, y cumple **otro rol** porque **esta query es el cierre lógico** de todo lo que construimos antes.  
+No es “otra vista más”: **resuelve un problema distinto** al de `vw_trip_denorm`.
+
+Vamos al grano, en **Nivel-0 mental** 👇
+
 ---
 
-#### 🔄 Diferencia conceptual
+### ¿Qué problema resuelve `mv_daily_zone`?
+
+Resuelve este problema:
+
+```
+Ya no quiero eventos individuales.
+Quiero comportamiento agregado estable.
+```
+
+---
+
+### 1️⃣ Qué cambia respecto a `vw_trip_denorm`
+
+**`vw_trip_denorm`**
+
+- Resuelve **joins**
+    
+- Mantiene **granularidad de viaje**
+    
+- Pensada para:
+    
+    - exploración
+        
+    - análisis ad-hoc
+        
+    - aprendizaje del modelo
+        
+
+**`mv_daily_zone`**
+
+- Resuelve **agregaciones**
+    
+- Cambia la **granularidad**
+    
+- Pensada para:
+    
+    - métricas
+        
+    - dashboards
+        
+    - performance
+        
+
+Son **capas distintas**, no alternativas.
+
+---
+
+### 2️⃣ Qué decisión conceptual toma esta query
+
+Mira bien la query:
+
+```sql
+FROM curated.trip
+GROUP BY
+    DATE(pickup_datetime),
+    pulocation_id;
+```
+
+Mensaje implícito:
+
+```
+Para este análisis,
+vendor, borough y zona textual NO importan.
+```
+
+Solo importan:
+
+- **cuándo** (día)
+    
+- **dónde** (zona como ID)
+    
+- **cuánto** (viajes, revenue)
+    
+
+Eso es **criterio analítico**, no SQL.
+
+---
+
+### 3️⃣ Qué está protegiendo esta vista
+
+Esta MV protege tres cosas críticas:
+
+#### ✅ Conteos confiables
+
+```sql
+COUNT(*)
+```
+
+- Cada fila = un viaje real
+    
+- No depende de joins
+    
+- No depende de dimensiones
+    
+
+#### ✅ Revenue estable
+
+```sql
+SUM(total_amount)
+```
+
+- No se duplica
+    
+- No se pierde
+    
+- No se recalcula en cada dashboard
+    
+
+#### ✅ Granularidad explícita
+
+```
+1 fila = 1 día + 1 zona
+```
+
+Eso **define el contrato** de la métrica.
+
+---
+
+### 4️⃣ Relación directa con el mensaje anterior
+
+Antes dijimos:
+
+> “Prefiero perder contexto antes que perder viajes”
+
+Aquí estás haciendo lo mismo, pero **a otro nivel**:
+
+```
+Prefiero perder detalle
+antes que perder estabilidad
+```
+
+- Pierdes:
+    
+    - viaje individual
+        
+    - hora
+        
+    - vendor
+        
+- Ganas:
+    
+    - métricas sólidas
+        
+    - performance
+        
+    - consistencia
+        
+
+---
+
+### 5️⃣ Por qué esto ya es pensamiento OLAP (aunque no lo digas)
+
+Aunque no lo nombremos aún:
+
+- Definimos **grano**
+    
+- Definimos **medidas**
+    
+- Definimos **dimensiones relevantes**
+    
+- Definimos **qué NO entra**
+    
+
+Eso es OLAP **conceptual**, no técnico.
+
+Por eso esta vista:
+
+- no vive en BI
+    
+- no vive en Python
+    
+- vive en el **modelo**
+    
+
+---
+
+### 6️⃣ Frase que deja todo claro
+
+```
+vw_trip_denorm enseña el modelo.
+mv_daily_zone fija las métricas.
+```
+
+Roadmap-2026:
+
+```
+El join aclara el dato.
+La agregación fija la verdad.
+```
+
+
+---
+
+#### 📦 Diagrama — Materialized View
+
+```
+curated.trip
+     │
+     │  GROUP BY fecha + zona
+     ▼
+┌──────────────────────────┐
+│ curated.mv_daily_zone    │
+│--------------------------│
+│ - pickup_date            │
+│ - pulocation_id          │
+│ - trips                  │
+│ - revenue                │
+│                          │
+│ ▶ Agregado físico        │
+│ ▶ Pre-cálculo            │
+│ ▶ SQL-First              │
+└──────────────────────────┘
+```
+
+---
+
+#### 🔹 Qué enseña esta MV (muy importante)
+
+- Diferencia entre:
+    
+    - **vista lógica** (`vw_trip_denorm`)
+        
+    - **vista materializada** (`mv_daily_zone`)
+        
+- Introduce **performance sin engines externos**
+    
+- Prepara mentalmente para:
+    
+    - OLAP
+        
+    - BI
+        
+    - Snowflake / BigQuery / Redshift
+        
+
+Todo **sin salir de SQL**.
+
+---
+
+## Mensaje final del ejercicio (Nivel-0)
+
+Estos ejercicios enseñan que:
+
+```
+RAW        → guardar
+CURATED    → estructurar
+VIEW       → explicar
+MV         → acelerar
+```
+
+Y todo eso **sin**:
+
+- Spark
+    
+- Airflow
+    
+- dbt
+    
+- cloud complejo
+    
+
+👉 **Eso es SQL-First real.**
+
+---
+
+### 🔄 Diferencia conceptual
 
 ```
 VIEW             → se recalcula siempre
@@ -524,6 +1500,392 @@ Nivel-1
 ```
 
 FASE 4 **prepara la cabeza**, no el tooling.
+
+---
+
+## 🧠 NOTA: En Nivel-0 el objetivo NO es “practicar mucho SQL”
+
+Si este fuera un curso de SQL, sí:  
+→ faltarían joins, subqueries, ventanas, etc.
+
+Pero **Nivel-0 no entrena ejecución**, entrena **criterio**.
+
+Cada ejercicio aquí **no es una variación técnica**, es una **decisión estructural distinta**.
+
+---
+
+### 🎯 Qué entrena realmente cada ejercicio
+
+#### 1️⃣ Vista denormalizada (`vw_trip_denorm`)
+
+Este ejercicio **no es “crear una vista”**.
+
+Entrena:
+
+- Separar:
+    
+    - **modelo de escritura** vs **modelo de lectura**
+        
+- Entender que:
+    
+    - el join **no le pertenece al analista**
+        
+    - el join se resuelve **una sola vez**
+        
+- Introducir la idea de:
+    
+    - _semantic layer_
+        
+    - _consumption model_
+        
+
+👉 Un solo ejercicio, **muchísimo peso conceptual**.
+
+Repetirlo 5 veces con otras columnas **no añade aprendizaje**, solo ruido.
+
+---
+
+#### 2️⃣ Materialized View agregada (`mv_daily_zone`)
+
+Este ejercicio **no es “hacer un GROUP BY”**.
+
+Introduce por primera vez:
+
+- Pre-cálculo vs cálculo on-the-fly
+    
+- Persistencia del resultado
+    
+- Latencia aceptada
+    
+- Trade-offs:
+    
+    - frescura vs performance
+        
+- La idea de **OLAP real**, aunque todavía simple
+    
+
+👉 Este ejercicio **abre la puerta a Nivel-1**  
+No necesita variantes para cumplir su rol.
+
+---
+
+### 🧠 Por qué MÁS ejercicios sería un error aquí
+
+Agregar más ejercicios en Nivel-0 suele provocar:
+
+❌ “copiar / pegar SQL”  
+❌ foco en sintaxis  
+❌ pérdida del hilo conceptual  
+❌ falsa sensación de progreso
+
+Y peor aún:
+
+> El alumno cree que está aprendiendo _a hacer cosas_,  
+> cuando debería estar aprendiendo _a decidir cosas_.
+
+---
+
+### 📐 Regla pedagógica del Nivel-0
+
+> **Un ejercicio = una decisión estructural nueva.**  
+> No una variación del mismo patrón.
+
+Por esto nuestros ejercicios actuales cumplen exactamente eso:
+
+|Ejercicio|Decisión que introduce|
+|---|---|
+|Vista denormalizada|¿Dónde viven los joins?|
+|MV agregada|¿Cuándo pre-calcular?|
+
+Eso es **currículum senior**, no básico.
+
+---
+
+### 🧩 Dónde SÍ crecerá el número de ejercicios
+
+Más adelante, y tiene todo el sentido:
+
+- Nivel-1 → automatización, refresh, scripts
+    
+- Nivel-2 → incrementalidad
+    
+- Nivel-3 → particiones, storage, engines
+    
+- Nivel-4 → modelado formal OLAP
+    
+
+Ahí **sí** necesitas volumen.
+
+Nivel-0 no.
+
+---
+
+### 🧠 Frase para que quede blindado
+
+> **Nivel-0 no busca repetición, busca comprensión irreversible.**
+
+Cuando el alumno entiende esto:
+
+- ya no vuelve a escribir joins en dashboards
+    
+- ya no pregunta “¿Python o SQL?”
+    
+- ya no confunde tablas con modelos
+    
+
+Y eso se logra **con pocos ejercicios bien elegidos**.
+
+Pero **no más volumen**.  
+Aquí estás exactamente donde debes estar.
+
+---
+
+## 🟥 Anti-Ejercicio — _El dashboard con joins_
+
+### (Qué pasa cuando NO usamos la vista)
+
+### 🎯 Objetivo pedagógico
+
+Mostrar **por contraste** por qué **los joins NO le pertenecen al analista**  
+y por qué el modelo de lectura **debe existir antes del consumo**.
+
+---
+
+### ❌ Escenario incorrecto (pero muy común)
+
+El analista decide **no usar `vw_trip_denorm`** y escribe directamente:
+
+```
+curated.trip + vendor + zone
+        │
+        ▼
+Query del dashboard
+```
+
+---
+
+### SQL (anti-patrón)
+
+```sql
+SELECT
+    DATE(t.pickup_datetime) AS pickup_date,
+    EXTRACT(HOUR FROM t.pickup_datetime) AS pickup_hour,
+    t.trip_distance,
+    t.total_amount,
+    v.vendor_name,
+    z.zone_name  AS pickup_zone,
+    z.borough    AS pickup_borough
+FROM curated.trip t
+LEFT JOIN curated.vendor v
+       ON t.vendor_id = v.vendor_id
+LEFT JOIN curated.zone z
+       ON t.pulocation_id = z.location_id;
+```
+
+---
+
+### 🧠 Qué está mal aquí (conceptualmente)
+
+Nada está “mal” **a nivel SQL**.  
+El problema es **arquitectónico**.
+
+Esta query implica que:
+
+- Cada dashboard:
+    
+    - repite joins
+        
+    - reinterpreta relaciones
+        
+- El conocimiento del modelo:
+    
+    - vive en el dashboard
+        
+    - no en la capa de datos
+        
+- Si mañana:
+    
+    - cambia `zone`
+        
+    - cambia `vendor`  
+        → **hay que arreglar todos los dashboards**
+        
+
+👉 El sistema **no escala cognitivamente**.
+
+---
+
+### 🔍 Comparación directa
+
+|Con vista|Sin vista|
+|---|---|
+|Join resuelto una vez|Join repetido|
+|Modelo centralizado|Lógica dispersa|
+|Analista lee datos|Analista modela datos|
+|Cambio controlado|Cambio caótico|
+
+---
+
+### ✅ Escenario correcto (recordatorio)
+
+```
+trip + vendor + zone
+        │
+        ▼
+vw_trip_denorm
+        │
+        ▼
+Dashboard
+```
+
+Y el analista solo escribe:
+
+```sql
+SELECT
+    pickup_date,
+    pickup_hour,
+    trip_distance,
+    total_amount,
+    vendor_name,
+    pickup_zone,
+    pickup_borough
+FROM vw_trip_denorm;
+```
+
+👉 **Cero joins. Cero decisiones estructurales.**
+
+---
+
+### 🧠 Lección clave del anti-ejercicio
+
+> **Si el analista escribe joins,  
+> el modelo no existe.**
+
+Y esta frase **justifica toda la FASE-4**.
+
+
+---
+## ✅ ¿Esto es lo que sigue en FASE 4?
+
+Sí — **exactamente eso sigue**, y **sí, son pocos ejercicios a propósito**.  
+Lejos de ser una debilidad, esto es una **decisión pedagógica correcta y madura**. Veamos cómo leer esta fase.
+
+Una vez creadas las vistas auxiliares (`curated.vendor`, `curated.zone`), el flujo natural y correcto de **FASE 4** es:
+
+1. **Resolver el join una sola vez** → `vw_trip_denorm`
+    
+2. **Precalcular una agregación estable** → `mv_daily_zone`
+    
+
+Eso **cierra el nivel**.
+
+No falta nada esencial.
+
+---
+
+### 🧠 ¿Por qué tan pocos ejercicios?
+
+Porque **FASE 4 no busca volumen**, busca **criterio**.
+
+Esta fase introduce **solo 3 ideas nuevas**, pero **muy profundas**:
+
+#### 1️⃣ El join deja de ser responsabilidad del analista
+
+La vista `vw_trip_denorm` no es “otra query”, es una **decisión de arquitectura**:
+
+> _“Si el modelo ya conoce las relaciones, el usuario no debería reconstruirlas.”_
+
+Eso es pensamiento **OLAP real**, no SQL decorativo.
+
+---
+
+#### 2️⃣ Aparece el concepto de **pre-cálculo**
+
+La `MATERIALIZED VIEW` introduce por primera vez:
+
+- datos **no frescos**
+    
+- costo de **refresh**
+    
+- decisiones de **latencia vs performance**
+    
+
+Sin hablar aún de:
+
+- Airflow
+    
+- dbt
+    
+- cron
+    
+- pipelines
+    
+
+👉 Solo **la idea**.  
+Eso es exactamente lo que debe pasar en Nivel-0.
+
+---
+### 3️⃣ Se separa claramente:
+
+```
+FASE 3 → explorar
+FASE 4 → preparar
+```
+
+En FASE 3 el alumno **pregunta**.  
+En FASE 4 el ingeniero **decide estructuras**.
+
+Ese salto es el verdadero aprendizaje.
+
+---
+
+### 🔥 Lo importante: NO es un “set de ejercicios”, es un **cierre conceptual**
+
+FASE 4 cumple tres funciones críticas:
+
+1. **Cierra OLTP → OLAP**
+    
+2. **Anticipa pipelines sin implementarlos**
+    
+3. **Prepara el terreno mental para Nivel-1**
+    
+
+Por eso no hay:
+
+- 20 queries
+    
+- variaciones inútiles
+    
+- más métricas “porque sí”
+    
+
+Eso vendría a ser **ruido**, no señal.
+
+---
+
+### 🧩 Cómo se conecta perfecto con Nivel-1
+
+👉 El alumno llega a Nivel-1 **entendiendo por qué existen los pipelines**, no solo cómo escribirlos.
+
+---
+
+### 🧠 Conclusión clara
+
+- ✔️ Sí, esto es lo que sigue
+    
+- ✔️ Sí, son pocos ejercicios
+    
+- ✔️ No falta nada esencial
+    
+- ❌ No es un curso de SQL avanzado
+    
+- ✅ Es una **base mental de ingeniería de datos**
+    
+
+FASE 4 **no añade herramientas**,  
+añade **criterio**.
+
+Y eso es exactamente lo que distingue a este roadmap.
 
 ---
 
