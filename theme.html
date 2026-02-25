@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z2H-ACADEMY | Terminal Mode</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- ANIMACIONES --- */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0) }
+      20% { transform: translate(-2px, 2px) }
+      40% { transform: translate(-2px, -2px) }
+      60% { transform: translate(2px, 2px) }
+      80% { transform: translate(2px, -2px) }
+      100% { transform: translate(0) }
+    }
+
+    /* --- VARIABLES TEMA CLARO (LIGHT TERMINAL) --- */
+    :root {
+      --bg-color: #f4f4f4;
+      --terminal-bg: #ffffff;
+      --text-main: #111111;
+      --text-muted: #555555;
+      --accent: #008f11; /* Verde terminal oscuro para contraste en blanco */
+      --border-color: #cccccc;
+      --card-hover: #ebebeb;
+      --badge-bg: #e0e0e0;
+      --icon-color: #555555;
+      --icon-hover: #111111;
+      
+      --font-main: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 2px; /* Bordes más afilados, estilo consola */
+      --glow-shadow: none;
+      --glow-text: none;
+    }
+
+    /* --- VARIABLES TEMA OSCURO (HACKER / GAMING) --- */
+    [data-theme="dark"] {
+      --bg-color: #050505;
+      --terminal-bg: #0a0a0a;
+      --text-main: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #00ff41; /* Verde Matrix / Hacker */
+      --border-color: #1a331a; /* Verde muy oscuro */
+      --card-hover: #0a140a;
+      --badge-bg: #001a00;
+      --icon-color: #008f11;
+      --icon-hover: #00ff41;
+      
+      /* Toque Gaming: Brillos sutiles */
+      --glow-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+      --glow-text: 0 0 8px rgba(0, 255, 65, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 40px 20px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      /* Patrón de puntos muy sutil para textura tipo grid */
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* --- NAVEGACIÓN --- */
+    .header-nav {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .terminal-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--badge-bg);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: var(--glow-text);
+      box-shadow: var(--glow-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .terminal-badge::before {
+      content: 'root@z2h:~# ';
+      opacity: 0.7;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-toggle {
+      background: var(--terminal-bg);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: var(--radius);
+      color: var(--icon-color);
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--icon-hover);
+      border-color: var(--accent);
+      box-shadow: var(--glow-shadow);
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-sun { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+
+    .login-btn {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 20px;
+      font-size: 14px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-shadow: var(--glow-text);
+    }
+
+    .login-btn:hover {
+      background: var(--accent);
+      color: var(--bg-color);
+      box-shadow: var(--glow-shadow);
+    }
+
+    /* --- HERO --- */
+    .container {
+      text-align: left;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 60px;
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+
+    .z2h-title {
+      font-family: var(--font-mono);
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .highlight {
+      color: var(--accent);
+      text-shadow: var(--glow-text);
+    }
+
+    /* Cursor parpadeante */
+    .z2h-title::after {
+      content: '█';
+      color: var(--accent);
+      font-size: 2.4rem;
+      animation: blink 1s step-end infinite;
+      text-shadow: var(--glow-text);
+      vertical-align: text-bottom;
+      margin-left: 4px;
+    }
+
+    .z2h-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .z2h-subtitle::before {
+      content: '>';
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* --- GRID DE ROADMAPS --- */
+    .roadmaps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .roadmap-card {
+      background: var(--terminal-bg);
+      padding: 28px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      transition: all 0.2s ease-out;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      /* Simular línea de comando al costado */
+      border-left: 4px solid var(--border-color);
+    }
+
+    .roadmap-card:hover {
+      border-color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--card-hover);
+      box-shadow: 0 4px 20px rgba(0, 255, 65, 0.05);
+      transform: translateX(4px);
+    }
+
+    .card-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      letter-spacing: 1.5px;
+      opacity: 0.9;
+      display: inline-block;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 2px;
+    }
+
+    .roadmap-card h2 {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .roadmap-card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 24px;
+      max-width: 650px;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+
+    .roadmap-card:hover .tag {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-shadow: var(--glow-text);
+    }
+
+    .roadmap-card::after {
+      content: '[ EXECUTE ]';
+      position: absolute;
+      right: 30px;
+      bottom: 28px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--border-color);
+      letter-spacing: 1px;
+      transition: all 0.2s;
+      opacity: 0.5;
+    }
+
+    .roadmap-card:hover::after {
+      color: var(--accent);
+      opacity: 1;
+      text-shadow: var(--glow-text);
+    }
+
+    @media (max-width: 768px) {
+      .z2h-title { font-size: 2.2rem; }
+      .roadmap-card::after { display: none; }
+      .container { padding-left: 10px; }
+      .roadmap-card:hover { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="header-nav">
+    <div class="terminal-badge">Runtime: v2.0-stable</div>
+    
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+
+      <button class="login-btn">Sign in</button>
+    </div>
+  </nav>
+
+  <header class="container">
+    <div class="z2h-logo">
+      <h1 class="z2h-title">
+        Z2H<span class="highlight">_</span>ACADEMY
+      </h1>
+      <span class="z2h-subtitle">School of Thought // System.init()</span>
+    </div>
+  </header>
+
+  <main class="roadmaps-grid">
+    <div class="roadmap-card">
+      <span class="card-label">Module_01</span>
+      <h2>Data Engineering Roadmap</h2>
+      <p>Construcción de infraestructuras críticas y pipelines de datos de alto rendimiento.</p>
+      <div class="tag-list">
+        <span class="tag">low_level</span>
+        <span class="tag">systems</span>
+        <span class="tag">streaming</span>
+      </div>
+    </div>
+
+    <div class="roadmap-card">
+      <span class="card-label">Module_02</span>
+      <h2>Analytics Engineering Roadmap</h2>
+      <p>El puente entre los datos crudos y la inteligencia de negocio aplicada.</p>
+      <div class="tag-list">
+        <span class="tag">sql_advanced</span>
+        <span class="tag">dbt_core</span>
+        <span class="tag">metrics</span>
+      </div>
+    </div>
+
+    <div class="roadmap-card">
+      <span class="card-label">Module_03</span>
+      <h2>Azure Architecture</h2>
+      <p>Estrategias de despliegue y orquestación en la nube de nivel enterprise.</p>
+      <div class="tag-list">
+        <span class="tag">azure_fabric</span>
+        <span class="tag">security</span>
+        <span class="tag">scalability</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Referencias
+    const themeBtn = document.getElementById('theme-btn');
+    const htmlElement = document.documentElement;
+
+    // 1. Revisar si hay un tema guardado en localStorage
+    const savedTheme = localStorage.getItem('z2h-theme');
+    
+    // 2. Si hay tema guardado, aplicarlo. Si no, usar Light por defecto.
+    if (savedTheme === 'dark') {
+      htmlElement.setAttribute('data-theme', 'dark');
+    }
+
+    // 3. Manejar el evento click del botón
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('z2h-theme', 'light');
+      } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('z2h-theme', 'dark');
+      }
+    });
+  </script>
+</body>
+</html>
