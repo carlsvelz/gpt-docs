@@ -1,0 +1,3101 @@
+
+# 🚀 Nivel-1 · Fase-1 — ETL Básico en Lakehouse
+
+## De Fase-0 a Fase-1: el cambio de modelo mental
+
+En la **Fase-0 del Nivel-1** aprendiste algo clave:  
+👉 _cómo se cargan datos reales, completos y pesados_, entendiendo **qué pasa realmente cuando un dataset entra a un sistema de datos**.
+
+Trabajaste con cargas completas, entendiste el impacto de archivos grandes, el uso de memoria, el costo de leer, copiar y persistir datos, y por qué decisiones como `FULL LOAD` o `chunksize` **no son detalles**, sino decisiones de ingeniería.
+
+La **Fase-1** comienza exactamente donde eso termina 👇
+
+> Si en Fase-0 aprendiste **cómo entran los datos**,  
+> en Fase-1 aprenderás **cómo se transforman, organizan y publican** como un sistema de datos real.
+
+Aquí dejamos atrás scripts sueltos y empezamos a **pensar en pipelines**.
+
+---
+
+## 🧠 Modelo mental del Nivel-1 (DE-2026)
+
+Este nivel no trata de herramientas.  
+Trata de **aprender a pensar como Data Engineer**.
+
+El modelo mental que entrenamos es:
+
+> **Los datos viven en capas, los procesos son repetibles y las decisiones técnicas se miden.**
+
+Por eso todo el nivel gira alrededor de tres ideas clave:
+
+- **ETL como sistema**, no como script.
+    
+- **Lakehouse como arquitectura base**.
+    
+- **Python como motor de ingeniería**, no solo como lenguaje.
+
+## 🎯 De ejecutar código a construir pipelines
+
+Hasta ahora, Python fue el lugar donde _pasaban cosas_.  
+A partir de esta fase, Python se convierte en el **motor de un sistema ETL**.
+
+El cambio clave de modelo mental es este:
+
+> Ya no escribes código para obtener un resultado,  
+> escribes código para **sostener un flujo de datos en el tiempo**.
+
+El pipeline **Extract → Transform → Load** deja de ser una secuencia lógica y pasa a ser:
+
+- una estructura clara,
+    
+- con responsabilidades por etapa,
+    
+- con límites bien definidos,
+    
+- y con métricas que te dicen si estás haciendo bien tu trabajo.
+    
+
+Eso es ingeniería de datos.
+
+---
+
+## 🔍 ¿Qué cambia realmente de Fase-0 a Fase-1?
+
+No cambia la herramienta principal (Python).  
+Cambia **la responsabilidad que asumes sobre los datos**.
+
+|Fase-0 · Full Load & Fundamentos|Fase-1 · ETL Lakehouse con Python|
+|---|---|
+|Mover datos del punto A al B|Diseñar cómo los datos fluyen en el sistema|
+|Scripts ejecutados de forma puntual|Pipeline orquestado y repetible|
+|Foco en **ingresar** datos|Foco en **transformar y publicar** datos|
+|Datos vistos como archivos|Datos organizados en **capas**|
+|Transformaciones mínimas|Reglas de negocio explícitas|
+|Sin validaciones estructuradas|Calidad y validación como parte del flujo|
+|Medición puntual|Benchmarking continuo|
+|Código rígido|Pipeline **config-driven**|
+|Resultado técnico|Producto analítico|
+|Entender cómo entran los datos|Entender cómo viven y evolucionan|
+
+---
+
+## 🧩 Nivel-1 · Fase-1 — ETL Básico con Python + MinIO
+
+**De scripts aislados → pipeline estructurado en Lakehouse**
+
+En esta fase construyes tu **primer pipeline ETL real**, usando:
+
+- **Python** como lenguaje principal.
+    
+- **MinIO** como Data Lake local (S3-compatible).
+    
+- **Modelo Lakehouse**: Bronze → Silver → Gold.
+    
+
+Esto replica, a escala controlada, la misma arquitectura conceptual que usan plataformas modernas como Databricks o Snowflake, pero **entendiendo cada pieza**, no ocultándola.
+
+---
+
+## 🎯 Objetivo del Nivel-1 Fase-1
+
+> Construir un **pipeline ETL completo**, modular y medible, que procese datos reales (NYC Taxi) y los publique en un **Lakehouse local**, atravesando correctamente las capas **Bronze, Silver y Gold**.
+
+Más importante aún:  
+desarrollar el hábito de **diseñar pipelines antes de optimizarlos**.
+
+---
+
+## ⚙️ Enfoque general (alineado al Roadmap DE-2026)
+
+En esta fase aprenderás a:
+
+1. **Diseñar un pipeline por capas**, no por archivos sueltos.
+    
+2. **Trabajar con datasets grandes**, enfrentando límites reales de memoria.
+    
+3. **Medir impacto técnico**: tiempo, RAM y tamaño en cada decisión.
+    
+4. **Persistir datos correctamente** (Parquet + bases analíticas).
+    
+5. **Pensar en trazabilidad, versiones y observabilidad** desde el día uno.
+    
+
+Esto prepara el terreno para el Nivel-2, donde la optimización deja de ser opcional.
+
+---
+
+## 🔨 Lab central — ETL Lakehouse con Python
+
+El lab no es un ejercicio académico.  
+Es un **sistema pequeño pero real**.
+
+### 🌰 Bronze — Raw Zone (Extract)
+
+Aquí aplicas lo aprendido en Fase-0:
+
+- Datos crudos (CSV originales).
+    
+- Cero transformaciones.
+    
+- Medición explícita de tiempo y memoria.
+    
+
+👉 _Modelo mental:_ **Bronze no interpreta, solo preserva.**
+
+---
+
+### ⚙️ Silver — Clean Zone (Transform + Validate)
+
+Aquí aparece la ingeniería:
+
+- Limpieza.
+    
+- Estandarización.
+    
+- Reglas de negocio.
+    
+- Validaciones explícitas.
+    
+
+No se trata de “usar Pandas o Polars”, sino de **entender cuándo cada decisión cuesta RAM, tiempo o complejidad**.
+
+👉 _Modelo mental:_ **Silver reduce ruido y riesgo.**
+
+---
+
+### 🏆 Gold — Curated Zone (Load)
+
+Aquí los datos se vuelven consumibles:
+
+- Agregaciones.
+    
+- Tablas analíticas.
+    
+- Publicación a Parquet y PostgreSQL.
+    
+
+👉 _Modelo mental:_ **Gold existe para ser consumido, no para experimentar.**
+
+---
+
+## 🧠 Lo que realmente estás aprendiendo 
+
+Detrás del código, este nivel introduce:
+
+- Separación entre **datos crudos, procesados y curados**.
+    
+- **Config-driven pipelines** (menos hardcoding, más control).
+    
+- **Data lineage** básico.
+    
+- **Benchmarking como hábito**, no como afterthought.
+    
+- Observabilidad mínima pero consciente.
+    
+
+Esto es exactamente lo que diferencia a alguien que _sabe programar_ de alguien que **construye sistemas de datos**.
+
+---
+
+## 🚀 Cierre del Nivel-1 Fase-1
+
+Cuando termines esta fase:
+
+- Ya no escribirás scripts “para correr una vez”.
+    
+- Empezarás a pensar en **pipelines que pueden fallar, medirse y evolucionar**.
+    
+- El Lakehouse dejará de ser un diagrama y pasará a ser **una experiencia práctica**.
+    
+
+Y entonces sí, el **Nivel-2 (ETL Optimizado con Polars)** tendrá sentido.
+
+---
+
+### 🧠 Modelo mental de la Fase-1
+
+> **Fase-0 entrena tus manos.  
+> Fase-1 entrena tu criterio como ingeniero de datos.**
+
+No es escribir más líneas de código.  
+Es **pensar antes de escribirlas**.
+
+A partir de aquí, cada decisión —formato, capa, validación, métrica— deja una huella en el sistema.  
+Y aprender a **leer esas huellas** es lo que te prepara para escalar en las siguientes fases del Roadmap DE-2026.
+
+
+# Transición controlada desde `full-load.py` hacia un ETL con Lakehouse
+
+A partir de este punto, **todo lo construido previamente se conserva como modelo mental**, no como estado final del sistema.
+
+En **Fase-0**, el objetivo fue claro y acotado:
+
+> demostrar que es posible mover grandes volúmenes de datos de forma eficiente desde un archivo Parquet hacia un motor SQL, entendiendo I/O, tipos y performance.
+
+Ese objetivo se cumplió con un **script único**, `full-load.py`, que ejecuta el flujo completo de principio a fin.
+
+Ahora, en **Nivel-1 Fase-1**, el objetivo cambia.
+
+---
+
+## 🧠 Cambio de objetivo (no de herramientas)
+
+En esta fase **no estamos aprendiendo nuevas librerías**.  
+Estamos cambiando **la forma en que el sistema vive y evoluciona**.
+
+Pasamos de:
+
+> “un script que carga datos”
+
+a:
+
+> **un sistema de ingestión con estado persistente y arquitectura explícita**
+
+Este cambio comienza **antes de modularizar**.
+
+---
+
+## 📍 Estado actual del proyecto
+
+El proyecto hoy se apoya en un único script:
+
+### `full-load.py` (Fase-0)
+
+- Lee un archivo Parquet completo
+    
+- Itera por `row_groups`
+    
+- Normaliza tipos
+    
+- Usa `COPY` para cargar directamente a PostgreSQL
+    
+- Ejecuta todo el flujo en un solo proceso, de forma end-to-end
+    
+
+Este enfoque es **válido**, **eficiente** y **muy común en la industria**.
+
+De hecho, muchas empresas **se quedan aquí**.
+
+---
+
+## ⚠️ El problema real del enfoque “script único”
+
+Aunque funcional, este diseño tiene implicaciones importantes cuando el sistema crece:
+
+- Todo el estado vive en **PostgreSQL**
+    
+- No existe una capa intermedia persistente
+    
+- Si algo falla:
+    
+    - se debe reiniciar todo el proceso
+        
+- No hay:
+    
+    - versionado de datos
+        
+    - trazabilidad entre etapas
+        
+    - separación clara de responsabilidades
+        
+- El script:
+    
+    - mezcla extracción
+        
+    - normalización
+        
+    - carga
+        
+    - decisiones de infraestructura
+        
+
+En otras palabras:
+
+> **el sistema funciona, pero no evoluciona bien**
+
+---
+
+## 🎯 Objetivo de esta etapa (antes de modularizar)
+
+Antes de dividir el pipeline en múltiples módulos, vamos a dar un paso **intermedio pero crítico**:
+
+> **incorporar MinIO como backend de almacenamiento**, manteniendo un **script único e integral**.
+
+Esto nos permite:
+
+- introducir el concepto de **Lakehouse**
+    
+- separar almacenamiento de cómputo
+    
+- crear una **capa Bronze persistente**
+    
+- sin aún fragmentar el código en múltiples archivos
+    
+
+---
+
+## 🪣 MinIO como primer cambio estructural
+
+En esta etapa:
+
+- PostgreSQL **deja de ser el primer destino**
+    
+- MinIO se convierte en:
+    
+    - el **estado duradero del sistema**
+        
+    - la primera capa del Lakehouse (Bronze)
+        
+
+PostgreSQL pasa a ser un **consumidor posterior**, no el origen del pipeline.
+
+---
+
+## 🔧 Configuración base de MinIO (entorno)
+
+El entorno ya expone MinIO con los siguientes parámetros:
+
+```yaml
+# Service ports (internos al cluster)
+apiPort: 9000
+consolePort: 9001
+
+auth:
+  rootUser: minio-access-key
+  rootPassword: minio-secret-key
+
+env:
+  - name: MINIO_ROOT_USER
+    value: "{{ .Values.auth.rootUser }}"
+  - name: MINIO_ROOT_PASSWORD
+    value: "{{ .Values.auth.rootPassword }}"
+```
+
+Esto define dos principios que **no existían en Fase-0**:
+
+1. El storage es **externo al script**
+    
+2. Las credenciales viven en **variables de entorno**
+    
+
+---
+
+## 🧠 Qué vamos a modificar en `full-load.py`
+
+El script **no se descarta**.  
+Se transforma.
+
+El nuevo objetivo del script es:
+
+> ejecutar el flujo completo **file → MinIO (Bronze)** de forma end-to-end
+
+### Cambios clave que se introducirán
+
+- El archivo Parquet:
+    
+    - sigue siendo la fuente
+        
+- El procesamiento por `row_groups`:
+    
+    - se mantiene (I/O eficiente)
+        
+- La normalización de tipos:
+    
+    - se conserva
+        
+- **La salida cambia**:
+    
+    - en lugar de cargar directamente a PostgreSQL
+        
+    - los datos se escriben en MinIO (Bronze)
+        
+
+PostgreSQL queda **fuera del alcance inmediato**.
+
+---
+
+## 📌 Alcance explícito de esta etapa
+
+✔️ **Incluye**
+
+- Adaptar `full-load.py` para escribir en MinIO
+    
+- Introducir la noción de capa Bronze
+    
+- Documentar la transición desde Fase-0
+    
+- Explicar las decisiones arquitectónicas
+    
+
+❌ **No incluye aún**
+
+- Modularización (`extract.py`, `load.py`, etc.)
+    
+- Transformaciones de negocio
+    
+- Silver / Gold
+    
+- Orquestación avanzada
+    
+
+---
+
+## 🧠 Modelo mental clave de Fase-1 (inicio)
+
+> En Fase-0 validamos que el motor funciona.  
+> En Fase-1 comenzamos a decidir **dónde vive el sistema**.
+
+Una vez que este **script único con MinIO** esté completo, recién ahí tiene sentido avanzar a:
+
+👉 **modularización real del pipeline**  
+👉 **contratos entre etapas**  
+👉 **arquitectura Lakehouse completa**
+
+
+---
+
+## 🧠 Modelo mental antes del código (clave)
+
+A partir de este punto, **`full-load.py` deja de asumir estado local** y pasa a orquestar un flujo real:
+
+**Antes (Fase-0)**
+
+```
+Parquet local → Postgres
+```
+
+**Ahora (Fase-1)**
+
+```
+Fuente externa → Bronze (MinIO) → Postgres
+```
+
+Eso introduce **3 responsabilidades nuevas** en el script:
+
+1. **Descarga controlada desde la fuente original**
+    
+2. **Creación automática de la capa Bronze en MinIO**
+    
+3. **Lectura desde MinIO (no desde filesystem local)**
+    
+
+Y un cambio importante de contrato:
+
+> El script **ya no “sabe” dónde está el archivo**  
+> → lo **descubre, descarga y persiste** en Bronze
+
+---
+
+### 📐 Decisiones de diseño que aplicamos
+
+- ❌ Eliminamos `PARQUET_FILE` hardcodeado
+    
+- ❌ Eliminamos dependencia de archivos locales persistentes
+    
+- ✅ Usamos MinIO como **fuente intermedia obligatoria**
+    
+- ✅ El parquet se descarga **una sola vez** y vive en Bronze
+    
+- ✅ Postgres **solo consume desde Bronze**
+    
+
+---
+
+### 📦 Dependencias nuevas
+
+Este script asume:
+
+```bash
+pip install boto3 requests
+```
+
+---
+
+## **Script `full-load.py` (CLUSTER-AWARE)**
+
+
+```python
+import os
+import io
+import requests
+from time import time
+
+import pyarrow.parquet as pq
+import pandas as pd
+import psycopg2
+from sqlalchemy import create_engine
+import boto3
+
+# --------------------------------
+# CONFIGURACIÓN (CLUSTER-AWARE)
+# --------------------------------
+
+# ---- Fuente
+PARQUET_URL = os.getenv(
+    "PARQUET_URL",
+    "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+)
+
+# ---- Bronze / MinIO
+BRONZE_BUCKET = os.getenv("BRONZE_BUCKET", "bronze")
+BRONZE_OBJECT_PATH = os.getenv(
+    "BRONZE_OBJECT_PATH",
+    "yellow_taxi/yellow_tripdata_2024-01.parquet"
+)
+
+MINIO_ENDPOINT = os.getenv(
+    "MINIO_ENDPOINT",
+    "http://minio-service:9000"
+)
+
+MINIO_ACCESS_KEY = os.getenv("MINIO_ROOT_USER")
+MINIO_SECRET_KEY = os.getenv("MINIO_ROOT_PASSWORD")
+
+# ---- Postgres
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "postgres-service")
+POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", "5432"))
+POSTGRES_DB = os.getenv("POSTGRES_DB", "ny_taxi")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
+
+TABLE_NAME = os.getenv("TABLE_NAME", "yellow_taxi_data")
+
+# --------------------------------  
+# VALIDACIONES CRÍTICAS
+# --------------------------------
+
+missing = []
+
+if not MINIO_ACCESS_KEY:
+    missing.append("MINIO_ROOT_USER")
+if not MINIO_SECRET_KEY:
+    missing.append("MINIO_ROOT_PASSWORD")
+if not POSTGRES_PASSWORD:
+    missing.append("POSTGRES_PASSWORD")
+
+if missing:
+    raise RuntimeError(
+        f"❌ Variables de entorno faltantes: {', '.join(missing)}"
+    )
+
+# --------------------------------
+# CLIENTE MINIO (S3)
+# --------------------------------
+
+s3 = boto3.client(
+    "s3",
+    endpoint_url=MINIO_ENDPOINT,
+    aws_access_key_id=MINIO_ACCESS_KEY,
+    aws_secret_access_key=MINIO_SECRET_KEY,
+)
+
+# --------------------------------
+# CREAR BUCKET BRONZE (IDEMPOTENTE)
+# --------------------------------
+
+existing_buckets = [b["Name"] for b in s3.list_buckets()["Buckets"]]
+
+if BRONZE_BUCKET not in existing_buckets:
+    s3.create_bucket(Bucket=BRONZE_BUCKET)
+    print(f"✔ Bucket '{BRONZE_BUCKET}' creado")
+else:
+    print(f"✔ Bucket '{BRONZE_BUCKET}' ya existe")
+
+# --------------------------------
+# DESCARGAR PARQUET (FUENTE)
+# --------------------------------
+
+print("⬇ Descargando Parquet desde fuente...")
+response = requests.get(PARQUET_URL)
+response.raise_for_status()
+
+parquet_bytes = io.BytesIO(response.content)
+print("✔ Descarga completada")
+
+# --------------------------------
+# GUARDAR EN BRONZE
+# --------------------------------
+
+s3.put_object(
+    Bucket=BRONZE_BUCKET,
+    Key=BRONZE_OBJECT_PATH,
+    Body=parquet_bytes.getvalue()
+)
+
+print(f"✔ Archivo almacenado en Bronze → {BRONZE_BUCKET}/{BRONZE_OBJECT_PATH}")
+
+# --------------------------------
+# LEER PARQUET DESDE BRONZE
+# --------------------------------
+
+obj = s3.get_object(Bucket=BRONZE_BUCKET, Key=BRONZE_OBJECT_PATH)
+pqfile = pq.ParquetFile(io.BytesIO(obj["Body"].read()))
+num_groups = pqfile.num_row_groups
+
+print(f"✔ Parquet con {num_groups} row groups")
+
+# --------------------------------
+# CREAR TABLA EN POSTGRES (SOLO ESQUEMA)
+# --------------------------------
+
+postgres_conn_str = (
+    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
+    f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+)
+
+engine = create_engine(postgres_conn_str)
+
+df_schema = (
+    pqfile.read_row_group(0)
+    .slice(0, 0)
+    .to_pandas()
+)
+
+# 🔥 NORMALIZACIÓN EXPLÍCITA (CONTRATO)
+df_schema.columns = [c.lower() for c in df_schema.columns]
+
+df_schema.to_sql(
+    TABLE_NAME,
+    engine,
+    if_exists="replace",
+    index=False
+)
+
+columns = list(df_schema.columns)
+columns_sql = ", ".join(columns)
+
+print("✔ Tabla creada (solo esquema)")
+
+# --------------------------------
+# CONEXIÓN NATIVA POSTGRES (COPY)
+# --------------------------------
+
+conn = psycopg2.connect(
+    host=POSTGRES_HOST,
+    port=POSTGRES_PORT,
+    dbname=POSTGRES_DB,
+    user=POSTGRES_USER,
+    password=POSTGRES_PASSWORD,
+)
+
+cursor = conn.cursor()
+
+# --------------------------------
+# CARGA POR ROW GROUPS
+# --------------------------------
+
+for i in range(num_groups):
+    t_start = time()
+    print(f"→ Procesando row group {i + 1}/{num_groups}")
+
+    table = pqfile.read_row_group(i)
+    df = table.to_pandas()
+
+    # --------------------------------
+    # Normalización mínima de tipos
+    # --------------------------------
+    for col in df.columns:
+        if df[col].dtype == "float64":
+            if ((df[col] % 1 == 0) | df[col].isnull()).all():
+                df[col] = df[col].astype("Int64")
+
+    for col in df.columns:
+        if "datetime" in col.lower():
+            df[col] = pd.to_datetime(df[col], errors="coerce")
+
+    # --------------------------------
+    # COPY FROM STDIN
+    # --------------------------------
+    buffer = io.StringIO()
+    df.to_csv(buffer, index=False, header=False)
+    buffer.seek(0)
+
+    cursor.copy_expert(
+        f"COPY {TABLE_NAME} FROM STDIN WITH CSV",
+        buffer
+    )
+    conn.commit()
+
+    t_end = time()
+    print(
+        f"✔ Row group {i + 1} cargado en "
+        f"{t_end - t_start:.2f}s"
+    )
+
+# --------------------------------
+# CIERRE
+# --------------------------------
+
+cursor.close()
+conn.close()
+
+print("✔ Full Load cluster-aware finalizado correctamente")
+
+```
+
+---
+
+### Detalles del Bloque de código
+
+<details>
+    <summary>Cluster-Aware</summary>
+    ## CONFIGURACIÓN (CLUSTER-AWARE) 
+   
+    ### 🧠 ¿Qué significa “cluster-aware”?
+
+    Cuando en `full-load.py` hablamos de **CONFIGURACIÓN (CLUSTER-AWARE)** no estamos usando una palabra “decorativa”. Estamos describiendo una propiedad arquitectónica muy concreta.
+
+    Un componente es **cluster-aware** cuando:
+
+    > Está diseñado para ejecutarse dentro de un entorno distribuido
+    > y entiende que no vive solo en una máquina local.
+
+    Es decir, el script:
+
+    * No asume `localhost` como única realidad.
+    * No embebe credenciales hardcodeadas.
+    * No depende de rutas locales del filesystem.
+    * No asume que los servicios están en el mismo proceso.
+
+    En cambio:
+
+    * Usa **variables de entorno**.
+    * Se conecta a servicios externos (MinIO, Postgres).
+    * Respeta puertos internos del cluster.
+    * Puede ejecutarse dentro de Docker, Kubernetes o cualquier orquestador.
+
+    ---
+
+    ### 🔎 En términos prácticos dentro del script
+
+    Cuando usamos algo como:
+
+    ```python
+    MINIO_ACCESS_KEY = os.getenv("MINIO_ROOT_USER")
+    MINIO_SECRET_KEY = os.getenv("MINIO_ROOT_PASSWORD")
+    ```
+
+    Estamos diciendo:
+
+    > “El script no define el entorno.
+    > El entorno define al script.”
+
+    Eso es cluster-aware.
+
+    ---
+
+    ### 🏗 Modelo mental correcto
+
+    Hay dos formas de escribir un script:
+
+    #### ❌ Script local-aware
+
+    * Todo está hardcodeado.
+    * Funciona en tu laptop.
+    * Se rompe cuando cambia el entorno.
+
+    ### ✅ Script cluster-aware
+
+    * Lee configuración desde el entorno.
+    * Se adapta al contexto.
+    * Puede correr igual en:
+
+    * local
+    * Docker
+    * Kubernetes
+    * CI/CD
+    * producción
+
+    ---
+
+    ### 🎯 Por qué esto importa en el Nivel-1
+
+    Porque estamos entrenando algo más profundo que Python.
+
+    Estamos entrenando esto:
+
+    > Separar **código** de **infraestructura**.
+
+    Un ingeniero junior piensa:
+
+    > “¿Cómo hago que funcione?”
+
+    Un ingeniero con modelo mental sólido piensa:
+
+    > “¿Dónde va a correr esto y bajo qué condiciones?”
+
+    Eso es ser **cluster-aware**.
+
+    ---
+
+    ### 📌 Definición corta para recordar
+
+    > **Cluster-aware = el código entiende que vive dentro de una infraestructura distribuida y no asume control sobre ella.**
+
+    Y ese pequeño cambio mental es lo que separa un script de laboratorio de un componente de sistema real.
+</details>
+
+<details>
+    <summary>Imports</summary>
+
+    La diferencia entre los imports del primer y segundo script no es simplemente “más librerías”. Es un cambio de **responsabilidades del sistema**.
+
+    Veámoslo con claridad estructural.
+
+    ---
+
+    ## 🧱 Primer Script (Fase-0)
+    ### ¿Qué hacía este script?
+
+    * Leer Parquet desde filesystem local
+    * Transformar con pandas
+    * Conectar directamente a PostgreSQL
+    * Cargar datos con COPY
+
+    ### Modelo mental
+
+    ```
+    Archivo local → Python → Postgres
+    ```
+
+    El script vive en un entorno simple:
+
+    * No descarga nada
+    * No interactúa con infraestructura externa adicional
+    * No depende de variables de entorno
+    * No usa storage intermedio
+
+    Es un flujo cerrado.
+
+    ---
+
+    ## 🧱 Segundo Script (Fase-1)
+    Ahora aparecen **tres piezas nuevas clave**:
+
+    ---
+
+    ### 1️⃣ `os`
+
+    Introduce configuración **cluster-aware**.
+
+    Permite:
+
+    * Leer variables de entorno
+    * Desacoplar credenciales del código
+    * Hacer el script portable
+
+    Cambio conceptual:
+
+    ```
+    Configuración deja de estar hardcodeada
+    ```
+
+    ---
+
+    ### 2️⃣ `requests`
+
+    Introduce la descarga desde fuente externa.
+
+    Cambio estructural:
+
+    ```
+    Fuente externa → Script
+    ```
+
+    Ahora el script ya no depende de un archivo local.
+    Se vuelve responsable de:
+
+    * Obtener datos desde internet
+    * Validar respuesta HTTP
+    * Manejar bytes en memoria
+
+    ---
+
+    ### 3️⃣ `boto3`
+
+    Este es el cambio más importante.
+
+    Introduce:
+
+    * Comunicación con MinIO (S3 compatible)
+    * Creación de bucket
+    * Upload de objeto
+    * Download de objeto
+
+    Cambio arquitectónico real:
+
+    ```
+    Fuente externa → Bronze (MinIO) → Script → Postgres
+    ```
+
+    Aquí el script deja de ser solo “lector y cargador”.
+    Ahora también es:
+
+    * Operador de storage
+    * Administrador de capa Bronze
+    * Orquestador de infraestructura
+
+    ---
+
+    ## 🧠 Qué cambió realmente (más allá de los imports)
+
+    | Antes                    | Después                |
+    | ------------------------ | ---------------------- |
+    | Script de carga          | Script de orquestación |
+    | Archivo local            | Fuente externa         |
+    | Sin capa intermedia      | Bronze explícita       |
+    | Sin awareness de entorno | Cluster-aware          |
+    | Flujo simple             | Flujo multi-sistema    |
+
+    ---
+
+    ## 🎯 La diferencia profunda
+
+    El segundo script necesita nuevos imports porque:
+
+    > Ya no opera sobre un archivo.
+    > Opera sobre una arquitectura.
+
+    Y eso es exactamente lo que queríamos lograr antes de modularizar:
+    hacer visible que ahora el script tiene demasiadas responsabilidades.
+
+    Los nuevos imports no son accesorios.
+    Son evidencia de que el sistema creció.
+
+    Y cuando un script empieza a necesitar:
+
+    * red (requests),
+    * storage distribuido (boto3),
+    * entorno dinámico (os),
+
+    es la señal inequívoca de que la modularización ya no es opcional.
+</details>
+
+
+
+<details>
+    <summary>Config</summary>
+
+    Esta sección: no es simplemente “variables al inicio del script”.
+    Es una **decisión arquitectónica consciente** que introduce un modelo mental específico dentro de un contexto que todavía no lo necesita.
+
+    Y ahí está lo interesante.
+
+    ---
+
+    ### 🧠 ¿Qué está pasando realmente aquí?
+
+    Estamos usando:
+
+    ```python
+    os.getenv(...)
+    ```
+
+    para leer configuración desde variables de entorno.
+
+    Eso convierte al script en:
+
+    > Dependiente del entorno donde corre
+    > y no de valores hardcodeados en el código.
+
+    Ese es el principio de un sistema **cluster-aware**.
+
+    ---
+
+    ### 🔍 ¿Qué significa realmente “cluster-aware”?
+
+    En un entorno como Kubernetes, Docker o un sistema distribuido:
+
+    * Los servicios no se conectan por `localhost`
+    * No conocemos IPs reales
+    * Las credenciales no viven en el código
+    * Las configuraciones cambian según el entorno (dev, staging, prod)
+
+    Entonces el script debe ser consciente de que:
+
+    ```
+    No controla su entorno.
+    El entorno lo controla a él.
+    ```
+
+    Por eso:
+
+    ```python
+    MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "http://minio-service:9000")
+    POSTGRES_HOST = os.getenv("POSTGRES_HOST", "postgres-service")
+    ```
+
+    Notarás que no usamos IPs.
+    Usamos nombres de servicio.
+
+    Eso es mentalidad de cluster.
+
+    ---
+
+    ### 🏗 Qué estamos modelando con esta sección
+
+    Aunque este script todavía es monolítico, aquí estamos introduciendo la idea de:
+
+    * Configuración desacoplada
+    * Infraestructura inyectada
+    * Portabilidad
+    * Separación entre código y entorno
+
+    Estamos enseñando el patrón correcto…
+
+    pero dentro de una estructura incorrecta.
+
+    ---
+
+    ### ⚠️ Y aquí aparece el anti-patrón
+
+    En este punto del proyecto:
+
+    * El script todavía hace descarga
+    * Maneja storage
+    * Procesa datos
+    * Inserta en base
+    * Administra buckets
+    * Gestiona conexiones
+
+    Es decir:
+
+    Es un **script multi-responsabilidad**.
+
+    Entonces introducir “cluster-aware configuration” aquí:
+
+    * Rompe el modelo mental de simplicidad inicial
+    * Mezcla responsabilidades
+    * Hace que el script parezca más sofisticado de lo que arquitectónicamente es
+
+    En una arquitectura limpia, esta configuración debería vivir en:
+
+    * Un módulo de configuración
+    * Un loader de settings
+    * Un contenedor de dependencias
+    * O una capa de infraestructura separada
+
+    No dentro del mismo archivo que hace todo.
+
+    ---
+
+    ### 🎯 ¿Entonces por qué lo hicimos?
+
+    Porque lo usamos como **andamio pedagógico**.
+
+    Estamos sembrando el modelo mental de:
+
+    > El código no debe conocer credenciales
+    > El código no debe conocer hosts reales
+    > El código no debe estar acoplado al entorno
+
+    Aunque todavía no hemos modularizado.
+
+    Es una introducción intencional del concepto antes de resolver su lugar correcto.
+
+    ---
+
+    ### 🧩 Qué revela esta sección
+
+    Si lo miramos con frialdad arquitectónica, esta sección evidencia:
+
+    * El sistema ya es multi-servicio
+    * Ya depende de MinIO
+    * Ya depende de Postgres
+    * Ya depende de red
+    * Ya tiene múltiples configuraciones
+
+    Y cuando eso ocurre, el siguiente paso natural es:
+
+    > Extraer configuración
+    > Extraer infraestructura
+    > Separar responsabilidades
+
+    Es decir: modularización real.
+
+    ---
+
+    ### 🏁 Conclusión elegante
+
+    Esta sección no está mal.
+
+    Pero está adelantada.
+
+    Es correcta como concepto.
+    Es incorrecta como ubicación.
+
+    Y justamente por eso funciona como modelo del anti-patrón:
+    introduce mentalidad de cluster en un script que aún no ha evolucionado arquitectónicamente para sostenerla.
+
+    Es el punto exacto donde el sistema empieza a pedir estructura.
+</details>
+
+
+
+<details>
+    <summary>Schema</summary>
+
+    ## CREACIÓN DE TABLA
+
+    ---
+
+    ### 🔹 FULL-LOAD.py
+
+    ```python
+    # --------------------------------
+    # 1) Crear tabla automáticamente (solo esquema)
+    # --------------------------------
+    engine = create_engine(
+        "postgresql://root:root@localhost:5432/ny_taxi"
+    )
+
+    # Leer solo el esquema desde Parquet
+    df_schema = (
+        pq.read_table(PARQUET_FILE)
+        .slice(0, 0)
+        .to_pandas()
+    )
+
+    df_schema.to_sql(
+        name=TABLE_NAME,
+        con=engine,
+        if_exists="replace",
+        index=False
+    )
+
+    print("✔ Tabla creada automáticamente (solo esquema)\n")
+    ```
+
+    #### 🧠 Análisis técnico
+
+    Aquí ocurre lo siguiente:
+
+    1. Se abre el archivo Parquet completo con `pq.read_table()`
+    2. Se hace `.slice(0, 0)` para obtener solo el esquema
+    3. Se convierte a pandas
+    4. Se usa `to_sql(if_exists="replace")`
+
+    Aspectos importantes:
+
+    * Se vuelve a abrir el archivo (aunque luego también se abre como `ParquetFile`)
+    * No hay normalización de nombres
+    * Se delega completamente la inferencia de tipos a pandas + SQLAlchemy
+    * `replace` elimina cualquier tabla existente
+
+    Es simple.
+    Es directo.
+    Funciona.
+
+    Pero…
+
+    No hay control explícito del contrato.
+    No hay gobernanza.
+    No hay intención arquitectónica.
+
+    ---
+
+    #### 🧠 Análisis mental
+
+    Este enfoque transmite:
+
+    > “Necesito que exista la tabla para poder cargar datos.”
+
+    La tabla es una consecuencia operativa.
+
+    No es una entidad de diseño.
+
+    Aquí el esquema:
+
+    * No se versiona
+    * No se controla
+    * No se documenta
+    * No se normaliza
+
+    Es inferido automáticamente.
+
+    Eso revela una mentalidad:
+
+    Script-driven.
+    No contract-driven.
+
+    El esquema es un efecto secundario del archivo.
+
+    ---
+
+    ---
+
+    ## 🔹 1-FULL-LOAD.py
+
+    ```python
+    # --------------------------------
+    # CREAR TABLA EN POSTGRES (SOLO ESQUEMA)
+    # --------------------------------
+    postgres_conn_str = (
+        f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
+        f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    )
+
+    engine = create_engine(postgres_conn_str)
+
+    df_schema = (
+        pqfile.read_row_group(0)
+        .slice(0, 0)
+        .to_pandas()
+    )
+
+    # 🔥 NORMALIZACIÓN EXPLÍCITA (CONTRATO)
+    df_schema.columns = [c.lower() for c in df_schema.columns]
+
+    df_schema.to_sql(
+        TABLE_NAME,
+        engine,
+        if_exists="replace",
+        index=False
+    )
+
+    columns = list(df_schema.columns)
+    columns_sql = ", ".join(columns)
+
+    print("✔ Tabla creada (solo esquema)")
+    ```
+
+    ### 🧠 Análisis técnico
+
+    Aquí hay varios detalles sutiles pero importantes:
+
+    #### 1️⃣ No reabre el archivo
+
+    Usa:
+
+    ```python
+    pqfile.read_row_group(0)
+    ```
+
+    Es decir:
+
+    * Ya tiene el objeto ParquetFile cargado desde Bronze
+    * No re-lee el archivo desde disco
+    * Usa el primer row group para inferir esquema
+
+    Eso es eficiencia estructural.
+
+    ---
+
+    #### 2️⃣ Normalización explícita
+
+    ```python
+    df_schema.columns = [c.lower() for c in df_schema.columns]
+    ```
+
+    Esto cambia completamente el enfoque.
+
+    Aquí el esquema deja de ser “lo que venga”.
+    Ahora es:
+
+    Un contrato normalizado.
+
+    En producción:
+
+    * Postgres es case-sensitive con comillas
+    * Snowflake tiene comportamiento distinto
+    * BigQuery tiene reglas propias
+
+    Normalizar columnas evita problemas futuros.
+
+    Eso es pensamiento preventivo.
+
+    ---
+
+    #### 3️⃣ Captura explícita de columnas
+
+    ```python
+    columns = list(df_schema.columns)
+    columns_sql = ", ".join(columns)
+    ```
+
+    Esto no es decorativo.
+
+    Esto permite:
+
+    * Generar COPY explícito con columnas
+    * Controlar orden
+    * Evitar dependencia implícita
+    * Prepararse para cambios de esquema
+
+    Aquí ya hay conciencia de:
+
+    > El orden importa.
+    > El contrato importa.
+
+    ---
+
+    ### 🧠 Análisis mental profundo
+
+    Aquí la tabla no es un requisito operativo.
+
+    Es una definición de capa.
+
+    Este script ya piensa en:
+
+    Bronze → Warehouse
+
+    La tabla representa una capa estructurada.
+    No es solo destino.
+
+    Además:
+
+    * Se normaliza esquema
+    * Se define explícitamente
+    * Se construye después de leer Bronze
+    * Se respeta arquitectura por capas
+
+    Eso revela pensamiento Lakehouse.
+
+    ---
+
+    ## 🔥 Diferencia mental profunda
+
+    ### FULL-LOAD
+
+    Mentalidad:
+
+    > “El Parquet define la tabla.”
+
+    ### 1-FULL-LOAD
+
+    Mentalidad:
+
+    > “Yo defino cómo el Parquet se convierte en tabla.”
+
+    Esa diferencia es enorme.
+
+    En el primero:
+    El esquema es accidental.
+
+    En el segundo:
+    El esquema es intencional.
+
+    ---
+
+    ## 🏗 Nivel de madurez
+
+    FULL-LOAD está en nivel:
+
+    ETL operativo.
+
+    1-FULL-LOAD está en nivel:
+
+    Data Platform Thinking.
+
+    Porque ya aparece:
+
+    * Normalización
+    * Control de columnas
+    * Eficiencia de lectura
+    * Preparación para cluster
+    * Preparación para evolución de esquema
+
+    ---
+
+    ## 🎯 Conclusión de la sección
+
+    La diferencia no es cómo se crea la tabla.
+
+    Es cómo se piensa el esquema.
+
+    FULL-LOAD:
+
+    * Inferencia automática
+    * Diseño implícito
+    * Dependencia total del archivo
+
+    1-FULL-LOAD:
+
+    * Normalización explícita
+    * Preparación para producción
+    * Separación entre storage y warehouse
+    * Esquema como contrato
+</details>
+
+<details>
+    <summary>df_schema</summary>
+
+    ### 🟦 Bloque de código que estamos analizando
+
+    ```python
+    df_schema.columns = [c.lower() for c in df_schema.columns]
+
+    columns = list(df_schema.columns)
+    columns_sql = ", ".join(columns)
+    ```
+
+    ---
+
+    Primero: hoy estamos cargando los Parquet de NYC Taxi hacia **Postgres**. Ese es el engine actual.
+
+    Pero el punto clave no es Postgres.
+
+    El punto clave es que el **script no debe depender del motor**.
+
+    Hoy es Postgres.
+    Mañana puede ser BigQuery.
+    Después Snowflake.
+    O incluso SQL Server.
+
+    Si nuestro pipeline depende de cómo un motor trata mayúsculas/minúsculas, estamos diseñando frágil.
+
+    Lo que queremos es un modelo mental más alto:
+
+    > El esquema es un contrato independiente del engine.
+
+    ---
+
+    Ahora, ¿qué problema resolvemos con la primera línea?
+
+    ```python
+    df_schema.columns = [c.lower() for c in df_schema.columns]
+    ```
+
+    Los Parquet de NYC Taxi vienen definidos por un proveedor externo. Nosotros no decidimos si la columna se llama:
+
+    * `VendorID`
+    * `vendorId`
+    * `VENDORID`
+
+    Eso viene impuesto.
+
+    Cada motor SQL trata los identificadores distinto:
+
+    * Postgres convierte a minúscula si no se citan.
+    * Snowflake los guarda en mayúscula si no se citan.
+    * BigQuery es case-sensitive en algunos contextos.
+    * SQL Server tiene comportamientos que dependen del collation.
+
+    Entonces si no normalizamos antes de llegar al engine, el comportamiento final depende del motor.
+
+    Eso es exactamente lo que no queremos.
+
+    Aquí lo que hacemos es:
+
+    * Tomar el esquema del proveedor.
+    * Aplicar una convención interna (lowercase).
+    * Establecer un estándar interno del pipeline.
+
+    En la list comprehension:
+
+    ```python
+    [c.lower() for c in df_schema.columns]
+    ```
+
+    `c` es simplemente cada nombre de columna en cada iteración.
+
+    Es un string.
+
+    Se ejecuta el método `.lower()` del tipo `str`.
+
+    Se genera una nueva lista de nombres en minúscula.
+
+    Y reemplazamos completamente el `Index` del DataFrame.
+
+    Esto no toca datos.
+    No transforma filas.
+    No reescribe el archivo.
+
+    Solo redefine metadatos.
+
+    Estamos imponiendo nuestra convención interna antes de interactuar con cualquier motor.
+
+    ---
+
+    Luego:
+
+    ```python
+    columns = list(df_schema.columns)
+    ```
+
+    Convertimos el `Index` en lista estándar de Python.
+
+    Esto hace que el siguiente paso sea completamente desacoplado de pandas.
+
+    Ya no estamos pensando en DataFrame.
+
+    Estamos pensando en una estructura neutral: `list[str]`.
+
+    Eso es portable a cualquier generador SQL.
+
+    ---
+
+    Finalmente:
+
+    ```python
+    columns_sql = ", ".join(columns)
+    ```
+
+    Construimos el string de columnas.
+
+    Aquí ya no estamos pensando en Postgres.
+
+    Estamos generando un fragmento estructural reutilizable.
+
+    Ese string podría usarse en:
+
+    * COPY en Postgres
+    * INSERT en SQL Server
+    * CREATE TABLE en Snowflake
+    * SELECT dinámico en BigQuery
+
+    El motor cambia.
+
+    El contrato de columnas no.
+
+    ---
+
+    Entonces el modelo mental correcto es este:
+
+    1. El proveedor define el esquema original (NYC Taxi Parquet).
+    2. Nosotros aplicamos una normalización interna.
+    3. Generamos artefactos SQL a partir de ese esquema normalizado.
+    4. El motor es intercambiable.
+
+    La clave no es “hacer que funcione en Postgres”.
+
+    La clave es:
+
+    > Diseñar el pipeline como si el engine fuera reemplazable mañana.
+
+    Eso es arquitectura de datos bien pensada.
+    Eso es separar contrato lógico de implementación física.
+
+    Y esta pequeña transformación a minúsculas es una decisión de diseño que protege todo el pipeline a futuro.
+</details>
+
+
+<details>
+    <summary>Row Groups</summary>
+
+    ```python
+    # --------------------------------
+    # CARGA POR ROW GROUPS
+    # --------------------------------
+
+    for i in range(num_groups):
+        t_start = time()
+        print(f"→ Procesando row group {i + 1}/{num_groups}")
+
+        table = pqfile.read_row_group(i)
+        df = table.to_pandas()
+
+        # --------------------------------
+        # Normalización mínima de tipos
+        # --------------------------------
+        for col in df.columns:
+            if df[col].dtype == "float64":
+                if ((df[col] % 1 == 0) | df[col].isnull()).all():
+                    df[col] = df[col].astype("Int64")
+
+        for col in df.columns:
+            if "datetime" in col.lower():
+                df[col] = pd.to_datetime(df[col], errors="coerce")
+
+        # --------------------------------
+        # COPY FROM STDIN
+        # --------------------------------
+        buffer = io.StringIO()
+        df.to_csv(buffer, index=False, header=False)
+        buffer.seek(0)
+
+        cursor.copy_expert(
+            f"COPY {TABLE_NAME} FROM STDIN WITH CSV",
+            buffer
+        )
+        conn.commit()
+
+        t_end = time()
+        print(
+            f"✔ Row group {i + 1} cargado en "
+            f"{t_end - t_start:.2f}s"
+        )
+
+    # --------------------------------
+    # CIERRE
+    # --------------------------------
+
+    cursor.close()
+    conn.close()
+
+    print("✔ Full Load cluster-aware finalizado correctamente")
+    ```
+
+    ## 🧠 Recordemos:
+    Estamos trabajando con:
+
+    * `ParquetFile` de **Apache Arrow**
+    * `pandas`
+    * Postgres
+    * `COPY FROM STDIN`
+
+    Objetivo:
+
+    * No cargar todo el archivo en memoria.
+    * Corregir tipos degradados.
+    * Cargar millones de registros de forma eficiente.
+    * Medir performance real.
+
+    ---
+
+    ## 🔹 1️⃣ Iteración sobre Row Groups
+
+    ```python
+    for i in range(num_groups):
+    ```
+
+    #### ¿Qué es `num_groups`?
+
+    Cuando creamos:
+
+    ```python
+    pqfile = pq.ParquetFile("archivo.parquet")
+    num_groups = pqfile.num_row_groups
+    ```
+
+    `num_row_groups` es una propiedad interna del archivo.
+
+    Parquet está dividido en bloques llamados **row groups**.
+
+    Cada row group:
+
+    * Es independiente.
+    * Está comprimido.
+    * Puede leerse sin tocar los demás.
+
+    ### ¿Qué hace `range(num_groups)`?
+
+    Genera una secuencia:
+
+    ```
+    0, 1, 2, 3 ... num_groups - 1
+    ```
+
+    Estamos iterando por índice.
+
+    ### ¿Qué representa `i`?
+
+    Es el identificador del bloque actual que vamos a leer.
+
+    Esto significa que estamos haciendo:
+
+    * Procesamiento incremental.
+    * Control explícito de memoria.
+    * Diseño escalable.
+
+    ---
+
+    ## 🔹 2️⃣ Medición de tiempo inicial
+
+    ```python
+    t_start = time()
+    ```
+
+    `time()` devuelve un `float` con segundos desde epoch.
+    el epoch es: 1 de enero de 1970 a las 00:00:00 UTC
+
+    Ejemplo:
+
+    ```
+    1700000000.345678
+    ```
+
+    ¿Por qué usamos float?
+
+    Porque necesitamos precisión decimal para medir segundos con milisegundos.
+
+    Estamos instrumentando el pipeline.
+
+    ---
+
+    ## 🔹 3️⃣ Log de progreso
+
+    ```python
+    print(f"→ Procesando row group {i + 1}/{num_groups}")
+    ```
+
+    ¿Por qué `i + 1`?
+
+    Porque el humano no piensa en base 0.
+
+    Si estamos en `i = 0`, realmente estamos procesando el bloque 1.
+
+    Esto es observabilidad mínima viable.
+
+    ---
+
+    ## 🔹 4️⃣ Lectura del Row Group
+
+    ```python
+    table = pqfile.read_row_group(i)
+    ```
+
+    Aquí ocurre algo importante.
+
+    Internamente:
+
+    1. Se ubica el offset del row group en el archivo.
+    2. Se descomprimen solo las columnas de ese bloque.
+    3. Se crea un objeto `pyarrow.Table`.
+
+    No se cargan los otros bloques.
+    No se descomprime todo el archivo.
+
+    Es lectura selectiva.
+
+    En memoria ahora tenemos un objeto columnar.
+
+    ---
+
+    ## 🔹 5️⃣ Conversión a DataFrame
+
+    ```python
+    df = table.to_pandas()
+    ```
+
+    Aquí cambia el modelo.
+
+    `pyarrow.Table` es columnar optimizado.
+    `pandas.DataFrame` es estructura en memoria orientada a análisis.
+
+    En este momento:
+
+    * Se materializan los datos.
+    * Se asigna memoria RAM real.
+    * Cada columna se convierte en un array de NumPy o tipo extendido.
+
+    Este es el punto donde debemos tener cuidado con el tamaño del bloque.
+
+    ---
+
+    ## 🔹 6️⃣ Primera iteración sobre columnas
+
+    ```python
+    for col in df.columns:
+    ```
+
+    `df.columns` es un `Index`.
+
+    Ejemplo:
+
+    ```
+    Index(['passenger_count', 'fare_amount', 'pickup_datetime'], dtype='object')
+    ```
+
+    Estamos recorriendo nombre por nombre.
+
+    No estamos iterando por valores, estamos iterando por metadata.
+
+    ---
+
+    ## 🔹 7️⃣ Verificación de tipo float64
+
+    ```python
+    if df[col].dtype == "float64":
+    ```
+
+    `df[col]` devuelve una `Series`.
+
+    `.dtype` devuelve el tipo subyacente.
+
+    ¿Por qué muchas columnas vienen como float?
+
+    Porque:
+
+    * Parquet permite nulls.
+    * Enteros con null se convierten en float.
+    * `3` → `3.0`
+
+    Esto degrada semántica.
+
+    ---
+
+    ## 🔹 8️⃣ Detectar si realmente son enteros
+
+    ```python
+    if ((df[col] % 1 == 0) | df[col].isnull()).all():
+    ```
+
+    Desglosemos esto:
+
+    ### `df[col] % 1 == 0`
+
+    Ejemplo:
+
+    ```
+    3.0 % 1 → 0
+    4.5 % 1 → 0.5
+    ```
+
+    Si el resultado es 0, no tiene parte decimal.
+
+    ### `df[col].isnull()`
+
+    Devuelve un vector booleano:
+
+    ```
+    [False, True, False, ...]
+    ```
+
+    ### Operador `|`
+
+    Es OR vectorizado.
+
+    No usar `or` porque `or` evalúa objetos completos, no elemento a elemento.
+
+    ### `.all()`
+
+    Verifica que TODOS los valores cumplan la condición.
+
+    Si uno solo tiene decimal real → no convertimos.
+
+    ---
+
+    ## 🔹 9️⃣ Conversión a Int64 nullable
+
+    ```python
+    df[col] = df[col].astype("Int64")
+    ```
+
+    Importantísimo:
+
+    * `"Int64"` no es igual a `int64`.
+
+    `int64`:
+
+    * No soporta null.
+    * Si hay NaN → error.
+
+    `"Int64"`:
+
+    * Es tipo extendido de pandas.
+    * Soporta `<NA>`.
+
+    Esto preserva integridad.
+
+    ---
+
+    ## 🔹 🔟 Segunda pasada para datetime
+
+    ```python
+    for col in df.columns:
+    ```
+
+    Sí, hacemos otra iteración.
+
+    Podríamos combinarlo, pero aquí priorizamos claridad.
+
+    ---
+
+    ## 🔹 Detección por nombre
+
+    ```python
+    if "datetime" in col.lower():
+    ```
+
+    `col.lower()` asegura que no falle por mayúsculas.
+
+    Estamos usando convención de naming como heurística.
+
+    ---
+
+    ## 🔹 Conversión segura
+
+    ```python
+    df[col] = pd.to_datetime(df[col], errors="coerce")
+    ```
+
+    Internamente:
+
+    1. Pandas intenta parsear.
+    2. Si falla:
+
+    * No lanza excepción.
+    * Asigna `NaT`.
+
+    `NaT` es el equivalente temporal de `NaN`.
+
+    Esto evita que un valor corrupto rompa todo el bloque.
+
+    ---
+
+    ## 🔹 Creación de buffer en memoria
+
+    ```python
+    buffer = io.StringIO()
+    ```
+
+    `StringIO` crea un objeto tipo archivo.
+
+    Pero vive en RAM.
+
+    Es como tener:
+
+    ```
+    /tmp/archivo_virtual.csv
+    ```
+
+    Sin escribir en disco.
+
+    ---
+
+    ## 🔹 Serialización a CSV
+
+    ```python
+    df.to_csv(buffer, index=False, header=False)
+    ```
+
+    Parámetros importantes:
+
+    * `index=False` → no queremos la columna 0,1,2,3...
+    * `header=False` → COPY no necesita nombres
+
+    Se escribe texto plano separado por comas.
+
+    ---
+
+    ## 🔹 Reset del puntero
+
+    ```python
+    buffer.seek(0)
+    ```
+
+    Después de escribir, el cursor está al final.
+
+    Si no hacemos `seek(0)`, Postgres leería desde el final → archivo vacío.
+
+    Esto es crítico.
+
+    ---
+
+    ## 🔹 COPY masivo
+
+    ```python
+    cursor.copy_expert(
+        f"COPY {TABLE_NAME} FROM STDIN WITH CSV",
+        buffer
+    )
+    ```
+
+    Aquí el flujo es:
+
+    1. Python envía datos por socket.
+    2. Postgres recibe flujo continuo.
+    3. Inserta en modo bulk.
+    4. Minimiza logging por fila.
+
+    Es muchísimo más eficiente que:
+
+    ```python
+    INSERT INTO ...
+    ```
+
+    ---
+
+    ## 🔹 Commit
+
+    ```python
+    conn.commit()
+    ```
+
+    Estamos confirmando:
+
+    * El row group actual.
+    * Liberando locks.
+    * Persistiendo cambios.
+
+    Si algo falla en el siguiente bloque, los anteriores ya están seguros.
+
+    ---
+
+    ## 🔹 Medición final
+
+    ```python
+    t_end = time()
+    ```
+
+    ```python
+    print(
+        f"✔ Row group {i + 1} cargado en "
+        f"{t_end - t_start:.2f}s"
+    )
+    ```
+
+    `t_end - t_start` da duración real del bloque.
+
+    Esto permite:
+
+    * Identificar bloques pesados.
+    * Detectar I/O lento.
+    * Medir impacto de transformaciones.
+
+    ---
+
+    ## 🔹 Cierre de recursos
+
+    ```python
+    cursor.close()
+    conn.close()
+    ```
+
+    Liberamos:
+
+    * Conexión TCP.
+    * Recursos del servidor.
+    * Cursores abiertos.
+
+    Nunca dejar conexiones abiertas en producción.
+
+    ---
+
+    ## 🧩 Lo que realmente construimos
+
+    Este pipeline es:
+
+    * Incremental
+    * Determinístico
+    * Type-consistent
+    * Bulk-optimized
+    * Observado por métricas básicas
+    * Recuperable por bloques
+
+    Esto ya es ingeniería de datos real.
+
+</details>
+
+
+# 🧠 Comparación visual — Fase 0 vs Fase 1
+
+_(mismo pipeline, distinta arquitectura)_
+
+---
+
+## 🟦 BLOQUE-1 — Fase 0
+
+**Archivo local → PostgreSQL (sin lakehouse)**
+
+```
+┌──────────────┐     ┌───────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Parquet      │     │ pyarrow       │     │ pandas       │     │ PostgreSQL   │
+│ (archivo     │───▶ │ ParquetFile   │───▶ │ DataFrame    │───▶ │ Tabla        │
+│ local)       │     │ + row groups  │     │ + CSV buffer │     │ (COPY)       │
+└──────────────┘     └───────────────┘     └──────────────┘     └──────────────┘
+        │                     │                    │                     │
+        │                     │                    │                     │
+        │                     ▼                    │                     │
+        │            slice(0,0) esquema             │                     │
+        │                     │                    │                     │
+        │                     └──────────▶ create table ◀───────────────┘
+        │
+        └── Fuente única, local, acoplada al script
+```
+
+**Lectura mental:**
+
+- El archivo **vive en el filesystem**
+    
+- Postgres consume **directamente** desde el script
+    
+- No hay separación entre **fuente, staging y consumo**
+    
+- Funciona, pero **no escala arquitectónicamente**
+    
+
+---
+
+## 🟩 BLOQUE-2 — Fase 1
+
+**Fuente externa → Bronze (MinIO) → PostgreSQL**
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Fuente HTTP  │     │ BytesIO      │     │ MinIO        │     │ pandas       │     │ PostgreSQL   │
+│ (Cloudfront)│───▶ │ (memoria)    │───▶ │ Bronze       │───▶ │ DataFrame    │───▶ │ Tabla        │
+│              │     │              │     │ (Parquet)   │     │ + CSV buffer │     │ (COPY)       │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+                                               │
+                                               │
+                                               ▼
+                                      pyarrow ParquetFile
+                                      + row groups
+                                               │
+                                               ▼
+                                      slice(0,0) esquema
+                                               │
+                                               ▼
+                                      create table (Postgres)
+```
+
+**Lectura mental:**
+
+- La **fuente original** queda desacoplada
+    
+- Bronze se convierte en la **fuente interna del sistema**
+    
+- Postgres **nunca toca la fuente externa**
+    
+
+
+---
+
+## 🧠 Comparación directa (lo que cambia de verdad)
+
+```
+Fase 0:
+[ Archivo local ] ─────▶ [ Script ] ─────▶ [ Postgres ]
+
+Fase 1:
+[ Fuente externa ] ─▶ [ Bronze (MinIO) ] ─▶ [ Script ] ─▶ [ Postgres ]
+```
+
+---
+
+## 📌 Modelo mental final
+
+> **No agregamos complejidad.  
+> Agregamos una capa de control.**
+
+La Fase-1 no existe para “usar MinIO”,  
+existe para que **el sistema tenga memoria, fronteras y evolución**.
+
+---
+
+## 🧱 DEV BLOQUE-1 — Fase 0
+
+**Carga directa desde archivo local a PostgreSQL**
+
+---
+
+### 1️⃣ Configuración + creación de esquema en Postgres
+
+```
+┌──────────────────────────┐
+│ Parquet (archivo local)  │
+│ yellow_tripdata.parquet  │
+└────────────┬─────────────┘
+             │
+             │ leer solo esquema
+             ▼
+┌──────────────────────────┐
+│        pandas / pyarrow  │
+│  slice(0,0) → DataFrame │
+└────────────┬─────────────┘
+             │
+             │ to_sql (replace)
+             ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Tabla vacía (esquema)  │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _Postgres se prepara antes de cargar datos._
+
+---
+
+### 2️⃣ Preparación del Parquet (row groups)
+
+```
+┌──────────────────────────┐
+│ Parquet (archivo local)  │
+└────────────┬─────────────┘
+             │
+             │ ParquetFile()
+             ▼
+┌──────────────────────────┐
+│   Metadatos del archivo  │
+│  num_row_groups = N      │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _El archivo se procesa por bloques, no completo en memoria._
+
+---
+
+### 3️⃣ Conexión directa a PostgreSQL
+
+```
+┌───────────────┐
+│   psycopg2    │
+└───────┬───────┘
+        │
+        ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Conexión + Cursor      │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _Se usará COPY, no inserts fila a fila._
+
+---
+
+### 4️⃣ Loop de carga por row group
+
+```
+┌──────────────────────────┐
+│ Parquet (local)          │
+│ Row Group i              │
+└────────────┬─────────────┘
+             │ read_row_group
+             ▼
+┌──────────────────────────┐
+│      pandas DataFrame    │
+│  - Normalización tipos   │
+│  - Cast datetime / int  │
+└────────────┬─────────────┘
+             │ to_csv (memoria)
+             ▼
+┌──────────────────────────┐
+│      Buffer (StringIO)  │
+└────────────┬─────────────┘
+             │ COPY FROM STDIN
+             ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Datos insertados       │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _Pipeline eficiente, pero acoplado al filesystem local._
+
+---
+
+### 5️⃣ Cierre
+
+```
+┌───────────────┐
+│   Cursor      │
+└───────┬───────┘
+        │ close
+        ▼
+┌───────────────┐
+│   Connection  │
+└───────────────┘
+```
+
+---
+
+## 🧱 DEV BLOQUE-2 — Fase 1
+
+**Fuente externa → Bronze (MinIO) → PostgreSQL**
+
+---
+
+### 1️⃣ Cliente MinIO (S3 compatible)
+
+```
+┌──────────────────────────┐
+│  Variables de entorno    │
+│  MINIO_ROOT_USER/PASS   │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│        boto3 (S3)        │
+│  Cliente MinIO           │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _El storage ya no es local, es infraestructura._
+
+---
+
+### 2️⃣ Inicialización de la capa Bronze
+
+```
+┌──────────────────────────┐
+│        MinIO             │
+│  list_buckets()          │
+└────────────┬─────────────┘
+             │
+      ┌──────▼───────┐
+      │ ¿Existe?     │
+      └──────┬───────┘
+             │
+     ┌───────▼────────┐
+     │ create_bucket  │
+     │   (bronze)     │
+     └────────────────┘
+```
+
+**Idea clave:**  
+👉 _Bronze es un contrato físico, no conceptual._
+
+---
+
+### 3️⃣ Descarga desde la fuente original
+
+```
+┌──────────────────────────┐
+│  Fuente externa (HTTP)   │
+│  cloudfront.net          │
+└────────────┬─────────────┘
+             │ GET
+             ▼
+┌──────────────────────────┐
+│     Bytes en memoria     │
+│      (BytesIO)           │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _La fuente real del proyecto entra aquí._
+
+---
+
+### 4️⃣ Persistencia en Bronze (MinIO)
+
+```
+┌──────────────────────────┐
+│     BytesIO (Parquet)    │
+└────────────┬─────────────┘
+             │ put_object
+             ▼
+┌──────────────────────────┐
+│        MinIO             │
+│  bronze/yellow_taxi/...  │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _Bronze se convierte en la fuente interna del sistema._
+
+---
+
+### 5️⃣ Lectura desde MinIO (no local)
+
+```
+┌──────────────────────────┐
+│        MinIO             │
+│  get_object()            │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     BytesIO (memoria)    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   ParquetFile (pyarrow)  │
+│  num_row_groups = N      │
+└──────────────────────────┘
+```
+
+**Idea clave:**  
+👉 _Postgres nunca ve la fuente original._
+
+---
+
+### 6️⃣ Creación de esquema en PostgreSQL
+
+```
+┌──────────────────────────┐
+│  Parquet (desde MinIO)   │
+│  RowGroup 0 → slice(0)   │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Tabla creada (vacía)   │
+└──────────────────────────┘
+```
+
+---
+
+### 7️⃣ Conexión nativa a PostgreSQL
+
+```
+┌───────────────┐
+│   psycopg2    │
+└───────┬───────┘
+        │
+        ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Conexión + Cursor      │
+└──────────────────────────┘
+```
+
+---
+
+### 8️⃣ Ingesta desde Bronze → Postgres
+
+```
+┌──────────────────────────┐
+│   Parquet (MinIO)        │
+│   Row Group i            │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     pandas DataFrame     │
+│  Normalización tipos     │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│  CSV en memoria          │
+│  (StringIO)              │
+└────────────┬─────────────┘
+             │ COPY
+             ▼
+┌──────────────────────────┐
+│        PostgreSQL        │
+│  Datos cargados          │
+└──────────────────────────┘
+```
+
+---
+
+### 9️⃣ Cierre end-to-end
+
+```
+┌───────────────┐
+│   Cursor      │
+└───────┬───────┘
+        │ close
+        ▼
+┌───────────────┐
+│ Connection    │
+└───────────────┘
+```
+
+---
+
+### 🧠 Diferencia mental final
+
+```
+Fase 0: Archivo local → Postgres
+Fase 1: Fuente externa → Bronze → Postgres
+```
+
+👉 **Aquí es donde el script deja de ser “código”  
+y empieza a ser arquitectura.**
+
+
+# 🧩 `full-load.py` Fase-1 ANTIPATRON
+
+
+## 🧠 Modelo mental: por qué este script existe (y por qué no debe quedarse así)
+
+Los dos bloques de código que analizamos **no representan una solución final**, ni mucho menos una buena arquitectura en sí mismos.  
+Representan **un punto de transición consciente** dentro del Nivel-1.
+
+Ambos bloques son **script-first**.  
+La diferencia es que el segundo **hace explícita la arquitectura**, y eso es justo lo que necesitamos **antes de modularizar**.
+
+---
+
+### 🟥 Regla central del Nivel-1
+
+> **No se modulariza lo que no se entiende.  
+> No se abstrae lo que no se ve completo.**
+
+Por eso, antes de fragmentar el sistema en `extract`, `load`, `lakehouse`, etc., necesitamos **un único script end-to-end** que:
+
+- toque la fuente externa,
+    
+- materialice Bronze,
+    
+- lea desde Bronze,
+    
+- cargue a PostgreSQL.
+    
+
+No para dejarlo así.  
+Sino para **ver todo el flujo respirando en un solo lugar**.
+
+---
+
+### 🟦 BLOQUE-1 — Script-first ingenuo (referencia histórica)
+
+Este bloque representa **el cierre natural de la Fase-0**:
+
+- filesystem local como staging,
+    
+- fuente y destino acoplados,
+    
+- cero noción de capas,
+    
+- cero frontera clara entre responsabilidades.
+    
+
+Es funcional, pero **no escalable ni extensible**.  
+No sirve como base para modularización.
+
+---
+
+### 🟨 BLOQUE-2 — Script-first consciente (antipatrón deliberado)
+
+Este bloque **no es “mejor arquitectura”**.  
+Es un **antipatrón controlado** que cumple un propósito muy específico:
+
+- Introducir MinIO como capa Bronze
+    
+- Separar fuente externa de consumo interno
+    
+- Hacer visible la existencia de capas
+    
+- Mostrar **todas las responsabilidades juntas**
+    
+
+Aquí el problema **no está resuelto**.  
+Está **expuesto**.
+
+Y eso es exactamente lo que queremos antes de modularizar.
+
+---
+
+### ⚠️ Por qué este bloque sigue siendo un antipatrón
+
+Aunque ya existe Bronze, el script sigue:
+
+- descargando datos,
+    
+- creando buckets,
+    
+- leyendo Parquet,
+    
+- normalizando tipos,
+    
+- cargando SQL,
+    
+- manejando credenciales,
+    
+- controlando tiempos,
+    
+
+**todo en el mismo archivo**.
+
+Eso es **inaceptable como diseño final**  
+pero **perfecto como punto de partida para descomposición**.
+
+---
+
+### 🎯 Objetivo real de este paso
+
+> **No construir el sistema correcto,  
+> sino construir el sistema completo  
+> para luego romperlo correctamente.**
+
+El BLOQUE-2 existe para que el siguiente paso sea inevitable:
+
+- separar `extract`
+    
+- separar `load`
+    
+- separar acceso a MinIO
+    
+- introducir contratos (`config.yml`)
+    
+- orquestar desde `main.py`
+    
+
+Ese es el verdadero inicio del **Nivel-1**.
+
+Todo lo que sigue **nace de este antipatrón**.
+
+---
+
+## 🧠 Nota clave del Roadmap
+
+Cuando hablamos de **modelos mentales** como eje del Roadmap, **no estamos diciendo** que el alumno solo aprenderá conceptos abstractos o arquitectura “en el aire”.
+
+Eso sería un error grave.
+
+### 🔴 Este programa **NO ignora las herramientas**
+
+### 🔴 Tampoco evita la sintaxis
+
+### 🔴 Ni abstrae el código real
+
+Todo lo contrario.
+
+---
+
+### 🧩 El verdadero equilibrio: Modelos mentales + Skills reales
+
+En este Roadmap, cada modelo mental **se materializa en código real**:
+
+- se escriben scripts funcionales,
+    
+- se configuran conexiones reales,
+    
+- se interactúa con MinIO, PostgreSQL, Pandas, PyArrow, boto3,
+    
+- se manejan errores, tiempos, tipos de datos,
+    
+- se ejecutan pipelines end-to-end.
+    
+
+El alumno **sí aprende herramientas**.  
+El alumno **sí desarrolla habilidades técnicas concretas**.
+
+👉 Pero **nunca aprende herramientas aisladas del contexto**.
+
+---
+
+### 🧠 Por qué el énfasis sigue estando en modelos mentales
+
+La diferencia con un bootcamp tradicional no es **qué** se usa, sino **cómo se enseña**:
+
+|Bootcamp tradicional|Roadmap DE-2026|
+|---|---|
+|“Aprende esta herramienta”|“Entiende este problema”|
+|“Copia este pipeline”|“Diseña este sistema”|
+|“Sigue estos pasos”|“Razona estas decisiones”|
+|Skills primero|Modelo mental primero|
+
+Las herramientas **cambian**.  
+Los modelos mentales **permanecen**.
+
+---
+
+### 🧠 Lo que realmente se está entrenando
+
+Mientras el alumno:
+
+- escribe código,
+    
+- configura MinIO,
+    
+- usa COPY en Postgres,
+    
+- lee Parquet por row groups,
+    
+
+también está entrenando (aunque no siempre lo note):
+
+- **criterio arquitectónico**,
+    
+- **separación de responsabilidades**,
+    
+- **noción de capas**,
+    
+- **decisiones de I/O**,
+    
+- **pensamiento incremental**,
+    
+- **diseño orientado a evolución**.
+    
+
+Eso es lo que luego permite:
+
+- aprender nuevas herramientas más rápido,
+    
+- adaptarse a stacks distintos,
+    
+- leer código ajeno con claridad,
+    
+- diseñar pipelines desde cero.
+    
+
+---
+
+### 🎯 El mensaje correcto
+
+> **Aquí no eliges entre pensar o ejecutar.  
+> Aprendes a hacer ambas cosas al mismo tiempo.**
+
+Los modelos mentales son el eje.  
+Las skills son el vehículo.
+
+Y es precisamente esa combinación la que diferencia este Roadmap de **todos los bootcamps tradicionales**.
+
+## 🚀 SCRIPT END-TO-END
+
+### 🧱 Último paso consciente antes de la modularización
+
+---
+
+### 🎯 ¿Qué es este script?
+
+🧩 Este **segundo script** representa el **último paso consciente antes de modularizar** el pipeline.
+
+👉 Es un **script end-to-end**, **intencionalmente monolítico**, que ejecuta **todo el flujo en una sola ejecución**.
+
+---
+
+### 🔄 Flujo integrado (todo en uno)
+
+➡️ **Descarga desde la fuente**  
+➡️ **Persistencia en MinIO (capa Bronze)**  
+➡️ **Carga en PostgreSQL**
+
+🛠️ Todo ocurre dentro de **un único flujo ejecutable**  
+⚠️ **No es el diseño final**  
+⚠️ **No es el objetivo del Nivel-1**
+
+---
+
+### 🧪 ¿Para qué existe entonces?
+
+Este script cumple **tres funciones clave** 👇
+
+#### ✅ Validación end-to-end
+
+- 🔍 Verifica que **la arquitectura funciona de punta a punta**
+    
+- 🔁 Confirma que **el movimiento de datos entre sistemas es correcto**
+    
+- ▶️ Asegura que **el pipeline corre sin intervención manual**
+    
+
+---
+
+#### 🏗️ Andamio (Scaffolding) operativo
+
+- 🧠 Funciona como **modelo operativo temporal**
+    
+- 🔎 Permite identificar:
+    
+    - responsabilidades reales
+        
+    - límites naturales del flujo
+        
+    - dependencias entre partes
+        
+
+🧱 No es bonito… pero **es útil a propósito**
+
+---
+
+### ⚠️ Monolito intencional = Antipatrón controlado
+
+🧨 Al concentrar **demasiadas responsabilidades en un solo archivo**:
+
+- 🔥 Expone con claridad las **limitaciones del enfoque script-first**
+    
+- 👀 Hace visibles los problemas que antes estaban implícitos
+    
+- 🧭 Señala exactamente **qué debe separarse y por qué**
+    
+
+---
+
+### 🧭 Resultado clave
+
+Este script se convierte en:
+
+➡️ Un **antipatrón consciente**  
+➡️ Una **prueba funcional completa**  
+➡️ La **justificación técnica y conceptual** del siguiente paso
+
+---
+
+🎯 **Objetivo:** pasar de _script-first_ a _arquitectura consciente_
+
+---
+
+📝 **NOTA 1:**  
+Este script **no debe escalar**, debe **enseñar**
+
+📝 **NOTA 2:**  
+Su valor está en **mostrar los límites**, no en ocultarlos
+
+📝 **NOTA 3:**  
+Es un **punto de transición**, no un estado final
+
+---
+
+
+
+# 🧩 Modularización aplicada 
+
+**Del “script que funciona” al sistema que se puede sostener**
+
+En la **Fase-0** trabajaste con un enfoque muy común en la industria:  
+un **script único** (`full-load.py`) que:
+
+- lee datos,
+    
+- transforma,
+    
+- valida,
+    
+- carga,
+    
+- y termina.
+    
+
+Ese enfoque **es incorrecto**.  
+Y...de hecho, **muchísimas empresas** todavía construyen pipelines así.
+
+El problema aparece cuando ese script deja de ser una prueba y pasa a ser **parte crítica del negocio**.
+
+---
+
+### 🚨 El patrón Fase-0 en la vida real
+
+En muchas organizaciones, un pipeline tipo Fase-0 implica:
+
+- Toda la lógica vive en **un solo archivo**.
+    
+- Las decisiones técnicas están **hardcodeadas**.
+    
+- La extracción, transformación y carga están **acopladas**.
+    
+- Si algo falla, **todo falla**.
+    
+- Cambiar una parte implica **entender todo el script**.
+    
+
+Este patrón suele funcionar…  
+hasta que el pipeline:
+
+- crece,
+    
+- se ejecuta todos los días,
+    
+- lo mantiene más de una persona,
+    
+- o empieza a fallar en producción.
+    
+
+Ahí aparecen los problemas reales:
+
+- dificultad para debuggear,
+    
+- imposibilidad de reusar lógica,
+    
+- nula trazabilidad,
+    
+- y alto riesgo al hacer cambios.
+    
+
+---
+
+## 🧠 El cambio de modelo mental en Fase-1
+
+La **Fase-1** no introduce modularización por “orden” o “buenas prácticas académicas”.  
+La introduce porque **un sistema de datos no puede vivir en un solo script**.
+
+Aquí empiezas a pensar como ingeniero de datos:
+
+> **Cada parte del pipeline tiene una responsabilidad clara  
+> y puede evolucionar de forma independiente.**
+
+Por eso adoptaremos una estructura como esta:
+
+```
+etl_pipeline/
+├── extract.py       # Lectura y extracción (chunksize, logs, métricas)
+├── transform.py     # Transformaciones del dataset
+├── validate.py      # Validaciones y control de calidad
+├── load.py          # Persistencia (Parquet / PostgreSQL)
+├── utils.py         # Funciones comunes
+└── main.py          # Orquestador del flujo
+```
+
+Esto no es una “estructura bonita”.  
+Es un **contrato mental**:
+
+- `extract.py` **no transforma**.
+    
+- `transform.py` **no decide dónde se guarda**.
+    
+- `main.py` **no procesa datos**, orquesta.
+    
+- `utils.py` **no contiene lógica de negocio**.
+    
+
+👉 **Modelo mental:**
+
+> _Cuando algo falla, sabes exactamente dónde mirar._
+
+
+---
+
+## ⚙️ Diseño con configuración externa
+
+**Romper el acoplamiento que mata pipelines**
+
+Como lo mencionamos el problema típico del enfoque Fase-0 en empresas es este:
+
+> Para cambiar el comportamiento del pipeline,  
+> **hay que modificar el código**.
+
+Eso es frágil, riesgoso y poco escalable.
+
+En Fase-1 introducimos un principio clave:
+
+> **Las decisiones de entorno viven fuera del código.**
+
+Por eso usamos `config.yml`:
+
+```yaml
+etl:
+  chunksize: 500000
+  input_path: "lakehouse/bronze/"
+  output_path: "lakehouse/silver/"
+  output_format: "parquet"
+
+lakehouse:
+  endpoint: "http://localhost:9000"
+  access_key: "minio"
+  secret_key: "minio123"
+```
+
+Esto permite que:
+
+- el mismo pipeline corra en distintos entornos,
+    
+- cambien rutas o tamaños sin tocar lógica,
+    
+- y otros equipos reutilicen el sistema.
+    
+
+👉 **Modelo mental:**
+
+> _El código define el “cómo”.  
+> La configuración define el “dónde y con qué”._
+
+---
+
+## 🧠 Reflexión final
+
+> Muchos pipelines en producción siguen siendo scripts grandes que “nadie quiere tocar”.
+
+La Fase-1 existe para romper ese patrón desde el inicio.
+
+Aquí no estás aprendiendo solo a escribir mejor Python.  
+Estás aprendiendo a **construir sistemas de datos que otras personas puedan entender, mantener y evolucionar**.
+
+Ese es el verdadero salto de la Fase-0 a la Fase-1.
+
+
+# 🧠 Más allá de Postgres, COPY y Parquet
+
+Aunque en esta fase trabajamos con **PostgreSQL, COPY, row groups y Parquet**, es fundamental entender algo con total claridad:
+
+> **El objetivo NO es Postgres.  
+> El objetivo NO es COPY.  
+> El objetivo NO es este stack específico.**
+
+Estas herramientas **solo son el medio**, no el fin.
+
+---
+
+### 🧩 El verdadero aprendizaje que estás construyendo
+
+Lo que realmente estás aprendiendo es a responder preguntas como:
+
+- ¿Dónde ocurre el cuello de botella de I/O?
+    
+- ¿Qué motor es responsable del procesamiento?
+    
+- ¿Cuándo conviene delegar el trabajo al engine y cuándo no?
+    
+- ¿Cómo se mueve eficientemente la data entre capas?
+    
+- ¿Qué significa “cargar bien” en este contexto?
+    
+
+Postgres + COPY es **una implementación concreta** de un **problema universal**.
+
+---
+
+### 🔁 El mismo modelo mental, otros motores
+
+Una vez entiendes el modelo mental, trasladarlo es directo:
+
+|Motor|Estrategia equivalente|
+|---|---|
+|PostgreSQL|COPY FROM STDIN|
+|SQL Server|BULK INSERT|
+|BigQuery|Load Jobs / External Tables|
+|Snowflake|COPY INTO + Stages|
+|Redshift|COPY desde S3|
+
+Cada motor tiene:
+
+- su sintaxis,
+    
+- su forma de optimizar,
+    
+- sus límites y ventajas.
+    
+
+👉 Pero **el razonamiento es el mismo**.
+
+---
+
+### 🧠 Primero el contexto, luego la herramienta
+
+En la vida real no llegas a un proyecto preguntando:
+
+> “¿Dónde uso COPY?”
+
+Llegas preguntando:
+
+- ¿Qué volumen de datos tengo?
+    
+- ¿Desde dónde viene?
+    
+- ¿Qué motor los va a procesar?
+    
+- ¿Qué capa estoy construyendo?
+    
+- ¿Qué nivel de confiabilidad necesito?
+    
+
+**Ese análisis es el verdadero skill senior.**
+
+---
+
+### 🤖 El rol real de la IA (bien entendida)
+
+Hoy, con IA, muchas de las barreras técnicas **ya no son el problema**.
+
+Si entiendes bien el **modelo mental del problema**:
+
+- puedes describir el contexto correctamente,
+    
+- puedes pedir la estrategia adecuada,
+    
+- puedes generar código funcional en minutos.
+    
+
+Pero si **no entiendes el problema**:
+
+- ningún prompt te va a salvar,
+    
+- ningún LLM va a tomar buenas decisiones por ti,
+    
+- solo vas a copiar soluciones sin criterio.
+    
+
+> **La IA acelera la ejecución.  
+> El modelo mental guía la solución.**
+
+---
+
+### 🎯 Mensaje clave de esta sección
+
+> **No estás aprendiendo Postgres.  
+> Estás aprendiendo a pensar como un ingeniero de datos.**
+
+Las herramientas cambian.  
+Los motores evolucionan.  
+Los LLM mejoran cada mes.
+
+El modelo mental es lo único que permanece  
+— y lo que te permite resolver **cualquier desafío real** que venga después.
+
+
+
+
+
