@@ -814,17 +814,7 @@ Esta es la única librería de componentes que tienes permitido utilizar. Revisa
 
 TypeScript
 
-```
-// [PEGAR AQUÍ src/components/DocComponents.tsx INCLUYENDO LA EXPORTACIÓN DE Details]
-```
-
-### C. Patrón de Éxito (`section-ejemplo.tsx`)
-
-Este es el estándar de calidad esperado. Copia la estructura, el espaciado y la forma de importar/exportar de este archivo.
-
-TypeScript
-
-```javascript
+```typescript
 // src/components/DocComponents.tsx
 import Link from 'next/link';
 import React from 'react';
@@ -1023,6 +1013,146 @@ export const mdxComponents = {
   h1: (props: any) => <h1 className="doc-title" {...props} />,
   h2: (props: any) => <h2 className="doc-section-title" {...props} />,
 };
+```
+
+### C. Patrón de Éxito (`section-ejemplo.tsx`)
+
+Este es el estándar de calidad esperado. Copia la estructura, el espaciado y la forma de importar/exportar de este archivo.
+
+TypeScript
+
+```typescript
+import React from 'react';
+import { Card, Context, Callout, Tags, CodeBlock, Transition } from '@/components/DocComponents';
+
+export const metadata = {
+  title: 'Full-load.py Fase-1: El Antipatrón Consciente',
+  tags: [
+    'Antipatrón',
+    'Nivel-1',
+    'Roadmap',
+    'Full-load',
+    'Monolito Intencional',
+    'Scaffolding'
+  ]
+};
+
+export const Section5 = () => {
+  return (
+    <Card style={{ padding: '2rem' }}>
+      {/* TÍTULO PRINCIPAL */}
+      <h2 className="doc-section-title" style={{ fontSize: '1.8rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginBottom: '1.5rem' }}>
+        🧩 full-load.py Fase-1: El Antipatrón Consciente
+      </h2>
+
+      <Context>
+        🧠 <strong>Modelo mental:</strong> Los bloques de código que analizamos no representan una solución final, ni una buena arquitectura. Representan un punto de transición consciente dentro del Nivel-1.
+      </Context>
+
+      <Callout>
+        <strong>Regla central del Nivel-1:</strong> No se modulariza lo que no se entiende. No se abstrae lo que no se ve completo.
+      </Callout>
+
+      {/* COMPARATIVA DE BLOQUES */}
+      <h3 style={{ marginTop: '2.5rem', marginBottom: '1rem', color: 'var(--text-main)' }}>
+        🔄 Evolución del Script-First
+      </h3>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ padding: '1.2rem', backgroundColor: 'var(--terminal-bg)', borderTop: '4px solid #3b82f6' }}>
+          <strong style={{ display: 'block', marginBottom: '10px', color: '#3b82f6' }}>🟦 BLOQUE-1: Ingenuo</strong>
+          <ul style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6', paddingLeft: '1.2rem' }}>
+            <li>Filesystem local como staging.</li>
+            <li>Fuente y destino acoplados.</li>
+            <li>Cero noción de capas.</li>
+            <li>Referencia histórica de la Fase-0.</li>
+          </ul>
+        </div>
+        <div style={{ padding: '1.2rem', backgroundColor: 'var(--terminal-bg)', borderTop: '4px solid #f59e0b' }}>
+          <strong style={{ display: 'block', marginBottom: '10px', color: '#f59e0b' }}>🟨 BLOQUE-2: Consciente</strong>
+          <ul style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6', paddingLeft: '1.2rem' }}>
+            <li>Introduce MinIO (Bronze).</li>
+            <li>Separa fuente externa de consumo.</li>
+            <li><strong>Antipatrón controlado:</strong> Expone el problema en lugar de ocultarlo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <Transition
+        labelFrom="Fase-0"
+        from="Script Ingenuo (Funcional)"
+        icon="🏗️"
+        labelTo="Fase-1"
+        to="Antipatrón Consciente (Arquitectónico)"
+      />
+
+      {/* POR QUÉ ES UN ANTIPATRÓN */}
+      <h3 style={{ marginTop: '3rem', marginBottom: '1rem', color: 'var(--text-main)' }}>
+        ⚠️ Por qué este bloque sigue siendo un antipatrón
+      </h3>
+      <Context>
+        Aunque ya existe Bronze, el script sigue haciendo <strong>demasiado</strong> en un solo lugar: descargar, crear buckets, normalizar, cargar SQL y manejar credenciales.
+      </Context>
+
+      <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderLeft: '4px solid #ef4444', padding: '1rem', margin: '1.5rem 0' }}>
+        <p style={{ margin: 0, color: 'var(--text-main)', fontSize: '0.95rem' }}>
+          <strong>Objetivo real:</strong> No construir el sistema correcto, sino construir el sistema <strong>completo</strong> para luego romperlo (modularizarlo) correctamente.
+        </p>
+      </div>
+
+      {/* EL EQUILIBRIO: MODELOS MENTALES + SKILLS */}
+      <h3 style={{ marginTop: '3rem', marginBottom: '1rem', color: 'var(--text-main)' }}>
+        🧠 El verdadero equilibrio: Modelos Mentales + Skills Reales
+      </h3>
+
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem', fontSize: '0.9rem' }}>
+        <thead>
+          <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+            <th style={{ textAlign: 'left', padding: '10px', color: '#ef4444' }}>Bootcamp Tradicional</th>
+            <th style={{ textAlign: 'left', padding: '10px', color: '#10b981' }}>Roadmap DE-2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+            <td style={{ padding: '10px', color: 'var(--text-muted)' }}>"Aprende esta herramienta"</td>
+            <td style={{ padding: '10px', color: 'var(--text-main)' }}>"Entiende este problema"</td>
+          </tr>
+          <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+            <td style={{ padding: '10px', color: 'var(--text-muted)' }}>"Copia este pipeline"</td>
+            <td style={{ padding: '10px', color: 'var(--text-main)' }}>"Diseña este sistema"</td>
+          </tr>
+          <tr>
+            <td style={{ padding: '10px', color: 'var(--text-muted)' }}>"Sigue estos pasos"</td>
+            <td style={{ padding: '10px', color: 'var(--text-main)' }}>"Razona estas decisiones"</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* LOGROS TÉCNICOS */}
+      <h4 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>🎯 Lo que realmente se está entrenando:</h4>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+        <ul style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.8' }}>
+          <li>✅ Criterio arquitectónico</li>
+          <li>✅ Separación de responsabilidades</li>
+          <li>✅ Noción de capas (Bronze/Silver)</li>
+        </ul>
+        <ul style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.8' }}>
+          <li>✅ Decisiones de I/O eficientes</li>
+          <li>✅ Pensamiento incremental</li>
+          <li>✅ Diseño orientado a evolución</li>
+        </ul>
+      </div>
+
+      <hr style={{ margin: '3rem 0', borderColor: 'var(--border-color)', opacity: 0.3 }} />
+
+      
+      <Callout>
+        <strong>Nota Final:</strong> Las herramientas cambian. Los modelos mentales permanecen. Aprendes a pensar y ejecutar al mismo tiempo.
+      </Callout>
+    </Card>
+  );
+};
+
 ```
 
 ---
