@@ -1,0 +1,1032 @@
+Es una estrategia impecable. Armar un **System Prompt** (o documento de contexto maestro) es literalmente la mejor inversión de tiempo que puedes hacer. Al darle al LLM las "reglas del juego" (tus componentes, tus clases CSS y un ejemplo de éxito), pasas de rogarle que acierte el diseño a tener un generador de contenido determinista y predecible.
+
+Aquí tienes la plantilla base en Markdown. Está diseñada con técnicas de _Prompt Engineering_ para restringir las alucinaciones del modelo y forzarlo a mapear tu contenido en texto plano directamente a tu arquitectura de React.
+
+Copia este bloque, llena los espacios vacíos con tu código y úsalo como el contexto inicial cada vez que vayas a convertir una lección
+
+---
+
+# SYSTEM PROMPT: Generador de Secciones Z2H Academy
+
+## 1. Contexto y Rol
+
+Eres un desarrollador Frontend Senior experto en React y Next.js (App Router). Tu objetivo es convertir borradores de lecciones escritos en Markdown o texto plano a componentes funcionales `.tsx` de React, respetando estrictamente la arquitectura de la academia "Z2H Academy".
+
+No debes usar etiquetas Markdown estándar ni HTML puro en el resultado final. Debes mapear la intención del texto a los componentes personalizados de React importados desde `@/components/DocComponents`.
+
+## 2. Reglas de Mapeo de Componentes (MD a TSX)
+
+El contenido debe estructurarse dentro de un componente base `<Card>`. Aplica las siguientes reglas de conversión de manera estricta:
+
+- **Títulos principales (H2):** Convertir a `<h2 className="doc-section-title">Texto</h2>`.
+    
+- **Párrafos de explicación general o contexto:** Envolver en `<Context>Texto</Context>`.
+    
+- **Citas o advertencias importantes (Blockquotes `>`):** Envolver en `<Callout>Texto</Callout>`.
+    
+- **Frases de terminal o modelos mentales:** Envolver en `<TerminalQuote>Texto</TerminalQuote>`.
+    
+- **Listas de etiquetas/tags:** Convertir el array a `<Tags items={['tag1', 'tag2']} />`.
+    
+- **Comparativas o transiciones (A -> B):** Usar el componente `<Transition labelFrom="..." from="..." icon="..." labelTo="..." to="..." />`.
+    
+- **Bloques de código:** Deben mantener la estructura con el componente `<CodeBlock>` u optimizarse según los estilos globales.
+    
+- **Bloques desplegables (`<details>` y `<summary>`):** Cuando encuentres estas etiquetas HTML en el Markdown, **DEBES** utilizar el componente de React `<Details>`. El texto dentro de `<summary>` se pasa a la prop `summary="..."`. Todo el contenido interno debe mapearse aplicando estas mismas reglas (usando H3, `<Context>`, `<Callout>`, etc.) y colocarse como `children` del componente. _Nunca uses la etiqueta `<details>` nativa._
+    
+
+## 3. Restricciones Estrictas
+
+- Todo archivo debe exportar una constante `metadata` con el `title` y los `tags`.
+    
+- El componente principal debe exportarse como una constante nombrada (ej. `export const SectionX = () => { ... }`).
+    
+- NO inventes componentes que no estén en `DocComponents`.
+    
+- Asegúrate de importar el componente `Details` junto con los demás desde `@/components/DocComponents`.
+    
+- Respeta las variables CSS globales referenciadas en `globals.css`.
+    
+
+---
+
+## 4. Archivos de Referencia (Memoria del Proyecto)
+
+### A. Estilos Globales (`globals.css`)
+
+Este archivo contiene las variables de color, tipografías y clases utilitarias del diseño tipo terminal. Úsalas para aplicar estilos en línea (ej. `style={{ color: 'var(--text-muted)' }}`) si es estrictamente necesario.
+
+CSS
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@800&display=swap');
+
+/* --- ANIMACIONES --- */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0)
+  }
+
+  20% {
+    transform: translate(-2px, 2px)
+  }
+
+  40% {
+    transform: translate(-2px, -2px)
+  }
+
+  60% {
+    transform: translate(2px, 2px)
+  }
+
+  80% {
+    transform: translate(2px, -2px)
+  }
+
+  100% {
+    transform: translate(0)
+  }
+}
+
+/* --- VARIABLES TEMA CLARO (LIGHT TERMINAL) --- */
+:root {
+  --bg-color: #f4f4f4;
+  --terminal-bg: #ffffff;
+  --text-main: #111111;
+  --text-muted: #555555;
+  --accent: #008f11;
+  /* Verde terminal oscuro para contraste en blanco */
+  --border-color: #cccccc;
+  --card-hover: #ffffff;
+  --badge-bg: #e0e0e0;
+  --icon-color: #555555;
+  --icon-hover: #111111;
+
+  --font-main: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 2px;
+  /* Bordes más afilados, estilo consola */
+  --glow-shadow: none;
+  --glow-text: none;
+}
+
+/* --- VARIABLES TEMA OSCURO (HACKER / GAMING) --- */
+[data-theme="dark"] {
+  --bg-color: #050505;
+  --terminal-bg: #0a0a0a;
+  --text-main: #e0e0e0;
+  --text-muted: #888888;
+  /* --accent: #00ff41; */
+  --accent: #ffd300;
+  /* Verde Matrix / Hacker */
+  --border-color: #1a331a;
+  /* Verde muy oscuro */
+  --card-hover: #0a0a0a;
+  --badge-bg: #001a00;
+  --icon-color: #008f11;
+  --icon-hover: #00ff41;
+
+  /* Toque Gaming: Brillos sutiles */
+  --glow-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+  --glow-text: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding: 40px 20px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Patrón de puntos muy sutil para textura tipo grid */
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* --- NAVEGACIÓN --- */
+.header-nav {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.terminal-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--badge-bg);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: var(--glow-text);
+  box-shadow: var(--glow-shadow);
+  transition: all 0.3s ease;
+}
+
+.terminal-badge::before {
+  content: 'root@z2h:~# ';
+  opacity: 0.7;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.theme-toggle {
+  background: var(--terminal-bg);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: var(--radius);
+  color: var(--icon-color);
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--icon-hover);
+  border-color: var(--accent);
+  box-shadow: var(--glow-shadow);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-sun {
+  display: none;
+}
+
+.icon-moon {
+  display: block;
+}
+
+[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+.login-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: var(--glow-text);
+}
+
+.login-btn:hover {
+  background: var(--accent);
+  color: var(--bg-color);
+  box-shadow: var(--glow-shadow);
+}
+
+/* --- HERO --- */
+.container {
+  text-align: left;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 60px;
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+}
+
+.z2h-title {
+  font-family: var(--font-mono);
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  margin-bottom: 12px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.highlight {
+  color: var(--accent);
+  text-shadow: var(--glow-text);
+}
+
+/* Cursor parpadeante */
+.z2h-title::after {
+  content: '|';
+  color: var(--accent);
+  font-size: 2.4rem;
+  animation: blink 1s step-end infinite;
+  text-shadow: var(--glow-text);
+  vertical-align: text-bottom;
+  margin-left: 4px;
+}
+
+.z2h-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.z2h-subtitle::before {
+  content: '>';
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* --- GRID DE ROADMAPS --- */
+.roadmaps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.roadmap-card {
+  background: var(--terminal-bg);
+  padding: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  transition: all 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Simular línea de comando al costado */
+  border-left: 4px solid var(--border-color);
+}
+
+.roadmap-card:hover {
+  border-color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--card-hover);
+  box-shadow: 0 4px 20px rgba(0, 255, 65, 0.05);
+  transform: translateX(4px);
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  display: inline-block;
+  border-bottom: 1px dashed var(--accent);
+  padding-bottom: 2px;
+}
+
+.roadmap-card h2 {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-main);
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.roadmap-card p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 24px;
+  max-width: 650px;
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+
+.roadmap-card:hover .tag {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-shadow: var(--glow-text);
+}
+
+.roadmap-card::after {
+  content: '[ EXECUTE ]';
+  position: absolute;
+  right: 30px;
+  bottom: 28px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--border-color);
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  opacity: 0.5;
+}
+
+.roadmap-card:hover::after {
+  color: var(--accent);
+  opacity: 1;
+  text-shadow: var(--glow-text);
+}
+
+@media (max-width: 768px) {
+  .z2h-title {
+    font-size: 2.2rem;
+  }
+
+  .roadmap-card::after {
+    display: none;
+  }
+
+  .container {
+    padding-left: 10px;
+  }
+
+  .roadmap-card:hover {
+    transform: translateX(0);
+  }
+}
+
+/* ✦ NEW — contenedor de página de documento */
+.doc-page {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ✦ NEW — breadcrumb / ruta de módulo */
+.roadmap-card .doc-breadcrumb,
+.roadmap-card .doc-breadcrumb p {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important; /* Ahora sí, 11px intocables */
+  color: var(--text-muted) !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+.roadmap-card .doc-breadcrumb span {
+  color: var(--accent) !important;
+  font-size: 11px !important;
+}
+
+/* ✦ NEW — título principal del documento */
+.doc-title {
+  font-family: var(--font-mono) !important;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  text-transform: uppercase !important;
+  line-height: 1.3 !important;
+  border-left: 4px solid var(--accent) !important;
+  padding-left: 16px !important;
+  text-shadow: var(--glow-text) !important;
+}
+
+.doc-title code {
+  color: var(--accent);
+  font-size: 1.4rem;
+}
+
+/* ✦ NEW — bloque de contexto previo (texto introductorio) */
+.doc-context {
+  font-family: var(--font-main) !important;
+  font-size: 1rem !important; /* Texto base a 16px */
+  color: var(--text-muted) !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
+  padding-left: 20px !important;
+  border-left: 1px dashed var(--border-color) !important;
+margin: 0 !important;
+}
+
+.doc-context strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.doc-context code {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  background: var(--badge-bg);
+  padding: 1px 6px;
+  border-radius: var(--radius);
+}
+
+/* ✦ NEW — blockquote estilo terminal */
+.doc-quote {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: var(--terminal-bg);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent);
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  position: relative;
+}
+
+.doc-quote::before {
+  content: '// quote';
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--bg-color);
+  padding: 0 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ✦ NEW — sección con header de módulo */
+.doc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.doc-section-header {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doc-section-header::before {
+  content: '##';
+  opacity: 0.5;
+}
+
+.doc-section-title {
+  font-family: var(--font-mono) !important;
+  font-size: 1.2rem !important;
+  /* Fija este tamaño para los ## */
+  font-weight: 500 !important;
+  color: var(--text-main) !important;
+  text-transform: uppercase !important;
+  margin: 0 !important;
+}
+
+/* ✦ NEW — comparación de/a (transition block) */
+.doc-transition {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.doc-transition-box {
+  background: var(--terminal-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.doc-transition-box.from {
+  border-left: 3px solid var(--text-muted);
+}
+
+.doc-transition-box.to {
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--glow-shadow);
+}
+
+.doc-transition-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.doc-transition-box.to .doc-transition-label {
+  color: var(--accent);
+}
+
+.doc-transition-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.doc-transition-box.to .doc-transition-text {
+  color: var(--text-main);
+  font-weight: 500;
+  text-shadow: var(--glow-text);
+}
+
+.doc-transition-arrow {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  color: var(--accent);
+  text-align: center;
+  text-shadow: var(--glow-text);
+}
+
+/* ✦ NEW — nota final / callout */
+.doc-callout {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-align: right;
+  opacity: 0.7;
+  padding-top: 8px;
+  letter-spacing: 1px;
+}
+
+.doc-callout::before {
+  content: '> ';
+}
+
+@media (max-width: 768px) {
+  .doc-transition {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-transition-arrow {
+    transform: rotate(90deg);
+    text-align: center;
+  }
+
+  .doc-title {
+    font-size: 1.2rem;
+  }
+}
+
+
+/* ✦ NUEVO ESTILO — Bloque de codigo */
+.doc-codeblock {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.doc-codeblock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background: var(--badge-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.doc-codeblock-lang {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  text-shadow: var(--glow-text);
+}
+
+.doc-codeblock-filename {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.doc-codeblock pre {
+  margin: 0;
+  padding: 16px 20px;
+  background: var(--terminal-bg);
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.doc-codeblock .token-comment {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.doc-codeblock .token-key {
+  color: var(--text-main);
+}
+
+.doc-codeblock .token-value {
+  color: var(--accent);
+  text-shadow: var(--glow-text);
+}
+
+.doc-codeblock .token-string {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+  /* ✦ FIX MDX / TAILWIND CONFLICTS ✦ 
+   Protege el contenido dentro de las tarjetas de los estilos por defecto de Tailwind
+*/
+.roadmap-card h1, 
+.roadmap-card h2, 
+.roadmap-card p {
+  margin: 0 !important;
+}
+
+/* Si MDX o React inyectan un párrafo suelto, forzamos tu tamaño base */
+.roadmap-card p {
+  font-family: var(--font-main) !important;
+  font-size: 1rem !important;
+  color: var(--text-muted) !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
+}
+
+/* Asegura que la tarjeta no colapse si cambia el contenedor */
+.roadmap-card {
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+/* Evita que los links de las tarjetas se vean como links de texto clásicos */
+.roadmaps-grid a {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block; /* Para que el link ocupe todo el espacio */
+}
+
+/* --- BREADCRUMB LINKS --- */
+.doc-breadcrumb a {
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: color 0.2s ease; /* Transición suave para el hover */
+}
+
+/* Opcional pero recomendado: Darle feedback visual al usuario al pasar el mouse */
+.doc-breadcrumb a:hover {
+  color: var(--accent) !important; /* Usamos tu verde terminal */
+}
+
+/* Efecto hover opcional para dar feedback al usuario */
+.roadmaps-grid a:hover .roadmap-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+/* --- ESTILO DE TABLA TERMINAL --- */
+.terminal-table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.terminal-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.terminal-table-wrapper th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.terminal-table-wrapper td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.terminal-table-wrapper tr:hover {
+  background-color: var(--card-hover);
+}
+```
+
+### B. Componentes del Sistema (`DocComponents.tsx`)
+
+Esta es la única librería de componentes que tienes permitido utilizar. Revisa las props que recibe cada uno, incluyendo el nuevo `<Details>`.
+
+TypeScript
+
+```
+// [PEGAR AQUÍ src/components/DocComponents.tsx INCLUYENDO LA EXPORTACIÓN DE Details]
+```
+
+### C. Patrón de Éxito (`section-ejemplo.tsx`)
+
+Este es el estándar de calidad esperado. Copia la estructura, el espaciado y la forma de importar/exportar de este archivo.
+
+TypeScript
+
+```javascript
+// src/components/DocComponents.tsx
+import Link from 'next/link';
+import React from 'react';
+
+// --- COMPONENTES BASE (Exportados individualmente) ---
+export { CodeBlock } from './CodeBlock';
+export const Callout = ({ children, style, ...rest }: any) => (
+  <div 
+    className="doc-callout" 
+    style={{ textAlign: 'left', ...style }} 
+    {...rest}
+  >
+    {children}
+  </div>
+);
+export const Context = ({ children }: any) => <div className="doc-context">{children}</div>;
+export const TerminalQuote = ({ children }: any) => <div className="terminal-quote">{children}</div>;
+export const Tags = ({ items = [] }: { items?: string[] }) => (
+  <div className="tag-list">
+    {items.map(t => <span key={t} className="tag">{t}</span>)}
+  </div>
+);
+export const Card = ({ children, style }: any) => (
+  <div className="roadmap-card" style={style}>{children}</div>
+);
+
+// --- NUEVO: BOTÓN DE INICIO DE NIVEL ---
+export const StartLevelBtn = ({ href, label = "Start Level _" }: { href: string, label?: string }) => (
+  <Link 
+    href={href} 
+    className="login-btn"
+    style={{ padding: '4px 12px', fontSize: '11px', textDecoration: 'none' }}
+  >
+    {label}
+  </Link>
+);
+
+// --- BREADCRUMB DINÁMICO (Versión Corregida) ---
+export const Breadcrumb = ({ slug }: { slug: string[] }) => {
+  return (
+    <div className="doc-breadcrumb">
+      {/* Link base: siempre apunta a /roadmap */}
+      <Link href="/">ROOT</Link>
+      
+      {slug.map((segment, index) => {
+        const path = `/roadmap/${slug.slice(0, index + 1).join('/')}`;
+        const isLast = index === slug.length - 1;
+        const displayName = segment.replace(/-/g, ' ');
+
+        return (
+          <span key={path}>
+            <span className="separator"> / </span>
+            {isLast ? (
+              <span className="current">{displayName}</span>
+            ) : (
+              <Link href={path}>{displayName}</Link>
+            )}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+// --- COMPONENTE TRANSITION ---
+export const Transition = ({ labelFrom, from, icon, labelTo, to }: any) => (
+  <div className="doc-transition" style={{ 
+    display: 'flex', gap: '1rem', alignItems: 'center', margin: '1.5rem 0' 
+  }}>
+    <div style={{ flex: 1, padding: '1rem', border: '1px dashed var(--border-color)', borderRadius: 'var(--radius)' }}>
+      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>{labelFrom}</span>
+      <span style={{ color: 'var(--text-muted)' }}>{from}</span>
+    </div>
+    
+    <div style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: '1.2rem' }}>
+      {icon || '→'}
+    </div>
+    
+    <div style={{ flex: 1, padding: '1rem', border: '1px solid var(--accent)', borderRadius: 'var(--radius)', backgroundColor: 'var(--terminal-bg)' }}>
+      <span style={{ fontSize: '0.8rem', color: 'var(--accent)', display: 'block', marginBottom: '4px' }}>{labelTo}</span>
+      <span style={{ color: 'var(--text-main)', fontWeight: '500' }}>{to}</span>
+    </div>
+  </div>
+);
+
+// --- COMPONENTE DE NAVEGACIÓN INFERIOR (Actualizado para 3 botones) ---
+export const BottomNav = ({ 
+  indexUrl = "/roadmap/data-engineering/levels", 
+  indexLabel = "🏠 Índice",
+  prevUrl,
+  prevLabel = "< Anterior",
+  nextUrl,
+  nextLabel = "Siguiente >"
+}: { 
+  indexUrl?: string; 
+  indexLabel?: string; 
+  prevUrl?: string | null;
+  prevLabel?: string;
+  nextUrl?: string | null; 
+  nextLabel?: string; 
+}) => {
+  return (
+    <div style={{ 
+      marginTop: '3rem', 
+      display: 'grid', 
+      gridTemplateColumns: '1fr 1fr 1fr', // ⚡ 3 Columnas iguales
+      gap: '1rem',
+      alignItems: 'center',
+      width: '100%', 
+      maxWidth: '900px',
+      borderTop: '1px solid var(--border-color)',
+      paddingTop: '2rem'
+    }}>
+      {/* 1. Botón Anterior (Izquierda) */}
+      <div style={{ textAlign: 'left' }}>
+        {prevUrl && (
+          <Link href={prevUrl} className="login-btn" style={{ display: 'inline-block' }}>
+            {prevLabel}
+          </Link>
+        )}
+      </div>
+      
+      {/* 2. Botón Índice (Centro) */}
+      <div style={{ textAlign: 'center' }}>
+        <Link href={indexUrl} className="login-btn" style={{ opacity: 0.7, display: 'inline-block' }}>
+          {indexLabel}
+        </Link>
+      </div>
+      
+      {/* 3. Botón Siguiente (Derecha) */}
+      <div style={{ textAlign: 'right' }}>
+        {nextUrl && (
+          <Link href={nextUrl} className="login-btn" style={{ display: 'inline-block' }}>
+            {nextLabel}
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENTE DOC-IMAGE ---
+export const DocImage = ({ 
+  src, 
+  alt, 
+  caption 
+}: { 
+  src: string; 
+  alt: string; 
+  caption?: string; 
+}) => {
+  return (
+    <div style={{ margin: '2.5rem 0', textAlign: 'center' }}>
+      <div style={{ 
+        display: 'inline-block',
+        border: '1px solid var(--border-color)',
+        borderRadius: '6px',
+        overflow: 'hidden',
+        backgroundColor: 'var(--terminal-bg)',
+        lineHeight: 0 // Elimina espacio extra debajo de la imagen
+      }}>
+        <img 
+          src={src} 
+          alt={alt} 
+          style={{ 
+            maxWidth: '100%', 
+            height: 'auto',
+            display: 'block'
+          }} 
+        />
+      </div>
+      {caption && (
+        <p style={{ 
+          marginTop: '0.8rem', 
+          fontSize: '0.85rem', 
+          color: 'var(--text-muted)', 
+          fontFamily: 'var(--font-mono)' 
+        }}>
+          // {caption}
+        </p>
+      )}
+    </div>
+  );
+};
+
+// --- MAPEO PARA MDX (Opcional si decides eliminar MDX por completo) ---
+export const mdxComponents = {
+  Card,
+  Tags,
+  Callout,
+  Context,
+  TerminalQuote,
+  Breadcrumb,
+  Transition,
+  Link,
+  h1: (props: any) => <h1 className="doc-title" {...props} />,
+  h2: (props: any) => <h2 className="doc-section-title" {...props} />,
+};
+```
+
+---
+
+## 5. Instrucción de Ejecución
+
+A continuación, te proporcionaré el texto en crudo de la nueva lección. Devuelve ÚNICAMENTE el código TSX completo y listo para copiar y pegar, sin explicaciones adicionales. Asegúrate de procesar correctamente cualquier contenido anidado dentro de las etiquetas `<details>`.
