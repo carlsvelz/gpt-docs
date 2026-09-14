@@ -1,8 +1,12 @@
-# Hola, ¿qué tal?
+Ahora vamos a continuar con el desarrollo del nivel-1 ETL Batch donde Dejamos SQL como motor y pasas a Python en RAM como motor. 
 
-En este video quiero mostrarte una nueva funcionalidad que vamos a agregar en Z2H Academy: **Tutor**.
+Aprendes a medir costo real (CPU, RAM, I/O, $$ en cloud), cargas NYC Taxi de 3 formas hasta llegar a Parquet + COPY, 
+y terminas con un pipeline modular Bronze → Silver → Gold en MinIO + Postgres, orquestado en Airflow. Son 49 secciones.
 
-Una funcionalidad que llevará nuestra plataforma al siguiente nivel: **AI-First**.
+
+Pero antes de continuar quiero mostrarte una nueva funcionalidad o feature que hemos agregado en Z2H Academy: **Tutor**.
+
+Y es Una funcionalidad que llevará nuestra plataforma al siguiente nivel: **AI-First**.
 
 ## ¿A qué me refiero con esto?
 
