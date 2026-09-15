@@ -50,4 +50,11 @@ La inteligencia de la plataforma permanece en Developer Docs, mientras que tú r
 
 **Esto es Z2H Academy AI-First.**
 
-Y ahora quiero mostrártelo.
+
+----
+
+pero tenemos un problela - la sesión actual tiene 319k tokens de los cuales ~316k son MDs. Desarrollar el lab contamina el lab (esto es lo que se conoce como contexto envenenado persistente). Propongo:
+- Sesión nueva
+
+Te voy a dar una Nota de higiene: leer ~70 secciones en una sesión envenena el contexto para todo lo posterior. Una sesión por lab es el patrón sano que recomendamos. Entonces tenemos una session para teoria y una session para 
+nueva para cada lab - es el mejor criterio de desarrollo con agentes.
