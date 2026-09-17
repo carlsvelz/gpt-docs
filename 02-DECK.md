@@ -6,6 +6,8 @@
 
 **VOZ:**
 
+Hola que tal bienvenidos a este video donde quiero mostrarte lo que estamos desarrollando en nuestra plataforma Z2h-Academy y como esto puede cambiar la forma como aprendes.
+
 Durante años, aprender tecnología significó una cosa:
 
 **consumir contenido.**
@@ -21,13 +23,13 @@ y construir después.
 
 Pero la tecnología está cambiando.
 
-Hoy podemos trabajar con agentes de IA capaces de explorar, escribir código, ejecutar comandos, analizar resultados y ayudarnos a construir sistemas completos.
+Hoy podemos trabajar con agentes de IA capaces de explorar, escribir código, ejecutar comandos, analizar resultados y te ayudan a construir sistemas completos lo cual es genial y la verdad los agentes de IA ya son el standar diario de tu flujo de trabajo - Y si aun no estas usando algun agente de IA tu trabajo puede estar peligrando.
 
-Entonces surge una nueva pregunta:
+Pero.. Entonces surge una nueva pregunta:
 
-**¿Y si también pudiéramos aprender de esa misma manera?**
+**¿Y si también pudiéramos aprender de esa misma manera que trabajamos con los agentes de IA en las empresas o en tus proyectos personales?**
 
-Bienvenido a **Z2H Academy**.
+Bienvenido a **Z2H Academy** donde esto ya es posible.
 
 ---
 
@@ -73,7 +75,7 @@ Por eso, en Z2H Academy, el punto de partida no es un curso.
 
 **Es un Roadmap.**
 
-Un Roadmap define un camino estructurado de aprendizaje.
+Un Roadmap te ayuda a definir un camino estructurado de aprendizaje.
 
 Organiza los conocimientos, las habilidades y las experiencias que necesitas desarrollar para avanzar hacia una determinada capacidad profesional.
 
@@ -91,7 +93,7 @@ Y ese camino está respaldado por todo el ecosistema de Z2H Academy.
 
 **VOZ:**
 
-Los **Developer Docs** contienen el contenido completo de Z2H Academy.
+Lo primero que debes conocer de Z2h_Academy es **Developer Docs** que contienen el contenido completo de la plataforma.
 
 Todo el conocimiento necesario para recorrer nuestros Roadmaps:
 
@@ -99,7 +101,7 @@ conceptos, fundamentos, tecnologías, arquitecturas, procedimientos, ejemplos, c
 
 No es documentación complementaria.
 
-**Es el contenido de aprendizaje de Z2H Academy estructurado como documentación para desarrolladores.**
+**Es el contenido de aprendizaje de Z2H Academy estructurado como documentación.**
 
 Y al estar organizado alrededor de los Roadmaps, ese conocimiento no está aislado.
 
